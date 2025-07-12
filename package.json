@@ -1,0 +1,14 @@
+{
+  "name": "al1-dao-landing",
+  "version": "1.0.0",
+  "description": "Futuristic landing page for AL1 DAO",
+  "main": "index.html",
+  "scripts": {
+    "dev": "python3 -m http.server 3000",
+    "start": "python3 -m http.server 8000",
+    "serve": "python3 -m http.server 3000"
+  },
+  "keywords": ["dao", "landing-page", "futuristic", "spline"],
+  "author": "",
+  "license": "MIT"
+} 

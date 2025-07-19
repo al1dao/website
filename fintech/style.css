@@ -173,8 +173,10 @@ body {
 }
 
 .nav-logo-img {
-    width: 32px;
     height: 32px;
+    width: auto;
+    object-fit: contain;
+    max-width: 48px;
 }
 
 .nav-cta {
@@ -857,8 +859,10 @@ section {
 }
 
 .footer-logo-img {
-    width: 32px;
     height: 32px;
+    width: auto;
+    object-fit: contain;
+    max-width: 48px;
 }
 
 .footer-links {

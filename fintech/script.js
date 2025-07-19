@@ -1,3 +1,201 @@
+
+
+// Professional Splash Cursor Effect
+class SplashCursor {
+    constructor() {
+        this.ripples = [];
+        this.trails = [];
+        this.mouse = { x: 0, y: 0, prevX: 0, prevY: 0 };
+        this.velocity = { x: 0, y: 0 };
+        this.lastRippleTime = 0;
+        this.init();
+    }
+    
+    init() {
+        // Hide default cursor
+        document.body.style.cursor = 'none';
+        
+        // Track mouse movement
+        document.addEventListener('mousemove', (e) => {
+            this.velocity.x = e.clientX - this.mouse.x;
+            this.velocity.y = e.clientY - this.mouse.y;
+            
+            this.mouse.prevX = this.mouse.x;
+            this.mouse.prevY = this.mouse.y;
+            this.mouse.x = e.clientX;
+            this.mouse.y = e.clientY;
+            
+            this.addTrail(e.clientX, e.clientY);
+            
+            // Add ripples on fast movement
+            const speed = Math.sqrt(this.velocity.x ** 2 + this.velocity.y ** 2);
+            if (speed > 10 && Date.now() - this.lastRippleTime > 50) {
+                this.addRipple(e.clientX, e.clientY, 'move');
+                this.lastRippleTime = Date.now();
+            }
+        });
+        
+        // Add splash on click
+        document.addEventListener('click', (e) => {
+            this.addRipple(e.clientX, e.clientY, 'click');
+        });
+        
+        // Add ripples on hover over interactive elements
+        document.addEventListener('mouseover', (e) => {
+            if (e.target.matches('button, a, .btn, .feature-card, .nav-cta')) {
+                this.addRipple(e.clientX, e.clientY, 'hover');
+            }
+        });
+        
+        // Start animation loop
+        this.animate();
+    }
+    
+    addTrail(x, y) {
+        // Smooth cursor trail
+        this.trails.push({
+            x: x,
+            y: y,
+            life: 1.0,
+            size: 12 + Math.random() * 6,
+            opacity: 0.8
+        });
+        
+        // Limit trail length
+        if (this.trails.length > 20) {
+            this.trails.shift();
+        }
+    }
+    
+    addRipple(x, y, type) {
+        const config = {
+            click: { size: 80, duration: 0.6, intensity: 1.2 },
+            move: { size: 40, duration: 0.4, intensity: 0.8 },
+            hover: { size: 60, duration: 0.5, intensity: 1.0 }
+        };
+        
+        const cfg = config[type] || config.move;
+        
+        this.ripples.push({
+            x: x,
+            y: y,
+            size: 0,
+            maxSize: cfg.size + Math.random() * 20,
+            life: 1.0,
+            duration: cfg.duration,
+            intensity: cfg.intensity,
+            type: type
+        });
+    }
+    
+    animate() {
+        // Update trails
+        this.trails.forEach((trail, index) => {
+            trail.life -= 0.06;
+            trail.size *= 0.98;
+            trail.opacity *= 0.95;
+            
+            if (trail.life <= 0 || trail.opacity < 0.1) {
+                this.trails.splice(index, 1);
+            }
+        });
+        
+        // Update ripples
+        this.ripples.forEach((ripple, index) => {
+            const progress = 1 - ripple.life;
+            ripple.size = ripple.maxSize * progress;
+            ripple.life -= 0.016 / ripple.duration;
+            
+            if (ripple.life <= 0) {
+                this.ripples.splice(index, 1);
+            }
+        });
+        
+        this.render();
+        requestAnimationFrame(() => this.animate());
+    }
+    
+    render() {
+        // Remove old elements
+        document.querySelectorAll('.splash-cursor, .splash-ripple').forEach(el => el.remove());
+        
+        // Render main cursor
+        const cursor = document.createElement('div');
+        cursor.className = 'splash-cursor';
+        cursor.style.cssText = `
+            position: fixed;
+            left: ${this.mouse.x}px;
+            top: ${this.mouse.y}px;
+            width: 20px;
+            height: 20px;
+            background: rgba(0, 255, 150, 0.9);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10000;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 20px rgba(0, 255, 150, 0.6),
+                       0 0 40px rgba(0, 255, 150, 0.3);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        `;
+        document.body.appendChild(cursor);
+        
+        // Render trails
+        this.trails.forEach((trail, index) => {
+            const trailEl = document.createElement('div');
+            trailEl.className = 'splash-cursor';
+            trailEl.style.cssText = `
+                position: fixed;
+                left: ${trail.x}px;
+                top: ${trail.y}px;
+                width: ${trail.size}px;
+                height: ${trail.size}px;
+                background: rgba(0, 255, 150, ${trail.life * trail.opacity * 0.4});
+                border-radius: 50%;
+                pointer-events: none;
+                z-index: 9999;
+                transform: translate(-50%, -50%);
+                filter: blur(${2 - trail.life}px);
+            `;
+            document.body.appendChild(trailEl);
+        });
+        
+        // Render ripples
+        this.ripples.forEach((ripple) => {
+            const rippleEl = document.createElement('div');
+            rippleEl.className = 'splash-ripple';
+            
+            const progress = 1 - ripple.life;
+            const opacity = ripple.life * ripple.intensity;
+            const scale = progress;
+            
+            // Different colors for different types
+            const colors = {
+                click: 'rgba(0, 255, 150, ',
+                move: 'rgba(0, 200, 255, ',
+                hover: 'rgba(255, 100, 0, '
+            };
+            const color = colors[ripple.type] || colors.move;
+            
+            rippleEl.style.cssText = `
+                position: fixed;
+                left: ${ripple.x}px;
+                top: ${ripple.y}px;
+                width: ${ripple.size}px;
+                height: ${ripple.size}px;
+                border: 2px solid ${color}${opacity * 0.8});
+                border-radius: 50%;
+                pointer-events: none;
+                z-index: 9998;
+                transform: translate(-50%, -50%) scale(${scale});
+                background: ${color}${opacity * 0.1});
+                box-shadow: inset 0 0 20px ${color}${opacity * 0.3}),
+                           0 0 30px ${color}${opacity * 0.2});
+            `;
+            document.body.appendChild(rippleEl);
+        });
+    }
+}
+
 // Matrix Text Decoding Effect
 class MatrixTextDecoder {
     constructor() {
@@ -350,17 +548,25 @@ function addDynamicStyles() {
     document.head.appendChild(style);
 }
 
-// 3D Carousel Functionality
+// Removed orbital display - using clean HTML grid instead
+
+// True 3D Carousel Functionality
 function init3DCarousel() {
-    const carousel = document.getElementById('useCasesCarousel');
+    console.log('Initializing True 3D Carousel...');
+    
+    const carousel = document.getElementById('carouselCards');
+    const cards = document.querySelectorAll('.use-case-card');
     const indicators = document.querySelectorAll('.indicator');
     const prevBtn = document.getElementById('prevBtn');
     const nextBtn = document.getElementById('nextBtn');
     
-    if (!carousel) return;
+    if (!carousel || cards.length === 0) {
+        console.error('Carousel elements not found!');
+        return;
+    }
     
     let currentSlide = 0;
-    const totalSlides = 5;
+    const totalSlides = cards.length;
     const rotationAngle = 360 / totalSlides; // 72 degrees per slide
     let autoRotateInterval;
     let isUserInteracting = false;
@@ -368,7 +574,14 @@ function init3DCarousel() {
     // Update carousel rotation
     function updateCarousel() {
         const rotation = -(currentSlide * rotationAngle);
+        console.log(`Rotating carousel to ${rotation} degrees (slide ${currentSlide})`);
+        
         carousel.style.transform = `rotateY(${rotation}deg)`;
+        
+        // Update active card
+        cards.forEach((card, index) => {
+            card.classList.toggle('active', index === currentSlide);
+        });
         
         // Update indicators
         indicators.forEach((indicator, index) => {
@@ -574,11 +787,12 @@ function init3DCarousel() {
 
 // Initialize everything
 function init() {
-    // Core functionality
+    // Initialize fluid cursor
+    new SplashCursor();
+    
+    // Core functionality that actually exists
     new MatrixTextDecoder();
     setupSmoothScrolling();
-    
-    // Visual enhancements
     initBackgroundEffects();
     initFeatureCarousel();
     initChatInterface();
@@ -586,9 +800,9 @@ function init() {
     initScrollAnimations();
     init3DCarousel();
     
-    // Performance
-    optimizePerformance();
-    addDynamicStyles();
+    // Features data removed - using static HTML grid instead
+    
+    // Features section is now handled by static HTML - no JS needed
     
     console.log('🤖 Finsurf: AI-powered DeFi interface loaded');
 }

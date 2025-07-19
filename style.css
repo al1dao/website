@@ -1457,3 +1457,13 @@ body {
         transition-duration: 0.01ms !important;
     }
 } 
+
+/* Hide default cursor for fluid effect */
+* {
+    cursor: none !important;
+}
+
+/* Show default cursor on interactive elements */
+a, button, input, textarea, select {
+    cursor: pointer !important;
+} 

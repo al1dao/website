@@ -109,6 +109,8 @@
         </div>
     </section>
 
+
+
     <!-- How It Works Section -->
     <section id="how-it-works" class="how-it-works">
         <div class="container">
@@ -217,14 +219,16 @@
         </div>
     </section>
 
+
+
     <!-- Use Cases Section -->
     <section id="use-cases" class="use-cases">
         <div class="container">
             <h2 class="section-title matrix-text" data-text="Use Cases">Use Cases</h2>
-            <div class="carousel-container">
-                <div class="carousel-3d" id="useCasesCarousel">
-                    <div class="carousel-face" data-bg="face-1">
-                        <div class="use-case-card">
+            <div class="carousel-wrapper">
+                <div class="carousel-stage">
+                    <div class="carousel-cards" id="carouselCards">
+                        <div class="use-case-card active" data-index="0">
                             <div class="use-case-icon">
                                 <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
                                     <path d="M12 1L21 5V11C21 16.55 17.16 21.74 12 23C6.84 21.74 3 16.55 3 11V5L12 1Z" stroke="currentColor" stroke-width="2" fill="none"/>
@@ -234,9 +238,8 @@
                             <h3 class="matrix-text" data-text="Send, Swap, Batch">Send, Swap, Batch</h3>
                             <p class="matrix-text" data-text="Execute multiple transactions seamlessly in a single operation. Optimize gas costs and streamline your DeFi interactions.">Execute multiple transactions seamlessly in a single operation. Optimize gas costs and streamline your DeFi interactions.</p>
                         </div>
-                    </div>
-                    <div class="carousel-face" data-bg="face-2">
-                        <div class="use-case-card">
+                        
+                        <div class="use-case-card" data-index="1">
                             <div class="use-case-icon">
                                 <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
                                     <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" stroke="currentColor" stroke-width="2" fill="none"/>
@@ -245,9 +248,8 @@
                             <h3 class="matrix-text" data-text="Flash Loans & Automation">Flash Loans & Automation</h3>
                             <p class="matrix-text" data-text="Access instant liquidity for arbitrage, farming automation, and airdrop optimization. Maximize yields with zero initial capital.">Access instant liquidity for arbitrage, farming automation, and airdrop optimization. Maximize yields with zero initial capital.</p>
                         </div>
-                    </div>
-                    <div class="carousel-face" data-bg="face-3">
-                        <div class="use-case-card">
+                        
+                        <div class="use-case-card" data-index="2">
                             <div class="use-case-icon">
                                 <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
                                     <rect x="3" y="4" width="18" height="16" rx="2" stroke="currentColor" stroke-width="2" fill="none"/>
@@ -257,9 +259,8 @@
                             <h3 class="matrix-text" data-text="Vault Investing">Vault Investing</h3>
                             <p class="matrix-text" data-text="Diversified yield strategies with automated rebalancing. Access professional-grade portfolio management and structured products.">Diversified yield strategies with automated rebalancing. Access professional-grade portfolio management and structured products.</p>
                         </div>
-                    </div>
-                    <div class="carousel-face" data-bg="face-4">
-                        <div class="use-case-card">
+                        
+                        <div class="use-case-card" data-index="3">
                             <div class="use-case-icon">
                                 <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
                                     <path d="M3 3V21H21V3H3Z" stroke="currentColor" stroke-width="2" fill="none"/>
@@ -269,9 +270,8 @@
                             <h3 class="matrix-text" data-text="Wallet Analytics">Wallet Analytics</h3>
                             <p class="matrix-text" data-text="AI-powered portfolio analysis with personalized optimization tips. Get insights on risk, diversification, and yield opportunities.">AI-powered portfolio analysis with personalized optimization tips. Get insights on risk, diversification, and yield opportunities.</p>
                         </div>
-                    </div>
-                    <div class="carousel-face" data-bg="face-5">
-                        <div class="use-case-card">
+                        
+                        <div class="use-case-card" data-index="4">
                             <div class="use-case-icon">
                                 <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
                                     <path d="M14.7 6.3A1 1 0 0 0 13 5H5A2 2 0 0 0 3 7V17A2 2 0 0 0 5 19H19A2 2 0 0 0 21 17V11.5A1 1 0 0 0 19.7 10.3L14.7 6.3Z" stroke="currentColor" stroke-width="2" fill="none"/>
@@ -283,6 +283,7 @@
                         </div>
                     </div>
                 </div>
+                
                 <div class="carousel-controls">
                     <button class="carousel-btn prev" id="prevBtn">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -306,42 +307,79 @@
         </div>
     </section>
 
+
+
     <!-- Features Section -->
     <section id="features" class="features">
         <div class="container">
             <h2 class="section-title matrix-text" data-text="Features">Features</h2>
-            <div class="features-carousel">
+            <div class="features-grid">
                 <div class="feature-card">
-                    <h3 class="matrix-text" data-text="Batch Transaction Builder">Batch Transaction Builder</h3>
-                    <p class="matrix-text" data-text="Execute multiple operations in a single transaction">Execute multiple operations in a single transaction</p>
+                    <div class="feature-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+                            <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" stroke="currentColor" stroke-width="2" fill="none"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Flash Loan Engine</h3>
+                    <p class="feature-desc">Execute complex arbitrage and liquidation strategies with instant capital</p>
                 </div>
                 <div class="feature-card">
-                    <h3 class="matrix-text" data-text="Flash Loan Engine">Flash Loan Engine</h3>
-                    <p class="matrix-text" data-text="Access instant liquidity for arbitrage and yield strategies">Access instant liquidity for arbitrage and yield strategies</p>
+                    <div class="feature-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+                            <rect x="3" y="11" width="18" height="10" rx="2" ry="2" stroke="currentColor" stroke-width="2" fill="none"/>
+                            <circle cx="12" cy="16" r="1" fill="currentColor"/>
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4" stroke="currentColor" stroke-width="2" fill="none"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">APY Vaults & Indices</h3>
+                    <p class="feature-desc">Automated yield farming with risk-adjusted portfolio management</p>
                 </div>
                 <div class="feature-card">
-                    <h3 class="matrix-text" data-text="APY Vaults & Indices">APY Vaults & Indices</h3>
-                    <p class="matrix-text" data-text="Diversified yield products with automated rebalancing">Diversified yield products with automated rebalancing</p>
+                    <div class="feature-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+                            <path d="M18 20V10M12 20V4M6 20V14" stroke="currentColor" stroke-width="2" fill="none"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Wallet Score & Suggestions</h3>
+                    <p class="feature-desc">AI-powered portfolio analysis with personalized optimization tips</p>
                 </div>
                 <div class="feature-card">
-                    <h3 class="matrix-text" data-text="Wallet Score & Suggestions">Wallet Score & Suggestions</h3>
-                    <p class="matrix-text" data-text="AI-powered portfolio analysis and optimization">AI-powered portfolio analysis and optimization</p>
+                    <div class="feature-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+                            <path d="M16 4H18a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" stroke="currentColor" stroke-width="2" fill="none"/>
+                            <rect x="8" y="2" width="8" height="4" rx="1" ry="1" stroke="currentColor" stroke-width="2" fill="none"/>
+                            <path d="M9 14L11 16L15 12" stroke="currentColor" stroke-width="2" fill="none"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Batch Transaction Builder</h3>
+                    <p class="feature-desc">Bundle multiple operations into single gas-efficient transactions</p>
                 </div>
                 <div class="feature-card">
-                    <h3 class="matrix-text" data-text="Workflow Marketplace">Workflow Marketplace</h3>
-                    <p class="matrix-text" data-text="Share, clone, and monetize successful DeFi strategies">Share, clone, and monetize successful DeFi strategies</p>
+                    <div class="feature-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+                            <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9" stroke="currentColor" stroke-width="2" fill="none"/>
+                            <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" stroke="currentColor" stroke-width="2" fill="none"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Alerts & Custom Notifications</h3>
+                    <p class="feature-desc">Real-time monitoring with smart alerts for market opportunities</p>
                 </div>
                 <div class="feature-card">
-                    <h3 class="matrix-text" data-text="Network & Wallet Management">Network & Wallet Management</h3>
-                    <p class="matrix-text" data-text="Multi-chain support with unified interface">Multi-chain support with unified interface</p>
-                </div>
-                <div class="feature-card">
-                    <h3 class="matrix-text" data-text="Alerts & Custom Notifications">Alerts & Custom Notifications</h3>
-                    <p class="matrix-text" data-text="Real-time alerts for opportunities and risks">Real-time alerts for opportunities and risks</p>
+                    <div class="feature-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+                            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none"/>
+                            <line x1="2" y1="12" x2="22" y2="12" stroke="currentColor" stroke-width="2"/>
+                            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" stroke="currentColor" stroke-width="2" fill="none"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Network & Wallet Management</h3>
+                    <p class="feature-desc">Seamless multi-chain interactions with unified wallet interface</p>
                 </div>
             </div>
         </div>
     </section>
+
+
 
     <!-- Roadmap Section -->
     <section id="roadmap" class="roadmap">
@@ -370,22 +408,12 @@
                         <div class="timeline-desc matrix-text" data-text="Community-driven strategy sharing and monetization">Community-driven strategy sharing and monetization</div>
                     </div>
                 </div>
-                <div class="roadmap-cta">
-                    <div class="social-links">
-                        <a href="https://x.com/@al1dao" target="_blank" class="social-link">
-                            <span class="matrix-text" data-text="Follow us">Follow us</span>
-                        </a>
-                        <a href="#access" class="social-link">
-                            <span class="matrix-text" data-text="Join Alpha">Join Alpha</span>
-                        </a>
-                        <a href="https://finsurf.ai" target="_blank" class="social-link">
-                            <span class="matrix-text" data-text="Connect Wallet">Connect Wallet</span>
-                        </a>
-                    </div>
-                </div>
+
             </div>
         </div>
     </section>
+
+
 
     <!-- Footer CTA Section -->
     <section id="access" class="footer-cta">

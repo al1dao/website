@@ -1,3 +1,6 @@
+/* Import the improved AL1 font */
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap');
+
 /* Reset and Base Styles */
 * {
     margin: 0;
@@ -6,15 +9,27 @@
 }
 
 :root {
-    --primary-color: #ffffff;
-    --secondary-color: #ffffff;
-    --accent-color: #ffffff;
-    --text-primary: #ffffff;
+    --primary-bg: #000000;
+    --secondary-bg: #0a0a0a;
+    --accent-bg: #111111;
+    --text-primary: #f5f5f5;
     --text-secondary: #cccccc;
-    --bg-primary: #000000;
-    --bg-secondary: #000000;
+    --text-muted: #888888;
+    --accent-color: #ffffff;
     --border-color: #333333;
     --glow-color: #ffffff;
+    --success-color: #00ff00;
+    --warning-color: #ffff00;
+    --error-color: #ff0000;
+    --matrix-green: #00ff00;
+    --glass-bg: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    
+    /* Legacy variables for compatibility */
+    --primary-color: #ffffff;
+    --secondary-color: #ffffff;
+    --bg-primary: #000000;
+    --bg-secondary: #000000;
 }
 
 html {
@@ -23,8 +38,8 @@ html {
 }
 
 body {
-    font-family: 'Courier New', monospace;
-    background-color: var(--bg-primary);
+    font-family: 'JetBrains Mono', monospace;
+    background-color: var(--primary-bg);
     color: var(--text-primary);
     line-height: 1.6;
     overflow-x: hidden;
@@ -407,6 +422,28 @@ body {
     100% {
         transform: translateX(0);
     }
+}
+
+/* Enhanced Matrix Text Effects */
+.matrix-text {
+    position: relative;
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+.matrix-text.binary {
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--matrix-green);
+    opacity: 0.8;
+}
+
+.matrix-text.decoding {
+    animation: matrixTextGlitch 0.1s ease-in-out;
+}
+
+@keyframes matrixTextGlitch {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; transform: translateX(1px); }
 }
 
 

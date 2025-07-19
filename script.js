@@ -127,145 +127,17 @@ if (learnMoreBtn) {
     });
 }
 
-// Matrix-style binary to text conversion
-function matrixTextDecode(element, finalText, options = {}) {
-    if (!element) return;
-    
-    const {
-        duration = 3000,
-        binaryDuration = 1000,
-        decodeSpeed = 50,
-        glitchChance = 0.1
-    } = options;
-    
-    // Store original classes and text
-    const originalClasses = element.className;
-    const originalText = finalText;
-    
-    // Function to convert character to binary representation
-    function charToBinary(char) {
-        if (char === ' ') return ' '; // Preserve spaces
-        if (char.match(/\s/)) return char; // Preserve other whitespace
-        return Math.random() > 0.5 ? '1' : '0'; // Convert letters to binary
-    }
-    
-    // Generate initial binary text that matches the structure
-    let binaryText = originalText.split('').map(charToBinary).join('');
-    
-    // Phase 1: Immediately show binary rain with matrix styling
-    element.textContent = binaryText;
-    element.className = originalClasses + ' matrix-decoding';
-    
-    // Phase 2: Binary flickering with occasional glitches
-    const binaryInterval = setInterval(() => {
-        let flickerText = '';
-        for (let i = 0; i < originalText.length; i++) {
-            const char = originalText[i];
-            if (char === ' ' || char.match(/\s/)) {
-                flickerText += char; // Keep whitespace
-            } else {
-                flickerText += Math.random() > 0.8 ? 
-                    (Math.random() > 0.5 ? '1' : '0') : 
-                    binaryText[i];
-            }
-        }
-        element.textContent = flickerText;
-        
-        // Reduced matrix glitch effect
-        if (Math.random() > 0.97) {
-            element.classList.add('matrix-glitch');
-            setTimeout(() => {
-                element.classList.remove('matrix-glitch');
-            }, 100);
-        }
-    }, 120);
-    
-    // Phase 3: Start decoding to real text
-    setTimeout(() => {
-        clearInterval(binaryInterval);
-        
-        // Initialize decode tracking
-        let decodedChars = new Array(originalText.length).fill('');
-        let decodedPositions = new Array(originalText.length).fill(false);
-        
-        // Fill with initial binary
-        for (let i = 0; i < originalText.length; i++) {
-            if (originalText[i] === ' ' || originalText[i].match(/\s/)) {
-                decodedChars[i] = originalText[i];
-                decodedPositions[i] = true;
-            } else {
-                decodedChars[i] = Math.random() > 0.5 ? '1' : '0';
-            }
-        }
-        
-        const decodeInterval = setInterval(() => {
-            let allDecoded = true;
-            
-            // Randomly pick positions to decode
-            for (let i = 0; i < originalText.length; i++) {
-                const char = originalText[i];
-                
-                // Skip whitespace
-                if (char === ' ' || char.match(/\s/)) {
-                    continue;
-                }
-                
-                if (!decodedPositions[i] && Math.random() > 0.88) {
-                    // Reduced glitch effect before revealing
-                    if (Math.random() < glitchChance * 0.3) {
-                        // Show random binary characters as glitch
-                        decodedChars[i] = Math.random() > 0.5 ? '1' : '0';
-                        
-                        // Very brief glitch effect
-                        element.classList.add('matrix-glitch');
-                        setTimeout(() => {
-                            element.classList.remove('matrix-glitch');
-                        }, 75);
-                    } else {
-                        decodedChars[i] = char;
-                        decodedPositions[i] = true;
-                    }
-                }
-                
-                // Check if all are decoded
-                if (!decodedPositions[i]) {
-                    allDecoded = false;
-                }
-            }
-            
-            // Update the display
-            element.textContent = decodedChars.join('');
-            
-            // Clean up when done
-            if (allDecoded) {
-                clearInterval(decodeInterval);
-                element.textContent = originalText;
-                
-                // Smooth transition out of matrix effect
-                element.className = originalClasses + ' matrix-decoded';
-                
-                // Remove matrix classes after smooth transition
-                setTimeout(() => {
-                    element.className = originalClasses;
-                }, 300);
-            }
-        }, decodeSpeed);
-        
-    }, binaryDuration);
-}
+
 
 // Enhanced matrix decode animation for hero tagline
 function typeWriter() {
     const text = "Where Crypto Meets AI";
     
     if (typingText) {
-        // Start with matrix decode effect - smooth and polished
-        matrixTextDecode(typingText, text, {
-            duration: 3000,
-            binaryDuration: 1200,
-            decodeSpeed: 40,
-            glitchChance: 0.05
-        });
+        // Set the text directly - matrix effect handled by new MatrixTextDecoder
+        typingText.textContent = text;
+        typingText.setAttribute('data-text', text);
+        typingText.classList.add('matrix-text');
     }
 }
 
@@ -459,194 +331,7 @@ function handleTouchDevice() {
     }
 }
 
-// Matrix effects for ALL text elements with smooth coordinated flow
-function initializeMatrixEffects() {
-    // Function to convert text to binary
-    function textToBinary(text) {
-        return text.split('').map(char => {
-            if (char === ' ' || char.match(/\s/)) return char;
-            return Math.random() > 0.5 ? '1' : '0';
-        }).join('');
-    }
-    
-    // Function to apply matrix effect to any element
-    function applyMatrixEffect(element, options = {}) {
-        const originalText = element.textContent;
-        if (!originalText.trim()) return; // Skip empty elements
-        
-        // Skip the hero subtitle as it has its own typewriter effect
-        if (element.classList.contains('typing-text') || element.closest('.typing-text')) {
-            return;
-        }
-        
-        let isDecoding = false;
-        
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting && !isDecoding) {
-                    // Element is on screen - start decoding with coordinated timing
-                    isDecoding = true;
-                    setTimeout(() => {
-                        matrixTextDecode(element, originalText, {
-                            binaryDuration: options.binaryDuration || 600,
-                            decodeSpeed: options.decodeSpeed || 25,
-                            glitchChance: options.glitchChance || 0.08
-                        });
-                        
-                        // Allow re-decoding after animation completes
-                        setTimeout(() => {
-                            isDecoding = false;
-                        }, options.totalDuration || 1000);
-                    }, options.delay || 0);
-                } else if (!entry.isIntersecting && !isDecoding) {
-                    // Element is off screen - revert to binary
-                    element.textContent = textToBinary(originalText);
-                    element.className = element.className.replace(' matrix-decoding', '').replace(' matrix-decoded', '');
-                }
-            });
-        }, { threshold: options.threshold || 0.4 });
-        
-        observer.observe(element);
-    }
-    
-    // Get all text elements and sort by vertical position for smooth top-to-bottom flow
-    const allTextElements = [];
-    
-    // Collect all text elements with their positions
-    const headers = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
-    const paragraphs = document.querySelectorAll('p');
-    const buttonElements = document.querySelectorAll('button, .btn, a');
-    const stepNumbers = document.querySelectorAll('.step-number');
-    const otherElements = document.querySelectorAll('span, div, li, td, th');
-    
-    // Add headers
-    headers.forEach(element => {
-        if (element.textContent.trim() && !element.classList.contains('typing-text')) {
-            allTextElements.push({
-                element,
-                y: element.getBoundingClientRect().top + window.scrollY,
-                type: 'header'
-            });
-        }
-    });
-    
-    // Add paragraphs
-    paragraphs.forEach(element => {
-        if (element.textContent.trim() && !element.closest('.typing-text')) {
-            allTextElements.push({
-                element,
-                y: element.getBoundingClientRect().top + window.scrollY,
-                type: 'paragraph'
-            });
-        }
-    });
-    
-    // Add buttons (only spans inside them or the button itself if no span)
-    buttonElements.forEach(button => {
-        const span = button.querySelector('span');
-        const targetElement = span || button;
-        if (targetElement.textContent.trim() && !targetElement.closest('.typing-text')) {
-            allTextElements.push({
-                element: targetElement,
-                y: button.getBoundingClientRect().top + window.scrollY,
-                type: 'button'
-            });
-        }
-    });
-    
-    // Add step numbers
-    stepNumbers.forEach(element => {
-        if (element.textContent.trim()) {
-            allTextElements.push({
-                element,
-                y: element.getBoundingClientRect().top + window.scrollY,
-                type: 'step'
-            });
-        }
-    });
-    
-    // Add other elements with direct text content
-    otherElements.forEach(element => {
-        if (element.textContent.trim() && element.children.length === 0 && !element.closest('.typing-text')) {
-            allTextElements.push({
-                element,
-                y: element.getBoundingClientRect().top + window.scrollY,
-                type: 'other'
-            });
-        }
-    });
-    
-    // Sort by vertical position for smooth top-to-bottom animation
-    allTextElements.sort((a, b) => a.y - b.y);
-    
-    // Apply matrix effects with coordinated delays for smooth wave effect
-    allTextElements.forEach((item, index) => {
-        const baseDelay = index * 80; // Smooth cascade delay
-        
-        const options = {
-            delay: baseDelay,
-            threshold: 0.5
-        };
-        
-        // Customize options based on element type
-        switch (item.type) {
-            case 'header':
-                options.binaryDuration = 500;
-                options.decodeSpeed = 20;
-                options.glitchChance = 0.06;
-                options.totalDuration = 900;
-                break;
-            case 'paragraph':
-                options.binaryDuration = 600;
-                options.decodeSpeed = 25;
-                options.glitchChance = 0.08;
-                options.totalDuration = 1000;
-                break;
-            case 'button':
-                options.binaryDuration = 400;
-                options.decodeSpeed = 18;
-                options.glitchChance = 0.12;
-                options.totalDuration = 700;
-                break;
-            case 'step':
-                options.binaryDuration = 350;
-                options.decodeSpeed = 15;
-                options.glitchChance = 0.15;
-                options.totalDuration = 600;
-                break;
-            default:
-                options.binaryDuration = 550;
-                options.decodeSpeed = 22;
-                options.glitchChance = 0.08;
-                options.totalDuration = 850;
-        }
-        
-        applyMatrixEffect(item.element, options);
-    });
-    
-    // Button text matrix effect on hover
-    const buttons = document.querySelectorAll('.btn');
-    buttons.forEach(button => {
-        const originalText = button.querySelector('span').textContent;
-        let isDecoding = false;
-        
-        button.addEventListener('mouseenter', () => {
-            if (!isDecoding) {
-                isDecoding = true;
-                const span = button.querySelector('span');
-                matrixTextDecode(span, originalText, {
-                    binaryDuration: 300,
-                    decodeSpeed: 30,
-                    glitchChance: 0.2
-                });
-                
-                setTimeout(() => {
-                    isDecoding = false;
-                }, 1000);
-            }
-        });
-    });
-}
+
 
 // Initialize everything when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
@@ -654,7 +339,6 @@ document.addEventListener('DOMContentLoaded', () => {
     advancedLogoEffects();
     createParticleSystem();
     handleTouchDevice();
-    initializeMatrixEffects();
     
     // Fade in hero content
     const heroContent = document.querySelector('.hero-content');
@@ -754,4 +438,148 @@ function createFallbackAnimation() {
 // Performance optimization: Reduce animations on low-end devices
 if (navigator.hardwareConcurrency && navigator.hardwareConcurrency < 4) {
     document.documentElement.style.setProperty('--reduced-animation', '1');
-} 
+}
+
+// Matrix Text Decoding Effect
+class MatrixTextDecoder {
+    constructor() {
+        this.chars = '01';
+        this.observers = new Map();
+        this.init();
+    }
+
+    init() {
+        // Wait for DOM to be loaded
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', () => this.setupMatrixText());
+        } else {
+            this.setupMatrixText();
+        }
+    }
+
+    setupMatrixText() {
+        const matrixElements = document.querySelectorAll('.matrix-text');
+        
+        matrixElements.forEach((element) => {
+            this.setupElement(element);
+        });
+    }
+
+    setupElement(element) {
+        const originalText = element.getAttribute('data-text') || element.textContent;
+        element.setAttribute('data-text', originalText);
+        
+        // Create observer for this element
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    this.decodeText(element);
+                } else {
+                    this.encodeText(element);
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '50px'
+        });
+
+        observer.observe(element);
+        this.observers.set(element, observer);
+
+        // Initially show as binary
+        this.showBinary(element, originalText);
+    }
+
+    showBinary(element, text) {
+        const binaryText = this.generateBinary(text);
+        element.textContent = binaryText;
+        element.classList.add('binary');
+    }
+
+    generateBinary(text) {
+        // Preserve structure (spaces, newlines, etc.)
+        return text.split('').map(char => {
+            if (char === ' ') return ' ';
+            if (char === '\n') return '\n';
+            if (char === '\t') return '\t';
+            // Generate random binary digit
+            return Math.random() > 0.5 ? '1' : '0';
+        }).join('');
+    }
+
+    async decodeText(element) {
+        const finalText = element.getAttribute('data-text');
+        if (!finalText) return;
+
+        element.classList.add('decoding');
+        
+        const steps = 8; // Number of decoding steps
+        const delay = 50; // Delay between steps in ms
+        
+        for (let step = 0; step < steps; step++) {
+            await new Promise(resolve => setTimeout(resolve, delay));
+            
+            const decodedText = finalText.split('').map((char, index) => {
+                if (char === ' ' || char === '\n' || char === '\t') return char;
+                
+                // Gradually reveal characters
+                const progress = (step + 1) / steps;
+                const shouldReveal = Math.random() < progress * progress; // Exponential reveal
+                
+                if (shouldReveal) {
+                    return char;
+                } else {
+                    return Math.random() > 0.5 ? '1' : '0';
+                }
+            }).join('');
+            
+            element.textContent = decodedText;
+        }
+        
+        // Ensure final text is correct
+        element.textContent = finalText;
+        element.classList.remove('binary', 'decoding');
+    }
+
+    async encodeText(element) {
+        const finalText = element.getAttribute('data-text');
+        if (!finalText) return;
+
+        element.classList.add('decoding');
+        
+        const steps = 6; // Number of encoding steps
+        const delay = 30; // Delay between steps in ms
+        
+        for (let step = 0; step < steps; step++) {
+            await new Promise(resolve => setTimeout(resolve, delay));
+            
+            const encodedText = finalText.split('').map((char, index) => {
+                if (char === ' ' || char === '\n' || char === '\t') return char;
+                
+                // Gradually convert to binary
+                const progress = (step + 1) / steps;
+                const shouldEncode = Math.random() < progress;
+                
+                if (shouldEncode) {
+                    return Math.random() > 0.5 ? '1' : '0';
+                } else {
+                    return char;
+                }
+            }).join('');
+            
+            element.textContent = encodedText;
+        }
+        
+        // Final binary state
+        this.showBinary(element, finalText);
+        element.classList.remove('decoding');
+    }
+
+    destroy() {
+        this.observers.forEach(observer => observer.disconnect());
+        this.observers.clear();
+    }
+}
+
+// Initialize Matrix Text Decoder
+new MatrixTextDecoder();

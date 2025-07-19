@@ -350,6 +350,228 @@ function addDynamicStyles() {
     document.head.appendChild(style);
 }
 
+// 3D Carousel Functionality
+function init3DCarousel() {
+    const carousel = document.getElementById('useCasesCarousel');
+    const indicators = document.querySelectorAll('.indicator');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    
+    if (!carousel) return;
+    
+    let currentSlide = 0;
+    const totalSlides = 5;
+    const rotationAngle = 360 / totalSlides; // 72 degrees per slide
+    let autoRotateInterval;
+    let isUserInteracting = false;
+    
+    // Update carousel rotation
+    function updateCarousel() {
+        const rotation = -(currentSlide * rotationAngle);
+        carousel.style.transform = `rotateY(${rotation}deg)`;
+        
+        // Update indicators
+        indicators.forEach((indicator, index) => {
+            indicator.classList.toggle('active', index === currentSlide);
+        });
+    }
+    
+    // Next slide
+    function nextSlide() {
+        currentSlide = (currentSlide + 1) % totalSlides;
+        updateCarousel();
+    }
+    
+    // Previous slide
+    function prevSlide() {
+        currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+        updateCarousel();
+    }
+    
+    // Go to specific slide
+    function goToSlide(slideIndex) {
+        currentSlide = slideIndex;
+        updateCarousel();
+    }
+    
+    // Auto-rotation
+    function startAutoRotation() {
+        if (autoRotateInterval) clearInterval(autoRotateInterval);
+        autoRotateInterval = setInterval(() => {
+            if (!isUserInteracting) {
+                nextSlide();
+            }
+        }, 4000);
+    }
+    
+    function stopAutoRotation() {
+        if (autoRotateInterval) {
+            clearInterval(autoRotateInterval);
+            autoRotateInterval = null;
+        }
+    }
+    
+    // Event listeners
+    nextBtn.addEventListener('click', () => {
+        isUserInteracting = true;
+        nextSlide();
+        stopAutoRotation();
+        setTimeout(() => {
+            isUserInteracting = false;
+            startAutoRotation();
+        }, 8000);
+    });
+    
+    prevBtn.addEventListener('click', () => {
+        isUserInteracting = true;
+        prevSlide();
+        stopAutoRotation();
+        setTimeout(() => {
+            isUserInteracting = false;
+            startAutoRotation();
+        }, 8000);
+    });
+    
+    // Indicator click events
+    indicators.forEach((indicator, index) => {
+        indicator.addEventListener('click', () => {
+            isUserInteracting = true;
+            goToSlide(index);
+            stopAutoRotation();
+            setTimeout(() => {
+                isUserInteracting = false;
+                startAutoRotation();
+            }, 8000);
+        });
+    });
+    
+    // Touch/swipe support for mobile
+    let startX = 0;
+    let startY = 0;
+    let isDragging = false;
+    
+    carousel.addEventListener('touchstart', (e) => {
+        startX = e.touches[0].clientX;
+        startY = e.touches[0].clientY;
+        isDragging = true;
+        isUserInteracting = true;
+        stopAutoRotation();
+    });
+    
+    carousel.addEventListener('touchmove', (e) => {
+        if (!isDragging) return;
+        e.preventDefault();
+    });
+    
+    carousel.addEventListener('touchend', (e) => {
+        if (!isDragging) return;
+        
+        const endX = e.changedTouches[0].clientX;
+        const endY = e.changedTouches[0].clientY;
+        const deltaX = endX - startX;
+        const deltaY = endY - startY;
+        
+        // Check if horizontal swipe is more significant than vertical
+        if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 50) {
+            if (deltaX > 0) {
+                prevSlide(); // Swipe right = previous slide
+            } else {
+                nextSlide(); // Swipe left = next slide
+            }
+        }
+        
+        isDragging = false;
+        setTimeout(() => {
+            isUserInteracting = false;
+            startAutoRotation();
+        }, 8000);
+    });
+    
+    // Mouse drag support for desktop
+    let mouseStartX = 0;
+    let isMouseDragging = false;
+    
+    carousel.addEventListener('mousedown', (e) => {
+        mouseStartX = e.clientX;
+        isMouseDragging = true;
+        isUserInteracting = true;
+        stopAutoRotation();
+        carousel.style.cursor = 'grabbing';
+    });
+    
+    document.addEventListener('mousemove', (e) => {
+        if (!isMouseDragging) return;
+        e.preventDefault();
+    });
+    
+    document.addEventListener('mouseup', (e) => {
+        if (!isMouseDragging) return;
+        
+        const deltaX = e.clientX - mouseStartX;
+        
+        if (Math.abs(deltaX) > 50) {
+            if (deltaX > 0) {
+                prevSlide();
+            } else {
+                nextSlide();
+            }
+        }
+        
+        isMouseDragging = false;
+        carousel.style.cursor = 'grab';
+        setTimeout(() => {
+            isUserInteracting = false;
+            startAutoRotation();
+        }, 8000);
+    });
+    
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+        if (carousel.closest('section').getBoundingClientRect().top < window.innerHeight && 
+            carousel.closest('section').getBoundingClientRect().bottom > 0) {
+            
+            if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                isUserInteracting = true;
+                prevSlide();
+                stopAutoRotation();
+                setTimeout(() => {
+                    isUserInteracting = false;
+                    startAutoRotation();
+                }, 8000);
+            } else if (e.key === 'ArrowRight') {
+                e.preventDefault();
+                isUserInteracting = true;
+                nextSlide();
+                stopAutoRotation();
+                setTimeout(() => {
+                    isUserInteracting = false;
+                    startAutoRotation();
+                }, 8000);
+            }
+        }
+    });
+    
+    // Pause auto-rotation when carousel is not visible
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                startAutoRotation();
+            } else {
+                stopAutoRotation();
+            }
+        });
+    }, { threshold: 0.3 });
+    
+    observer.observe(carousel);
+    
+    // Initialize
+    updateCarousel();
+    startAutoRotation();
+    
+    console.log('🎠 3D Carousel initialized with touch, mouse, and keyboard support');
+}
+
 // Initialize everything
 function init() {
     // Core functionality
@@ -362,6 +584,7 @@ function init() {
     initChatInterface();
     initNavbarScroll();
     initScrollAnimations();
+    init3DCarousel();
     
     // Performance
     optimizePerformance();

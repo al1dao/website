@@ -678,32 +678,238 @@ section {
     font-weight: bold;
 }
 
-/* Use Cases Section */
-.use-cases-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1.5rem;
+/* Use Cases Section - 3D Carousel */
+.carousel-container {
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    perspective: 1200px;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
-.use-case-item {
+.carousel-3d {
+    position: relative;
+    width: 300px;
+    height: 350px;
+    transform-style: preserve-3d;
+    transition: transform 0.8s cubic-bezier(0.4, 0.0, 0.2, 1);
+    margin-bottom: 2rem;
+}
+
+.carousel-face {
+    position: absolute;
+    width: 300px;
+    height: 350px;
+    backface-visibility: hidden;
+    border-radius: 16px;
     background: var(--glass-bg);
     border: 1px solid var(--glass-border);
-    border-radius: 12px;
-    padding: 1.5rem;
-    text-align: center;
-    backdrop-filter: blur(10px);
-    transition: all 0.3s ease;
+    backdrop-filter: blur(15px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
 }
 
-.use-case-item:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+.carousel-face::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, 
+        rgba(255, 255, 255, 0.1) 0%, 
+        rgba(255, 255, 255, 0.05) 50%, 
+        rgba(0, 255, 0, 0.05) 100%);
+    pointer-events: none;
+}
+
+.carousel-face[data-bg="face-1"] {
+    transform: rotateY(0deg) translateZ(180px);
+}
+
+.carousel-face[data-bg="face-2"] {
+    transform: rotateY(72deg) translateZ(180px);
+}
+
+.carousel-face[data-bg="face-3"] {
+    transform: rotateY(144deg) translateZ(180px);
+}
+
+.carousel-face[data-bg="face-4"] {
+    transform: rotateY(216deg) translateZ(180px);
+}
+
+.carousel-face[data-bg="face-5"] {
+    transform: rotateY(288deg) translateZ(180px);
+}
+
+.use-case-card {
+    padding: 2rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    z-index: 2;
 }
 
 .use-case-icon {
-    font-size: 2rem;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: var(--glass-bg);
+    border: 2px solid var(--glass-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    color: var(--accent-color);
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.use-case-icon::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    border-radius: 50%;
+    background: linear-gradient(45deg, var(--matrix-green), var(--accent-color));
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.use-case-icon:hover::before {
+    opacity: 0.5;
+}
+
+.use-case-icon svg {
+    width: 40px;
+    height: 40px;
+    stroke: var(--accent-color);
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
+}
+
+.use-case-card h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
     margin-bottom: 1rem;
-    filter: grayscale(1) brightness(2);
+    color: var(--text-primary);
+}
+
+.use-case-card p {
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    max-width: 250px;
+}
+
+/* Carousel Controls */
+.carousel-controls {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    margin-top: 1rem;
+}
+
+.carousel-btn {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    color: var(--accent-color);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.carousel-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+    transform: scale(1.05);
+}
+
+.carousel-btn:active {
+    transform: scale(0.95);
+}
+
+.carousel-indicators {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+}
+
+.indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.indicator::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent-color);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.indicator.active::before {
+    opacity: 1;
+}
+
+.indicator.active {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--accent-color);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+.indicator:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.2);
+}
+
+/* Carousel Animations */
+@keyframes carouselRotate {
+    from { transform: rotateY(0deg); }
+    to { transform: rotateY(360deg); }
+}
+
+.carousel-3d.rotating {
+    animation: carouselRotate 1s ease-in-out;
+}
+
+/* Auto-rotation effect */
+.carousel-3d.auto-rotate {
+    animation: carouselRotate 20s linear infinite;
+}
+
+.carousel-3d.auto-rotate:hover {
+    animation-play-state: paused;
 }
 
 /* Features Section */
@@ -920,8 +1126,62 @@ section {
         grid-template-columns: 1fr;
     }
     
-    .use-cases-grid {
-        grid-template-columns: 1fr;
+    .carousel-container {
+        max-width: 100%;
+        height: 450px;
+        padding: 0 1rem;
+    }
+    
+    .carousel-3d {
+        width: 280px;
+        height: 380px;
+    }
+    
+    .carousel-face {
+        width: 280px;
+        height: 380px;
+    }
+    
+    .carousel-face[data-bg="face-1"] {
+        transform: rotateY(0deg) translateZ(150px);
+    }
+    
+    .carousel-face[data-bg="face-2"] {
+        transform: rotateY(72deg) translateZ(150px);
+    }
+    
+    .carousel-face[data-bg="face-3"] {
+        transform: rotateY(144deg) translateZ(150px);
+    }
+    
+    .carousel-face[data-bg="face-4"] {
+        transform: rotateY(216deg) translateZ(150px);
+    }
+    
+    .carousel-face[data-bg="face-5"] {
+        transform: rotateY(288deg) translateZ(150px);
+    }
+    
+    .use-case-card {
+        padding: 1.5rem;
+    }
+    
+    .use-case-card h3 {
+        font-size: 1.125rem;
+    }
+    
+    .use-case-card p {
+        font-size: 0.8rem;
+        max-width: 220px;
+    }
+    
+    .carousel-controls {
+        gap: 1.5rem;
+    }
+    
+    .carousel-btn {
+        width: 45px;
+        height: 45px;
     }
     
     .features-carousel {

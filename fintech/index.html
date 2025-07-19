@@ -221,26 +221,86 @@
     <section id="use-cases" class="use-cases">
         <div class="container">
             <h2 class="section-title matrix-text" data-text="Use Cases">Use Cases</h2>
-            <div class="use-cases-grid">
-                <div class="use-case-item">
-                    <div class="use-case-icon">💸</div>
-                    <span class="matrix-text" data-text="Send, swap, batch transactions">Send, swap, batch transactions</span>
+            <div class="carousel-container">
+                <div class="carousel-3d" id="useCasesCarousel">
+                    <div class="carousel-face" data-bg="face-1">
+                        <div class="use-case-card">
+                            <div class="use-case-icon">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+                                    <path d="M12 1L21 5V11C21 16.55 17.16 21.74 12 23C6.84 21.74 3 16.55 3 11V5L12 1Z" stroke="currentColor" stroke-width="2" fill="none"/>
+                                    <path d="M9 12L11 14L15 10" stroke="currentColor" stroke-width="2" fill="none"/>
+                                </svg>
+                            </div>
+                            <h3 class="matrix-text" data-text="Send, Swap, Batch">Send, Swap, Batch</h3>
+                            <p class="matrix-text" data-text="Execute multiple transactions seamlessly in a single operation. Optimize gas costs and streamline your DeFi interactions.">Execute multiple transactions seamlessly in a single operation. Optimize gas costs and streamline your DeFi interactions.</p>
+                        </div>
+                    </div>
+                    <div class="carousel-face" data-bg="face-2">
+                        <div class="use-case-card">
+                            <div class="use-case-icon">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+                                    <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" stroke="currentColor" stroke-width="2" fill="none"/>
+                                </svg>
+                            </div>
+                            <h3 class="matrix-text" data-text="Flash Loans & Automation">Flash Loans & Automation</h3>
+                            <p class="matrix-text" data-text="Access instant liquidity for arbitrage, farming automation, and airdrop optimization. Maximize yields with zero initial capital.">Access instant liquidity for arbitrage, farming automation, and airdrop optimization. Maximize yields with zero initial capital.</p>
+                        </div>
+                    </div>
+                    <div class="carousel-face" data-bg="face-3">
+                        <div class="use-case-card">
+                            <div class="use-case-icon">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+                                    <rect x="3" y="4" width="18" height="16" rx="2" stroke="currentColor" stroke-width="2" fill="none"/>
+                                    <path d="M7 10H17M7 14H17" stroke="currentColor" stroke-width="2"/>
+                                </svg>
+                            </div>
+                            <h3 class="matrix-text" data-text="Vault Investing">Vault Investing</h3>
+                            <p class="matrix-text" data-text="Diversified yield strategies with automated rebalancing. Access professional-grade portfolio management and structured products.">Diversified yield strategies with automated rebalancing. Access professional-grade portfolio management and structured products.</p>
+                        </div>
+                    </div>
+                    <div class="carousel-face" data-bg="face-4">
+                        <div class="use-case-card">
+                            <div class="use-case-icon">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+                                    <path d="M3 3V21H21V3H3Z" stroke="currentColor" stroke-width="2" fill="none"/>
+                                    <path d="M9 9L15 15M15 9L9 15" stroke="currentColor" stroke-width="2"/>
+                                </svg>
+                            </div>
+                            <h3 class="matrix-text" data-text="Wallet Analytics">Wallet Analytics</h3>
+                            <p class="matrix-text" data-text="AI-powered portfolio analysis with personalized optimization tips. Get insights on risk, diversification, and yield opportunities.">AI-powered portfolio analysis with personalized optimization tips. Get insights on risk, diversification, and yield opportunities.</p>
+                        </div>
+                    </div>
+                    <div class="carousel-face" data-bg="face-5">
+                        <div class="use-case-card">
+                            <div class="use-case-icon">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+                                    <path d="M14.7 6.3A1 1 0 0 0 13 5H5A2 2 0 0 0 3 7V17A2 2 0 0 0 5 19H19A2 2 0 0 0 21 17V11.5A1 1 0 0 0 19.7 10.3L14.7 6.3Z" stroke="currentColor" stroke-width="2" fill="none"/>
+                                    <path d="M14 2V8H20" stroke="currentColor" stroke-width="2" fill="none"/>
+                                </svg>
+                            </div>
+                            <h3 class="matrix-text" data-text="Workflow Marketplace">Workflow Marketplace</h3>
+                            <p class="matrix-text" data-text="Create, share, and monetize custom DeFi strategies. Build complex automation workflows and earn from successful strategies.">Create, share, and monetize custom DeFi strategies. Build complex automation workflows and earn from successful strategies.</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="use-case-item">
-                    <div class="use-case-icon">⚡</div>
-                    <span class="matrix-text" data-text="Flash-loans, liquidity provision, farming & airdrop automation">Flash-loans, liquidity provision, farming & airdrop automation</span>
-                </div>
-                <div class="use-case-item">
-                    <div class="use-case-icon">🏦</div>
-                    <span class="matrix-text" data-text="Vault investing & yield strategies">Vault investing & yield strategies</span>
-                </div>
-                <div class="use-case-item">
-                    <div class="use-case-icon">📊</div>
-                    <span class="matrix-text" data-text="Wallet analysis and optimization tips">Wallet analysis and optimization tips</span>
-                </div>
-                <div class="use-case-item">
-                    <div class="use-case-icon">🛠️</div>
-                    <span class="matrix-text" data-text="Publish and monetize workflows">Publish and monetize workflows</span>
+                <div class="carousel-controls">
+                    <button class="carousel-btn prev" id="prevBtn">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2"/>
+                        </svg>
+                    </button>
+                    <div class="carousel-indicators" id="carouselIndicators">
+                        <span class="indicator active" data-slide="0"></span>
+                        <span class="indicator" data-slide="1"></span>
+                        <span class="indicator" data-slide="2"></span>
+                        <span class="indicator" data-slide="3"></span>
+                        <span class="indicator" data-slide="4"></span>
+                    </div>
+                    <button class="carousel-btn next" id="nextBtn">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2"/>
+                        </svg>
+                    </button>
                 </div>
             </div>
         </div>

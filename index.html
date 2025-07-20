@@ -36,6 +36,81 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 </head>
   <body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="/" class="nav-logo">
+                <img src="/assets/images/al1-logo.png" alt="AL1 DAO" class="nav-logo-img">
+            </a>
+            <div class="nav-dropdown">
+                <span class="nav-dropdown-trigger">Projects</span>
+                <div class="nav-dropdown-menu">
+                    <div class="nav-dropdown-grid">
+                        <div class="nav-dropdown-section">
+                            <div class="nav-dropdown-category">
+                                <div class="nav-dropdown-category-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M12 1L21 5V11C21 16 17 20 12 23C7 20 3 16 3 11V5L12 1Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M9 12L11 14L15 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </div>
+                                <span class="nav-dropdown-category-title">Fintech</span>
+                            </div>
+                            <div class="nav-dropdown-items">
+                                <a href="/finsurf" class="nav-dropdown-item">
+                                    <div class="nav-dropdown-content">
+                                        <span class="nav-dropdown-title">Finsurf</span>
+                                        <span class="nav-dropdown-desc">Crypto-native fintech platform</span>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="nav-dropdown-section">
+                            <div class="nav-dropdown-category">
+                                <div class="nav-dropdown-category-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M6 4H18C20.2 4 22 5.8 22 8V16C22 18.2 20.2 20 18 20H6C3.8 20 2 18.2 2 16V8C2 5.8 3.8 4 6 4Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <circle cx="7" cy="12" r="1" fill="currentColor"/>
+                                        <circle cx="17" cy="10" r="1" fill="currentColor"/>
+                                        <circle cx="17" cy="14" r="1" fill="currentColor"/>
+                                        <path d="M10 9V11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                                        <path d="M9 10H11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                                    </svg>
+                                </div>
+                                <span class="nav-dropdown-category-title">Gaming</span>
+                            </div>
+                            <div class="nav-dropdown-items">
+                                <a href="/gaming/chop-sui-panda" class="nav-dropdown-item">
+                                    <div class="nav-dropdown-content">
+                                        <span class="nav-dropdown-title">Chop Sui Panda</span>
+                                        <span class="nav-dropdown-desc">Next-gen gaming experience</span>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                <svg class="theme-icon sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="5"></circle>
+                    <line x1="12" y1="1" x2="12" y2="3"></line>
+                    <line x1="12" y1="21" x2="12" y2="23"></line>
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                    <line x1="1" y1="12" x2="3" y2="12"></line>
+                    <line x1="21" y1="12" x2="23" y2="12"></line>
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                </svg>
+                <svg class="theme-icon moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                </svg>
+            </button>
+        </div>
+    </nav>
+
     <!-- Futuristic Background -->
     <div class="futuristic-bg">
         <div class="grid-overlay"></div>
@@ -131,11 +206,6 @@
             <div class="cta-buttons">
                 <a href="#about" class="btn btn-primary">
                     <span class="matrix-text" data-text="Learn More">Learn More</span>
-                    <div class="btn-glow"></div>
-                </a>
-                <a href="/fintech/" class="btn btn-secondary">
-                    <span class="matrix-text" data-text="Explore Finsurf">Explore Finsurf</span>
-                    <div class="btn-glow"></div>
                 </a>
             </div>
         </div>
@@ -154,9 +224,9 @@
             </div>
             
             <div class="about-content">
-                <p><span class="matrix-text" data-text="AL1 DAO (Axes Labs One) is a founder-led, tokenized organization driving innovation at the intersection of crypto, AI, and financial technology. Structured as a decentralized autonomous organization, AL1 brings together a powerful network of builders, investors, and advisors to launch category-defining products.">AL1 DAO (Axes Labs One) is a founder-led, tokenized organization driving innovation at the intersection of crypto, AI, and financial technology. Structured as a decentralized autonomous organization, AL1 brings together a powerful network of builders, investors, and advisors to launch category-defining products.</span></p>
+                <p><span class="matrix-text" data-text="AL1 DAO (Axes Labs One) is a founder-led, tokenized collective pioneering innovation at the intersection of crypto, AI, fintech, and gaming. Structured as a decentralized autonomous organization, AL1 unites a powerful network of builders, creators, and strategists to launch category-defining products across digital economies.">AL1 DAO (Axes Labs One) is a founder-led, tokenized collective pioneering innovation at the intersection of crypto, AI, fintech, and gaming. Structured as a decentralized autonomous organization, AL1 unites a powerful network of builders, creators, and strategists to launch category-defining products across digital economies.</span></p>
                 
-                <p><span class="matrix-text" data-text="We operate on-chain, make decisions through governance, and reward contribution with AXES — our native governance token.">We operate on-chain, make decisions through governance, and reward contribution with AXES — our native governance token.</span></p>
+                <p><span class="matrix-text" data-text="We operate on-chain, make decisions through transparent governance, and reward meaningful contribution with AXES — our native token powering participation and ownership.">We operate on-chain, make decisions through transparent governance, and reward meaningful contribution with AXES — our native token powering participation and ownership.</span></p>
             </div>
             
             <div class="features-grid">
@@ -166,7 +236,7 @@
                         <div class="icon-build"></div>
                     </div>
                     <h3><span class="matrix-text" data-text="What We're Building">What We're Building</span></h3>
-                    <p><span class="matrix-text" data-text="A crypto-native fintech platform combining seamless user experiences for on-chain finance, AI-powered tools for users and protocols, and real revenue capture with tokenholder upside.">A crypto-native fintech platform combining seamless user experiences for on-chain finance, AI-powered tools for users and protocols, and real revenue capture with tokenholder upside.</span></p>
+                    <p><span class="matrix-text" data-text="A crypto-native platform uniting fintech, AI, and gaming — designed for seamless on-chain experiences, AI-driven tools for users and protocols, and real revenue capture that rewards tokenholders with meaningful upside.">A crypto-native platform uniting fintech, AI, and gaming — designed for seamless on-chain experiences, AI-driven tools for users and protocols, and real revenue capture that rewards tokenholders with meaningful upside.</span></p>
                 </div>
                 
                 <div class="feature-card">
@@ -184,7 +254,7 @@
                         <div class="icon-community"></div>
                     </div>
                     <h3><span class="matrix-text" data-text="Our Community">Our Community</span></h3>
-                    <p><span class="matrix-text" data-text="Backed by OGs & Angels from Polygon, GSR, Woodstock, AU21, OKX, Biconomy, Cypher Capital, plus core contributors and veteran advisors.">Backed by OGs & Angels from Polygon, GSR, Woodstock, AU21, OKX, Biconomy, Cypher Capital, plus core contributors and veteran advisors.</span></p>
+                    <p><span class="matrix-text" data-text="Supported by seasoned Web3 pioneers, early backers, and strategic advisors with deep roots across top ecosystems, funds, and protocols.">Supported by seasoned Web3 pioneers, early backers, and strategic advisors with deep roots across top ecosystems, funds, and protocols.</span></p>
                 </div>
             </div>
         </div>

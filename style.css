@@ -8,7 +8,37 @@
     box-sizing: border-box;
 }
 
+/* CSS Custom Properties - Light Theme (Default) */
 :root {
+    --primary-bg: #fafbfc;
+    --secondary-bg: #f6f8fa;
+    --accent-bg: #f0fdf4;
+    --text-primary: #24292f;
+    --text-secondary: #57606a;
+    --text-muted: #656d76;
+    --accent-color: #16a34a;
+    --border-color: #e1e4e8;
+    --glow-color: #16a34a;
+    --success-color: #16a34a;
+    --warning-color: #ea580c;
+    --error-color: #dc2626;
+    --matrix-green: #16a34a;
+    --glass-bg: rgba(22, 163, 74, 0.08);
+    --glass-border: rgba(22, 163, 74, 0.15);
+    --card-bg: #ffffff;
+    --shadow-light: rgba(0, 0, 0, 0.08);
+    --shadow-medium: rgba(0, 0, 0, 0.12);
+    --shadow-heavy: rgba(0, 0, 0, 0.16);
+    
+    /* Legacy variables for compatibility */
+    --primary-color: #16a34a;
+    --secondary-color: #16a34a;
+    --bg-primary: #fafbfc;
+    --bg-secondary: #f6f8fa;
+}
+
+/* Dark Theme */
+[data-theme="dark"] {
     --primary-bg: #000000;
     --secondary-bg: #0a0a0a;
     --accent-bg: #111111;
@@ -24,17 +54,962 @@
     --matrix-green: #00ff00;
     --glass-bg: rgba(255, 255, 255, 0.05);
     --glass-border: rgba(255, 255, 255, 0.1);
+    --card-bg: #111111;
+    --shadow-light: rgba(255, 255, 255, 0.05);
+    --shadow-medium: rgba(255, 255, 255, 0.1);
+    --shadow-heavy: rgba(255, 255, 255, 0.15);
     
     /* Legacy variables for compatibility */
     --primary-color: #ffffff;
-    --secondary-color: #ffffff;
+    --secondary-color: #00ff00;
     --bg-primary: #000000;
-    --bg-secondary: #000000;
+    --bg-secondary: #0a0a0a;
+}
+
+/* Global Theme Transitions */
+*, *::before, *::after {
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease !important;
 }
 
 html {
     scroll-behavior: smooth;
     scroll-padding-top: 2rem;
+}
+
+/* Navigation */
+.nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--glass-border);
+    padding: 1rem 0;
+}
+
+/* Light mode navigation - white background */
+:root .nav {
+    background: rgba(255, 255, 255, 0.95) !important;
+    border-bottom: 1px solid var(--border-color) !important;
+}
+
+/* Dark mode navigation - dark background */
+[data-theme="dark"] .nav {
+    background: rgba(0, 0, 0, 0.9) !important;
+    border-bottom: 1px solid var(--glass-border) !important;
+}
+
+.nav-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+.nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+.nav-logo-img {
+    height: 32px;
+    width: auto;
+    object-fit: contain;
+    max-width: 48px;
+}
+
+/* Center Navigation Dropdown */
+.nav-dropdown {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.nav-dropdown-trigger {
+    color: var(--text-primary);
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.25rem;
+    border-radius: 12px;
+    user-select: none;
+    letter-spacing: -0.01em;
+}
+
+.nav-dropdown-trigger:hover {
+    background: linear-gradient(135deg, rgba(22, 163, 74, 0.08), rgba(34, 197, 94, 0.05));
+    color: #16a34a;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 20px rgba(22, 163, 74, 0.1);
+}
+
+[data-theme="dark"] .nav-dropdown-trigger:hover {
+    background: linear-gradient(135deg, rgba(34, 197, 94, 0.12), rgba(22, 163, 74, 0.08));
+    color: #22c55e;
+    box-shadow: 0 4px 20px rgba(34, 197, 94, 0.15);
+}
+
+.nav-dropdown-trigger::after {
+    content: '';
+    width: 16px;
+    height: 16px;
+    background: currentColor;
+    mask: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor'%3e%3cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2.5' d='M19 9l-7 7-7-7'%3e%3c/path%3e%3c/svg%3e") no-repeat center;
+    mask-size: contain;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 0.7;
+}
+
+.nav-dropdown:hover .nav-dropdown-trigger::after {
+    transform: rotate(180deg);
+    opacity: 1;
+}
+
+.nav-dropdown-trigger:hover {
+    color: #16a34a;
+}
+
+[data-theme="dark"] .nav-dropdown-trigger:hover {
+    color: #22c55e;
+}
+
+.nav-dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.98);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 20px;
+    box-shadow: 
+        0 25px 80px rgba(0, 0, 0, 0.08),
+        0 10px 30px rgba(0, 0, 0, 0.06),
+        0 1px 8px rgba(0, 0, 0, 0.04);
+    backdrop-filter: blur(24px) saturate(180%);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(-50%) translateY(-12px) scale(0.95);
+    z-index: 1000;
+    min-width: 480px;
+    margin-top: 0.75rem;
+    padding: 1.5rem;
+    overflow: hidden;
+}
+
+[data-theme="dark"] .nav-dropdown-menu {
+    background: rgba(12, 12, 12, 0.98);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 
+        0 25px 80px rgba(0, 0, 0, 0.8),
+        0 10px 30px rgba(0, 0, 0, 0.6),
+        0 1px 8px rgba(0, 0, 0, 0.4);
+}
+
+.nav-dropdown:hover .nav-dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0) scale(1);
+    transition-delay: 0.1s;
+}
+
+/* Keep menu open when hovering over it */
+.nav-dropdown-menu:hover {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0) scale(1);
+}
+
+/* Improve dropdown hover tolerance - add invisible bridge */
+.nav-dropdown::before {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    height: 20px;
+    background: transparent;
+    z-index: 999;
+}
+
+/* Add delay before hiding dropdown */
+.nav-dropdown-menu {
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
+                opacity 0.3s ease 0.2s,
+                visibility 0.3s ease 0.2s;
+}
+
+.nav-dropdown:hover .nav-dropdown-menu,
+.nav-dropdown-menu:hover {
+    transition-delay: 0s !important;
+}
+
+/* Grid layout for dropdown sections */
+.nav-dropdown-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    width: 100%;
+}
+
+.nav-dropdown-section {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+/* Category headers */
+.nav-dropdown-category {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    margin-bottom: 0.5rem;
+}
+
+[data-theme="dark"] .nav-dropdown-category {
+    border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+.nav-dropdown-category-icon {
+    width: 20px;
+    height: 20px;
+    color: #16a34a;
+    flex-shrink: 0;
+}
+
+[data-theme="dark"] .nav-dropdown-category-icon {
+    color: #22c55e;
+}
+
+.nav-dropdown-category-icon svg {
+    width: 100%;
+    height: 100%;
+}
+
+.nav-dropdown-category-title {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--text-primary);
+    letter-spacing: -0.01em;
+}
+
+.nav-dropdown-items {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.nav-dropdown-item {
+    display: flex;
+    align-items: center;
+    padding: 1rem 1.125rem;
+    color: var(--text-primary);
+    text-decoration: none;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 12px;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid transparent;
+    background: transparent;
+}
+
+.nav-dropdown-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    flex: 1;
+}
+
+.nav-dropdown-title {
+    font-weight: 600;
+    font-size: 0.95rem;
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+}
+
+.nav-dropdown-desc {
+    font-size: 0.8rem;
+    opacity: 0.75;
+    font-weight: 500;
+    line-height: 1.3;
+    color: inherit;
+    transition: opacity 0.3s ease;
+}
+
+.nav-dropdown-item-icon {
+    width: 18px;
+    height: 18px;
+    color: #16a34a;
+    flex-shrink: 0;
+    opacity: 0.7;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[data-theme="dark"] .nav-dropdown-item-icon {
+    color: #22c55e;
+}
+
+.nav-dropdown-item-icon svg {
+    width: 100%;
+    height: 100%;
+}
+
+
+
+.nav-dropdown-item:hover {
+    background: rgba(22, 163, 74, 0.04);
+    color: var(--text-primary);
+    transform: translateY(-1px);
+    box-shadow: 
+        0 8px 25px rgba(22, 163, 74, 0.08),
+        0 3px 12px rgba(22, 163, 74, 0.06);
+    border: 1px solid #16a34a;
+}
+
+.nav-dropdown-item:hover .nav-dropdown-desc {
+    opacity: 0.95;
+}
+
+.nav-dropdown-item:hover .nav-dropdown-item-icon {
+    opacity: 1;
+    color: #16a34a;
+    transform: scale(1.05);
+}
+
+[data-theme="dark"] .nav-dropdown-item:hover {
+    background: rgba(34, 197, 94, 0.08);
+    box-shadow: 
+        0 8px 25px rgba(34, 197, 94, 0.12),
+        0 3px 12px rgba(34, 197, 94, 0.08);
+    border: 1px solid #22c55e;
+}
+
+[data-theme="dark"] .nav-dropdown-item:hover .nav-dropdown-item-icon {
+    color: #22c55e;
+}
+
+.nav-cta {
+    background: rgba(0, 0, 0, 0.03);
+    border: 2px solid rgba(0, 0, 0, 0.15);
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    text-decoration: none;
+    color: #374151;
+    font-weight: 500;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.nav-cta:hover {
+    background: rgba(22, 163, 74, 0.05);
+    border-color: #16a34a;
+    color: #16a34a;
+    box-shadow: 0 4px 15px rgba(22, 163, 74, 0.2);
+    transform: translateY(-1px);
+}
+
+/* Dark Mode Nav CTA */
+[data-theme="dark"] .nav-cta {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 2px solid rgba(255, 255, 255, 0.2) !important;
+    color: #e5e7eb !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
+}
+
+[data-theme="dark"] .nav-cta:hover {
+    background: rgba(34, 197, 94, 0.1) !important;
+    border-color: #22c55e !important;
+    color: #22c55e !important;
+    box-shadow: 0 4px 15px rgba(34, 197, 94, 0.3) !important;
+}
+
+/* Enhanced Theme Toggle - Perfect Visibility */
+.theme-toggle {
+    position: relative;
+    background: rgba(0, 0, 0, 0.05);
+    border: 2px solid rgba(0, 0, 0, 0.15);
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    color: #374151;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.theme-toggle:hover {
+    background: rgba(0, 0, 0, 0.08);
+    border-color: #16a34a;
+    color: #16a34a;
+    box-shadow: 0 4px 15px rgba(22, 163, 74, 0.2);
+    transform: scale(1.05);
+}
+
+/* Dark Mode Theme Toggle - Pure White for Visibility */
+[data-theme="dark"] .theme-toggle {
+    background: rgba(255, 255, 255, 0.08) !important;
+    border: 2px solid rgba(255, 255, 255, 0.3) !important;
+    color: #ffffff !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
+}
+
+[data-theme="dark"] .theme-toggle:hover {
+    background: rgba(255, 255, 255, 0.15) !important;
+    border-color: #22c55e !important;
+    color: #22c55e !important;
+    box-shadow: 0 4px 15px rgba(34, 197, 94, 0.3) !important;
+}
+
+/* Force theme toggle icons to be white in dark mode */
+[data-theme="dark"] .theme-toggle .theme-icon,
+[data-theme="dark"] .theme-toggle svg {
+    color: #ffffff !important;
+    stroke: #ffffff !important;
+    fill: #ffffff !important;
+}
+
+.theme-icon {
+    position: absolute;
+    transition: all 0.3s ease;
+}
+
+/* Light mode - show sun, hide moon */
+:root .sun-icon {
+    opacity: 1;
+    transform: rotate(0deg);
+}
+
+:root .moon-icon {
+    opacity: 0;
+    transform: rotate(180deg);
+}
+
+/* Dark mode - hide sun, show moon */
+[data-theme="dark"] .sun-icon {
+    opacity: 0;
+    transform: rotate(180deg);
+}
+
+[data-theme="dark"] .moon-icon {
+    opacity: 1;
+    transform: rotate(0deg);
+}
+
+/* Logo Visibility - Natural White in Dark Mode, Black in Light Mode */
+[data-theme="dark"] .nav-logo-img {
+    filter: none !important;
+}
+
+/* Light mode only - make logo black */
+html:not([data-theme="dark"]) .nav-logo-img {
+    filter: brightness(0) saturate(100%) contrast(1) !important;
+}
+
+/* ===== ENHANCED BUTTON DESIGN FOR BOTH THEMES ===== */
+
+/* Dark Mode Button Styling */
+[data-theme="dark"] .btn-primary {
+    background: linear-gradient(135deg, #16a34a, #22c55e) !important;
+    color: #ffffff !important;
+    border: 2px solid #16a34a !important;
+    box-shadow: 
+        0 0 20px rgba(22, 163, 74, 0.4),
+        0 4px 15px rgba(0, 0, 0, 0.3) !important;
+    text-shadow: none !important;
+}
+
+[data-theme="dark"] .btn-primary:hover {
+    background: linear-gradient(135deg, #22c55e, #16a34a) !important;
+    color: #ffffff !important;
+    border: 2px solid #22c55e !important;
+    box-shadow: 
+        0 0 30px rgba(34, 197, 94, 0.6),
+        0 8px 25px rgba(0, 0, 0, 0.4) !important;
+    transform: translateY(-2px) scale(1.02) !important;
+}
+
+[data-theme="dark"] .btn-secondary {
+    background: transparent !important;
+    color: #22c55e !important;
+    border: 2px solid #22c55e !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3) !important;
+}
+
+[data-theme="dark"] .btn-secondary:hover {
+    background: rgba(34, 197, 94, 0.1) !important;
+    color: #16f2b5 !important;
+    border: 2px solid #16f2b5 !important;
+    box-shadow: 
+        0 0 20px rgba(34, 197, 94, 0.3),
+        0 8px 25px rgba(0, 0, 0, 0.4) !important;
+    transform: translateY(-2px) scale(1.02) !important;
+}
+
+/* Light Mode Button Styling - Enhanced Contrast */
+html:not([data-theme="dark"]) .btn-primary {
+    background: linear-gradient(135deg, #16a34a, #22c55e) !important;
+    color: #ffffff !important;
+    border: 2px solid #16a34a !important;
+    box-shadow: 
+        0 0 20px rgba(22, 163, 74, 0.25),
+        0 4px 15px rgba(0, 0, 0, 0.15) !important;
+    font-weight: 600 !important;
+}
+
+html:not([data-theme="dark"]) .btn-primary:hover {
+    background: linear-gradient(135deg, #15803d, #16a34a) !important;
+    color: #ffffff !important;
+    border: 2px solid #15803d !important;
+    box-shadow: 
+        0 0 30px rgba(21, 128, 61, 0.4),
+        0 8px 25px rgba(0, 0, 0, 0.25) !important;
+    transform: translateY(-2px) scale(1.02) !important;
+}
+
+html:not([data-theme="dark"]) .btn-secondary {
+    background: transparent !important;
+    color: #16a34a !important;
+    border: 2px solid #16a34a !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
+    font-weight: 600 !important;
+}
+
+html:not([data-theme="dark"]) .btn-secondary:hover {
+    background: rgba(22, 163, 74, 0.05) !important;
+    color: #15803d !important;
+    border: 2px solid #15803d !important;
+    box-shadow: 
+        0 0 20px rgba(22, 163, 74, 0.15),
+        0 8px 25px rgba(0, 0, 0, 0.15) !important;
+    transform: translateY(-2px) scale(1.02) !important;
+}
+
+/* Force Button Text Visibility - All Modes */
+.btn .matrix-text,
+.btn span,
+.btn-primary .matrix-text,
+.btn-primary span,
+.btn-secondary .matrix-text,
+.btn-secondary span {
+    color: inherit !important;
+    text-shadow: inherit !important;
+    font-weight: inherit !important;
+    opacity: 1 !important;
+    text-decoration: none !important;
+    border: none !important;
+    background: none !important;
+    outline: none !important;
+}
+
+/* Primary Button Text - Force Black */
+.btn-primary .matrix-text,
+.btn-primary span {
+    color: #000000 !important;
+    text-shadow: none !important;
+}
+
+.btn-primary:hover .matrix-text,
+.btn-primary:hover span {
+    color: #000000 !important;
+}
+
+/* FINAL OVERRIDE - Force Black Text on Primary Button */
+html .btn-primary,
+html .btn-primary:hover,
+html .btn-primary:focus,
+html .btn-primary:active,
+html .btn-primary:visited,
+html .btn-primary:link {
+    color: #000000 !important;
+    text-shadow: none !important;
+}
+
+html .btn-primary *,
+html .btn-primary:hover *,
+html .btn-primary:focus *,
+html .btn-primary:active *,
+html .btn-primary .matrix-text,
+html .btn-primary:hover .matrix-text,
+html .btn-primary span,
+html .btn-primary:hover span {
+    color: #000000 !important;
+    text-decoration: none !important;
+    text-shadow: none !important;
+}
+
+/* ULTRA-SPECIFIC FINAL OVERRIDE - ABSOLUTELY FORCE BLACK TEXT */
+html body .btn-primary,
+html body .btn-primary *,
+html body .btn-primary .matrix-text,
+html body .btn-primary span {
+    color: #000000 !important;
+    text-shadow: none !important;
+}
+
+/* Remove any box/border effects around button text */
+.btn-primary .matrix-text,
+.btn-primary span,
+html:not([data-theme="dark"]) .btn-primary .matrix-text,
+html:not([data-theme="dark"]) .btn-primary span,
+[data-theme="dark"] .btn-primary .matrix-text,
+[data-theme="dark"] .btn-primary span {
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    background: none !important;
+    text-shadow: none !important;
+}
+
+.btn-primary:hover .matrix-text,
+.btn-primary:hover span,
+.btn-primary:focus .matrix-text,
+.btn-primary:focus span {
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    background: none !important;
+    text-shadow: none !important;
+}
+
+/* Enhanced Button Focus States */
+.btn:focus,
+.btn:focus-visible {
+    outline: 2px solid #16a34a;
+    outline-offset: 2px;
+}
+
+[data-theme="dark"] .btn:focus,
+[data-theme="dark"] .btn:focus-visible {
+    outline: 2px solid #22c55e;
+}
+
+[data-theme="dark"] .nav-cta {
+    background: var(--glass-bg) !important;
+    color: var(--text-primary) !important;
+    border: 1px solid var(--glass-border) !important;
+}
+
+[data-theme="dark"] .nav-cta:hover {
+    background: #00ff00 !important;
+    color: #000000 !important;
+    border: 1px solid #00ff00 !important;
+}
+
+/* ALL buttons and interactive elements in dark mode = GREEN */
+[data-theme="dark"] button,
+[data-theme="dark"] .btn,
+[data-theme="dark"] .nav-cta,
+[data-theme="dark"] .carousel-btn,
+[data-theme="dark"] input[type="submit"] {
+    background: #00ff00 !important;
+    color: #000000 !important;
+    border: 1px solid #00ff00 !important;
+}
+
+[data-theme="dark"] button:hover,
+[data-theme="dark"] .btn:hover,
+[data-theme="dark"] .nav-cta:hover,
+[data-theme="dark"] .carousel-btn:hover,
+[data-theme="dark"] input[type="submit"]:hover {
+    background: #22ff22 !important;
+    color: #000000 !important;
+    border: 1px solid #22ff22 !important;
+}
+
+/* Force ALL text inside dark mode buttons to be BLACK */
+[data-theme="dark"] button *,
+[data-theme="dark"] .btn *,
+[data-theme="dark"] .nav-cta *,
+[data-theme="dark"] .carousel-btn *,
+[data-theme="dark"] input[type="submit"] * {
+    color: #000000 !important;
+    text-shadow: none !important;
+}
+
+/* Navigation improvements for light mode */
+:root .nav-cta {
+    background: var(--glass-bg);
+    color: var(--accent-color);
+    border: 1px solid var(--glass-border);
+    font-weight: 600;
+}
+
+:root .nav-cta:hover {
+    background: var(--accent-color);
+    color: #ffffff;
+    border-color: var(--accent-color);
+}
+
+:root .theme-toggle {
+    background: var(--card-bg) !important;
+    border: 2px solid var(--glass-border) !important;
+    color: var(--accent-color) !important;
+}
+
+:root .theme-toggle:hover {
+    background: var(--accent-color) !important;
+    color: #ffffff !important;
+    border-color: var(--accent-color) !important;
+}
+
+[data-theme="dark"] .theme-toggle {
+    background: var(--glass-bg) !important;
+    border: 1px solid var(--glass-border) !important;
+    color: var(--success-color) !important;
+}
+
+[data-theme="dark"] .theme-toggle:hover {
+    background: var(--success-color) !important;
+    color: #000000 !important;
+    border-color: var(--success-color) !important;
+}
+
+/* Light mode improvements for main website */
+:root .futuristic-bg {
+    background: linear-gradient(135deg, var(--primary-bg), var(--secondary-bg));
+    opacity: 0.3;
+}
+
+:root .grid-overlay {
+    background-image: 
+        linear-gradient(var(--border-color) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border-color) 1px, transparent 1px);
+    opacity: 0.4;
+}
+
+:root .scan-lines {
+    background: linear-gradient(90deg, transparent, var(--glass-bg), transparent);
+    opacity: 0.4;
+}
+
+/* Improve text readability in light mode */
+:root .logo-text,
+:root .hero-content h1,
+:root .hero-content h2,
+:root .hero-content h3 {
+    color: var(--text-primary) !important;
+    text-shadow: none !important;
+}
+
+:root .logo-tagline,
+:root .hero-content p {
+    color: var(--text-secondary) !important;
+    text-shadow: none !important;
+}
+
+/* Button improvements for light mode */
+:root .btn {
+    box-shadow: 0 4px 12px var(--shadow-light);
+}
+
+:root .btn:hover {
+    box-shadow: 0 8px 25px var(--shadow-medium);
+    transform: translateY(-2px);
+}
+
+:root .btn-primary,
+:root .btn-primary *,
+:root .btn-primary span,
+:root .btn-primary div,
+:root .btn-primary p {
+    background: var(--accent-color) !important;
+    color: #ffffff !important;
+    border: 1px solid var(--accent-color) !important;
+    text-shadow: none !important;
+}
+
+:root .btn-primary:hover {
+    background: #15803d !important;
+    color: #ffffff !important;
+    border-color: #15803d !important;
+    text-shadow: none !important;
+}
+
+:root .btn-primary:hover *,
+:root .btn-primary:hover span,
+:root .btn-primary:hover div,
+:root .btn-primary:hover p {
+    background: none !important;
+    color: #ffffff !important;
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+    text-shadow: none !important;
+}
+
+:root .btn-secondary {
+    background: var(--card-bg) !important;
+    color: var(--accent-color) !important;
+    border: 2px solid var(--accent-color) !important;
+}
+
+:root .btn-secondary:hover {
+    background: var(--accent-color) !important;
+    color: #ffffff !important;
+    text-shadow: none !important;
+}
+
+:root .btn-secondary:hover *,
+:root .btn-secondary:hover span,
+:root .btn-secondary:hover div,
+:root .btn-secondary:hover p {
+    background: none !important;
+    color: #ffffff !important;
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+    text-shadow: none !important;
+}
+
+/* Force white text on ALL green buttons in light mode - EXCEPT btn-primary */
+:root .send-btn,
+:root .send-btn *,
+:root .tx-btn.execute,
+:root .nav-cta:hover,
+:root .theme-toggle:hover,
+:root .user-message,
+:root .user-message *,
+:root [style*="background: var(--accent-color)"],
+:root [style*="background-color: var(--accent-color)"],
+:root [style*="background: #16a34a"],
+:root [style*="background-color: #16a34a"],
+:root [class*="green"],
+:root [class*="success"],
+:root [class*="execute"],
+:root input[type="submit"] {
+    color: #ffffff !important;
+    text-shadow: none !important;
+}
+
+:root [style*="background: var(--accent-color)"] *,
+:root [style*="background-color: var(--accent-color)"] *,
+:root [style*="background: #16a34a"] *,
+:root [style*="background-color: #16a34a"] *,
+:root [class*="green"] *,
+:root [class*="success"] *,
+:root [class*="execute"] *,
+:root input[type="submit"] * {
+    color: #ffffff !important;
+    text-shadow: none !important;
+}
+
+/* Universal button text override - catch all */
+:root button[style*="background"][style*="green"],
+:root button[style*="background"][style*="#16a34a"],
+:root .btn[style*="background"][style*="green"],
+:root .btn[style*="background"][style*="#16a34a"] {
+    color: #ffffff !important;
+}
+
+/* ===== LIGHT MODE ONLY - BLACK EFFECTS ===== */
+
+/* Main Logo - Black ONLY in Light Mode */
+html:not([data-theme="dark"]) .main-logo {
+    filter: brightness(0) drop-shadow(0 0 20px rgba(0, 0, 0, 0.4)) !important;
+}
+
+html:not([data-theme="dark"]) .main-logo:hover {
+    filter: brightness(0) drop-shadow(0 0 40px rgba(0, 0, 0, 0.8)) drop-shadow(0 0 80px rgba(0, 0, 0, 0.4)) !important;
+}
+
+/* Neural Network - Black ONLY in Light Mode */
+html:not([data-theme="dark"]) .neural-node {
+    background: rgba(0, 0, 0, 0.9) !important;
+    box-shadow: 
+        0 0 8px rgba(0, 0, 0, 0.6),
+        0 0 16px rgba(0, 0, 0, 0.3) !important;
+}
+
+html:not([data-theme="dark"]) .neural-connection {
+    background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.6), transparent) !important;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Circuit Board - Black ONLY in Light Mode */
+html:not([data-theme="dark"]) .circuit-line {
+    background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.4), transparent) !important;
+}
+
+html:not([data-theme="dark"]) .circuit-node {
+    background: rgba(0, 0, 0, 0.8) !important;
+}
+
+/* Digital Rain - Black ONLY in Light Mode */
+html:not([data-theme="dark"]) .rain-column {
+    background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.6), transparent) !important;
+}
+
+/* AI Code Fragments - Black ONLY in Light Mode */
+html:not([data-theme="dark"]) .code-fragment {
+    background: rgba(0, 0, 0, 0.03) !important;
+    border: 1px solid rgba(0, 0, 0, 0.1) !important;
+    color: rgba(0, 0, 0, 0.5) !important;
+    text-shadow: 0 0 8px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Data Particles - Black ONLY in Light Mode */
+html:not([data-theme="dark"]) .particle {
+    background: rgba(0, 0, 0, 0.9) !important;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.7) !important;
+}
+
+/* Holographic Overlay - Black ONLY in Light Mode */
+html:not([data-theme="dark"]) .holographic-overlay {
+    background: linear-gradient(
+        45deg,
+        transparent 30%,
+        rgba(0, 0, 0, 0.03) 50%,
+        transparent 70%
+    ) !important;
+}
+
+/* Section improvements */
+:root .section-header h2 {
+    color: var(--text-primary) !important;
+    background: none !important;
+    -webkit-background-clip: unset !important;
+    -webkit-text-fill-color: var(--text-primary) !important;
+    background-clip: unset !important;
+}
+
+:root .feature-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 4px 12px var(--shadow-light);
+}
+
+:root .feature-card:hover {
+    box-shadow: 0 8px 25px var(--shadow-medium);
+    border-color: var(--accent-color);
+}
+
+/* Disable cursor effects on mobile devices */
+@media (hover: none) and (pointer: coarse) {
+    body {
+        cursor: auto !important;
+    }
+    
+    .splash-cursor * {
+        display: none !important;
+    }
 }
 
 body {
@@ -110,6 +1085,7 @@ body {
     align-items: center;
     justify-content: center;
     overflow: hidden;
+    padding-top: 80px; /* Account for fixed navigation */
 }
 
 .spline-container {
@@ -521,108 +1497,114 @@ body {
 
 .cta-buttons {
     display: flex;
-    gap: 1.5rem;
+    gap: 2rem;
     justify-content: center;
     flex-wrap: wrap;
+    margin-top: 2rem;
+    padding: 1rem 0;
+}
+
+/* Mobile Button Improvements */
+@media (max-width: 768px) {
+    .cta-buttons {
+        gap: 1.5rem;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .btn {
+        width: 100%;
+        max-width: 280px;
+        padding: 1rem 2rem;
+        font-size: 0.9rem;
+        letter-spacing: 0.5px;
+    }
 }
 
 .btn {
     position: relative;
-    padding: 1rem 2rem;
+    padding: 1.25rem 2.5rem;
     background: transparent;
-    border: 2px solid var(--primary-color);
-    color: var(--text-primary);
+    border: 2px solid #16a34a;
+    color: #000000;
     font-family: inherit;
     font-size: 1rem;
-    font-weight: 500;
+    font-weight: 600;
     cursor: pointer;
-    transition: all 0.4s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.75px;
     overflow: hidden;
-    clip-path: polygon(0 0, calc(100% - 15px) 0, 100% 100%, 15px 100%);
+    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 100%, 12px 100%);
     text-decoration: none;
-    display: inline-block;
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 160px;
+    white-space: nowrap;
+    border-radius: 2px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
-.btn::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
-    transition: left 0.5s ease;
-}
+/* Removed sliding effect for better text readability */
 
-.btn:hover::before {
-    left: 100%;
-}
-
+/* Enhanced Base Button Styles */
 .btn-primary {
-    background: rgba(255, 255, 255, 0.1);
-    border: 2px solid var(--primary-color);
-    color: var(--primary-color);
-    font-weight: 700;
-    box-shadow: 0 0 25px rgba(255, 255, 255, 0.2);
+    background: linear-gradient(135deg, #16a34a, #22c55e) !important;
+    border: 2px solid #16a34a !important;
+    color: #ffffff !important;
+    font-weight: 600;
+    box-shadow: 
+        0 0 20px rgba(22, 163, 74, 0.3),
+        0 4px 15px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(10px);
+    text-shadow: none !important;
+    text-decoration: none !important;
 }
 
 .btn-primary:hover {
-    background: var(--primary-color);
-    color: var(--bg-primary);
-    transform: translateY(-3px) scale(1.05);
+    background: linear-gradient(135deg, #22c55e, #16a34a) !important;
+    color: #ffffff !important;
+    transform: translateY(-2px) scale(1.02);
     box-shadow: 
-        0 15px 40px rgba(255, 255, 255, 0.4),
-        0 0 0 1px rgba(255, 255, 255, 0.2),
-        inset 0 0 20px rgba(0, 0, 0, 0.1);
-    border-color: var(--primary-color);
+        0 0 30px rgba(34, 197, 94, 0.5),
+        0 8px 25px rgba(0, 0, 0, 0.2);
+    border-color: #22c55e;
+    text-decoration: none !important;
 }
 
+/* Redesigned Secondary Button - Always Readable */
 .btn-secondary {
-    border-color: var(--text-secondary);
-    color: var(--text-secondary);
+    background: transparent;
+    border: 2px solid #16a34a;
+    color: #16a34a;
+    font-weight: 600;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     position: relative;
 }
 
+/* Remove confusing pseudo-elements */
 .btn-secondary::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border: 2px solid var(--primary-color);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    clip-path: polygon(0 0, calc(100% - 15px) 0, 100% 100%, 15px 100%);
-}
-
-.btn-secondary:hover::after {
-    opacity: 1;
+    display: none;
 }
 
 .btn-secondary:hover {
-    transform: translateY(-3px) scale(1.05);
-    box-shadow: 0 15px 40px rgba(255, 255, 255, 0.3);
-    border-color: var(--primary-color);
-    color: var(--primary-color);
+    background: rgba(22, 163, 74, 0.05);
+    color: #15803d;
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 
+        0 0 20px rgba(22, 163, 74, 0.15),
+        0 8px 25px rgba(0, 0, 0, 0.15);
+    border-color: #15803d;
 }
 
+/* Disabled glow effect for better text visibility */
 .btn-glow {
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-    transition: left 0.5s;
+    display: none !important;
 }
 
 .btn:hover .btn-glow {
-    left: 100%;
+    display: none !important;
 }
 
 .scroll-indicator {
@@ -984,6 +1966,15 @@ body {
     transform: scale(1.05);
 }
 
+/* Light mode footer logo - make it black */
+html:not([data-theme="dark"]) .footer-logo-img {
+    filter: brightness(0) !important;
+}
+
+html:not([data-theme="dark"]) .footer-logo-img:hover {
+    filter: brightness(0) drop-shadow(0 0 10px rgba(0, 0, 0, 0.3)) !important;
+}
+
 .footer-links {
     display: flex;
     gap: 2rem;
@@ -1006,7 +1997,7 @@ body {
     justify-content: center;
     width: 44px;
     height: 44px;
-    border-radius: 50%;
+    border-radius: 8px;
     background: transparent;
     border: 1px solid var(--border-color);
     transition: all 0.3s ease;
@@ -1036,6 +2027,13 @@ body {
     background: rgba(255, 255, 255, 0.05);
     transform: translateY(-2px);
     box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
+}
+
+/* Remove any remaining circular styling from social icons */
+.social-link,
+.social-link svg,
+.social-link img {
+    border-radius: 8px !important;
 }
 
 .social-link svg {

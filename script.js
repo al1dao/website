@@ -1,3 +1,40 @@
+// Theme Management
+class ThemeManager {
+    constructor() {
+        this.themeToggle = document.getElementById('themeToggle');
+        this.init();
+    }
+
+    init() {
+        // Load saved theme or default to light
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        this.setTheme(savedTheme);
+
+        // Add event listener
+        if (this.themeToggle) {
+            this.themeToggle.addEventListener('click', () => {
+                this.toggleTheme();
+            });
+        }
+    }
+
+    setTheme(theme) {
+        document.documentElement.setAttribute('data-theme', theme);
+        localStorage.setItem('theme', theme);
+    }
+
+    toggleTheme() {
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        this.setTheme(newTheme);
+    }
+}
+
+// Initialize theme manager when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    new ThemeManager();
+});
+
 // DOM Elements
 const buttons = document.querySelectorAll('.btn');
 const featureCards = document.querySelectorAll('.feature-card');
@@ -61,12 +98,12 @@ class SplashCursor {
             x: x,
             y: y,
             life: 1.0,
-            size: 12 + Math.random() * 6,
-            opacity: 0.8
+            size: 8 + Math.random() * 4,
+            opacity: 0.6
         });
         
         // Limit trail length
-        if (this.trails.length > 20) {
+        if (this.trails.length > 15) {
             this.trails.shift();
         }
     }
@@ -123,27 +160,48 @@ class SplashCursor {
         // Remove old elements
         document.querySelectorAll('.splash-cursor, .splash-ripple').forEach(el => el.remove());
         
-        // Render main cursor
+        // Render main cursor as tech plus sign
         const cursor = document.createElement('div');
         cursor.className = 'splash-cursor';
         cursor.style.cssText = `
             position: fixed;
             left: ${this.mouse.x}px;
             top: ${this.mouse.y}px;
-            width: 20px;
-            height: 20px;
-            background: rgba(0, 255, 150, 0.9);
-            border-radius: 50%;
+            width: 24px;
+            height: 24px;
             pointer-events: none;
             z-index: 10000;
             transform: translate(-50%, -50%);
-            box-shadow: 0 0 20px rgba(0, 255, 150, 0.6),
-                       0 0 40px rgba(0, 255, 150, 0.3);
-            border: 2px solid rgba(255, 255, 255, 0.3);
+        `;
+        
+        // Create plus sign using pseudo elements
+        cursor.innerHTML = `
+            <div style="
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                width: 16px;
+                height: 2px;
+                background: rgba(0, 255, 150, 0.9);
+                transform: translate(-50%, -50%);
+                box-shadow: 0 0 8px rgba(0, 255, 150, 0.6),
+                           0 0 16px rgba(0, 255, 150, 0.3);
+            "></div>
+            <div style="
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                width: 2px;
+                height: 16px;
+                background: rgba(0, 255, 150, 0.9);
+                transform: translate(-50%, -50%);
+                box-shadow: 0 0 8px rgba(0, 255, 150, 0.6),
+                           0 0 16px rgba(0, 255, 150, 0.3);
+            "></div>
         `;
         document.body.appendChild(cursor);
         
-        // Render trails
+        // Render trails as small tech squares
         this.trails.forEach((trail, index) => {
             const trailEl = document.createElement('div');
             trailEl.className = 'splash-cursor';
@@ -153,12 +211,14 @@ class SplashCursor {
                 top: ${trail.y}px;
                 width: ${trail.size}px;
                 height: ${trail.size}px;
-                background: rgba(0, 255, 150, ${trail.life * trail.opacity * 0.4});
-                border-radius: 50%;
+                background: rgba(0, 255, 150, ${trail.life * trail.opacity * 0.3});
+                border: 1px solid rgba(0, 255, 150, ${trail.life * trail.opacity * 0.2});
+                border-radius: 2px;
                 pointer-events: none;
                 z-index: 9999;
-                transform: translate(-50%, -50%);
-                filter: blur(${2 - trail.life}px);
+                transform: translate(-50%, -50%) rotate(45deg);
+                filter: blur(${1 - trail.life * 0.5}px);
+                box-shadow: 0 0 ${trail.size * 0.5}px rgba(0, 255, 150, ${trail.life * trail.opacity * 0.2});
             `;
             document.body.appendChild(trailEl);
         });
@@ -187,13 +247,13 @@ class SplashCursor {
                 width: ${ripple.size}px;
                 height: ${ripple.size}px;
                 border: 2px solid ${color}${opacity * 0.8});
-                border-radius: 50%;
+                border-radius: 8px;
                 pointer-events: none;
                 z-index: 9998;
-                transform: translate(-50%, -50%) scale(${scale});
-                background: ${color}${opacity * 0.1});
-                box-shadow: inset 0 0 20px ${color}${opacity * 0.3}),
-                           0 0 30px ${color}${opacity * 0.2});
+                transform: translate(-50%, -50%) scale(${scale}) rotate(45deg);
+                background: ${color}${opacity * 0.05});
+                box-shadow: inset 0 0 15px ${color}${opacity * 0.2}),
+                           0 0 25px ${color}${opacity * 0.15});
             `;
             document.body.appendChild(rippleEl);
         });
@@ -780,5 +840,8 @@ class MatrixTextDecoder {
 // Initialize Matrix Text Decoder
 new MatrixTextDecoder();
 
-// Initialize Splash Cursor
-new SplashCursor();
+// Initialize Splash Cursor (desktop only)
+const isDesktop = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+if (isDesktop) {
+    new SplashCursor();
+}

@@ -281,6 +281,8 @@ function initNavigationDropdown() {
         menu.style.opacity = '1';
         menu.style.visibility = 'visible';
         menu.style.transform = 'translateX(-50%) translateY(0)';
+        // Add blur effect to page
+        document.body.classList.add('page-blur-active');
     });
     
     dropdown.addEventListener('mouseleave', () => {
@@ -288,6 +290,8 @@ function initNavigationDropdown() {
             menu.style.opacity = '0';
             menu.style.visibility = 'hidden';
             menu.style.transform = 'translateX(-50%) translateY(-10px)';
+            // Remove blur effect from page
+            document.body.classList.remove('page-blur-active');
         }, 200);
     });
 }
@@ -677,8 +681,8 @@ function init3DCarousel() {
     
     // Auto-rotation
     function startAutoRotate() {
-        console.log('🔄 Starting auto-rotation every 3 seconds');
-        autoRotateInterval = setInterval(nextSlide, 3000);
+        console.log('🔄 Starting auto-rotation every 2 seconds');
+        autoRotateInterval = setInterval(nextSlide, 2000);
     }
     
     function stopAutoRotate() {

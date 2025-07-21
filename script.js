@@ -387,7 +387,7 @@ if (learnMoreBtn) {
 
 // Enhanced matrix decode animation for hero tagline
 function typeWriter() {
-    const text = "Where Crypto Meets AI";
+    const text = "Where Innovation Meets Intelligence";
     
     if (typingText) {
         // Set the text directly - matrix effect handled by new MatrixTextDecoder
@@ -845,3 +845,42 @@ const isDesktop = window.matchMedia('(hover: hover) and (pointer: fine)').matche
 if (isDesktop) {
     new SplashCursor();
 }
+
+// Navigation Dropdown Blur Effect
+function initNavigationDropdown() {
+    const dropdown = document.querySelector('.nav-dropdown');
+    const menu = document.querySelector('.nav-dropdown-menu');
+    
+    if (!dropdown || !menu) return;
+    
+    let timeout;
+    
+    dropdown.addEventListener('mouseenter', () => {
+        clearTimeout(timeout);
+        // Add blur effect to page
+        document.body.classList.add('page-blur-active');
+    });
+    
+    dropdown.addEventListener('mouseleave', () => {
+        timeout = setTimeout(() => {
+            // Remove blur effect from page
+            document.body.classList.remove('page-blur-active');
+        }, 200);
+    });
+    
+    menu.addEventListener('mouseenter', () => {
+        clearTimeout(timeout);
+    });
+    
+    menu.addEventListener('mouseleave', () => {
+        timeout = setTimeout(() => {
+            document.body.classList.remove('page-blur-active');
+        }, 200);
+    });
+}
+
+// Initialize dropdown functionality when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    initNavigationDropdown();
+});
+

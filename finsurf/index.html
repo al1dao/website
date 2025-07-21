@@ -108,9 +108,13 @@
     <section id="hero" class="hero">
         <div class="container">
             <div class="hero-content">
+                <div class="finsurf-brand scroll-element">
+                    <img src="/assets/images/finsurf-logo.png" alt="Finsurf" class="finsurf-logo">
+                    <span class="finsurf-name matrix-text" data-text="Finsurf">Finsurf</span>
+                </div>
                 <h1 class="hero-title scroll-element">
                     <span class="matrix-text" data-text="AI‑Powered Onchain">AI‑Powered Onchain</span>
-                    <span class="brand-highlight matrix-text" data-text="Automation with Finsurf">Automation with Finsurf</span>
+                    <span class="brand-highlight matrix-text" data-text="Automation">Automation</span>
                 </h1>
                 <p class="hero-subtitle matrix-text scroll-slide-left" data-text="Finsurf is your DeFi autopilot — a smart, conversational agent that turns natural language into powerful onchain actions. Built for the EVM ecosystem, it simplifies DeFi by executing high‑yield strategies across multiple chains, all through a sleek chat‑first interface.">
                     Finsurf is your DeFi autopilot — a smart, conversational agent that turns natural language into powerful onchain actions. Built for the EVM ecosystem, it simplifies DeFi by executing high‑yield strategies across multiple chains, all through a sleek chat‑first interface.
@@ -160,67 +164,96 @@
     <section id="features" class="features">
         <div class="container">
             <h2 class="section-title matrix-text scroll-element" data-text="What You Can Do with Finsurf">What You Can Do with Finsurf</h2>
-            <div class="features-grid">
-                <div class="feature-card scroll-element">
-                    <div class="feature-icon">
-                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
-                            <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" stroke="currentColor" stroke-width="2" fill="none"/>
-                        </svg>
+            
+            <div class="carousel-3d-container scroll-element">
+                <div class="carousel-3d">
+                    <div class="carousel-card active" data-index="0">
+                        <div class="feature-icon">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+                                <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" stroke="currentColor" stroke-width="2" fill="none"/>
+                            </svg>
+                        </div>
+                        <h3 class="feature-title">Flash Loan Engine</h3>
+                        <p class="feature-desc">Execute arbitrage and liquidation strategies with zero upfront capital.</p>
                     </div>
-                    <h3 class="feature-title">Flash Loan Engine</h3>
-                    <p class="feature-desc">Execute arbitrage and liquidation strategies with zero upfront capital.</p>
+                    
+                    <div class="carousel-card" data-index="1">
+                        <div class="feature-icon">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+                                <rect x="3" y="11" width="18" height="10" rx="2" ry="2" stroke="currentColor" stroke-width="2" fill="none"/>
+                                <circle cx="12" cy="16" r="1" fill="currentColor"/>
+                                <path d="M7 11V7a5 5 0 0 1 10 0v4" stroke="currentColor" stroke-width="2" fill="none"/>
+                            </svg>
+                        </div>
+                        <h3 class="feature-title">APY Vaults & Indices</h3>
+                        <p class="feature-desc">Auto-compound your assets using risk-adjusted vault strategies.</p>
+                    </div>
+                    
+                    <div class="carousel-card" data-index="2">
+                        <div class="feature-icon">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+                                <path d="M18 20V10M12 20V4M6 20V14" stroke="currentColor" stroke-width="2" fill="none"/>
+                            </svg>
+                        </div>
+                        <h3 class="feature-title">Wallet Score & Optimization</h3>
+                        <p class="feature-desc">Get personalized insights and yield-maximizing tips from your wallet activity.</p>
+                    </div>
+                    
+                    <div class="carousel-card" data-index="3">
+                        <div class="feature-icon">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+                                <path d="M16 4H18a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" stroke="currentColor" stroke-width="2" fill="none"/>
+                                <rect x="8" y="2" width="8" height="4" rx="1" ry="1" stroke="currentColor" stroke-width="2" fill="none"/>
+                                <path d="M9 14L11 16L15 12" stroke="currentColor" stroke-width="2" fill="none"/>
+                            </svg>
+                        </div>
+                        <h3 class="feature-title">Batch Transaction Builder</h3>
+                        <p class="feature-desc">Bundle swaps, stakes, bridges, and more into a single gas-efficient transaction.</p>
+                    </div>
+                    
+                    <div class="carousel-card" data-index="4">
+                        <div class="feature-icon">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+                                <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9" stroke="currentColor" stroke-width="2" fill="none"/>
+                                <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" stroke="currentColor" stroke-width="2" fill="none"/>
+                            </svg>
+                        </div>
+                        <h3 class="feature-title">Smart Alerts & Notifications</h3>
+                        <p class="feature-desc">Get real-time pings for top vaults, trending strategies, and market shifts.</p>
+                    </div>
+                    
+                    <div class="carousel-card" data-index="5">
+                        <div class="feature-icon">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+                                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none"/>
+                                <line x1="2" y1="12" x2="22" y2="12" stroke="currentColor" stroke-width="2"/>
+                                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" stroke="currentColor" stroke-width="2" fill="none"/>
+                            </svg>
+                        </div>
+                        <h3 class="feature-title">Multichain Wallet Interface</h3>
+                        <p class="feature-desc">Manage assets across EVM chains like Ethereum, Base, and Berachain with ease.</p>
+                    </div>
                 </div>
-                <div class="feature-card scroll-element">
-                    <div class="feature-icon">
-                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
-                            <rect x="3" y="11" width="18" height="10" rx="2" ry="2" stroke="currentColor" stroke-width="2" fill="none"/>
-                            <circle cx="12" cy="16" r="1" fill="currentColor"/>
-                            <path d="M7 11V7a5 5 0 0 1 10 0v4" stroke="currentColor" stroke-width="2" fill="none"/>
+                
+                <div class="carousel-controls">
+                    <button class="carousel-btn prev" aria-label="Previous feature">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                            <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" fill="none"/>
                         </svg>
+                    </button>
+                    <div class="carousel-dots">
+                        <span class="dot active" data-index="0"></span>
+                        <span class="dot" data-index="1"></span>
+                        <span class="dot" data-index="2"></span>
+                        <span class="dot" data-index="3"></span>
+                        <span class="dot" data-index="4"></span>
+                        <span class="dot" data-index="5"></span>
                     </div>
-                    <h3 class="feature-title">APY Vaults & Indices</h3>
-                    <p class="feature-desc">Auto-compound your assets using risk-adjusted vault strategies.</p>
-                </div>
-                <div class="feature-card scroll-element">
-                    <div class="feature-icon">
-                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
-                            <path d="M18 20V10M12 20V4M6 20V14" stroke="currentColor" stroke-width="2" fill="none"/>
+                    <button class="carousel-btn next" aria-label="Next feature">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                            <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" fill="none"/>
                         </svg>
-                    </div>
-                    <h3 class="feature-title">Wallet Score & Optimization</h3>
-                    <p class="feature-desc">Get personalized insights and yield-maximizing tips from your wallet activity.</p>
-                </div>
-                <div class="feature-card scroll-element">
-                    <div class="feature-icon">
-                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
-                            <path d="M16 4H18a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" stroke="currentColor" stroke-width="2" fill="none"/>
-                            <rect x="8" y="2" width="8" height="4" rx="1" ry="1" stroke="currentColor" stroke-width="2" fill="none"/>
-                            <path d="M9 14L11 16L15 12" stroke="currentColor" stroke-width="2" fill="none"/>
-                        </svg>
-                    </div>
-                    <h3 class="feature-title">Batch Transaction Builder</h3>
-                    <p class="feature-desc">Bundle swaps, stakes, bridges, and more into a single gas-efficient transaction.</p>
-                </div>
-                <div class="feature-card scroll-element">
-                    <div class="feature-icon">
-                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
-                            <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9" stroke="currentColor" stroke-width="2" fill="none"/>
-                            <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" stroke="currentColor" stroke-width="2" fill="none"/>
-                        </svg>
-                    </div>
-                    <h3 class="feature-title">Smart Alerts & Notifications</h3>
-                    <p class="feature-desc">Get real-time pings for top vaults, trending strategies, and market shifts.</p>
-                </div>
-                <div class="feature-card scroll-element">
-                    <div class="feature-icon">
-                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
-                            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none"/>
-                            <line x1="2" y1="12" x2="22" y2="12" stroke="currentColor" stroke-width="2"/>
-                            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" stroke="currentColor" stroke-width="2" fill="none"/>
-                        </svg>
-                    </div>
-                    <h3 class="feature-title">Multichain Wallet Interface</h3>
-                    <p class="feature-desc">Manage assets across EVM chains like Ethereum, Base, and Berachain with ease.</p>
+                    </button>
                 </div>
             </div>
         </div>
@@ -231,8 +264,8 @@
         <div class="container">
             <h2 class="section-title matrix-text scroll-element" data-text="Built on Intent">Built on Intent</h2>
             <div class="intent-content">
-                <p class="matrix-text scroll-slide-right" data-text="With Finsurf, you don't need to know the protocol — just say what you want:">
-                    With Finsurf, you don't need to know the protocol — just say what you want:
+                                            <p class="matrix-text scroll-slide-right" data-text="You don't need to know the protocol, just say what you want:">
+                                You don't need to know the protocol, just say what you want:
                 </p>
                 <div class="intent-examples">
                     <div class="intent-example scroll-scale">
@@ -245,8 +278,8 @@
                         <span class="matrix-text" data-text="Exit everything to stablecoins.">"Exit everything to stablecoins."</span>
                     </div>
                 </div>
-                <p class="matrix-text scroll-slide-left" data-text="Finsurf interprets your goal, plans the optimal route, and executes it.">
-                    Finsurf interprets your goal, plans the optimal route, and executes it.
+                                            <p class="matrix-text scroll-slide-left" data-text="Finsurf interprets your goal, plans the optimal route, and executes.">
+                                Finsurf interprets your goal, plans the optimal route, and executes.
                 </p>
             </div>
         </div>

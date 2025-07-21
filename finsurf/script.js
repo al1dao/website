@@ -26,6 +26,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize scroll animations
     initScrollAnimations();
     
+    // Initialize 3D carousel
+    init3DCarousel();
+    
     // Initialize Splash Cursor (desktop only)
     if (!(/Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent))) {
         new SplashCursor();
@@ -452,90 +455,365 @@ window.addEventListener('load', () => {
     }, 100);
 }); 
 
-// Scroll Animation System
+// Scroll Animation System - Simplified & Working
 function initScrollAnimations() {
-    console.log('Initializing scroll animations...');
+    console.log('🚀 Starting scroll animations...');
     
     // Check if reduced motion is preferred
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     
     if (prefersReducedMotion) {
-        // If reduced motion is preferred, just show all elements
+        console.log('⚡ Reduced motion detected - showing all elements');
         const scrollElements = document.querySelectorAll('.scroll-element, .scroll-slide-left, .scroll-slide-right, .scroll-scale, .scroll-rotate');
         scrollElements.forEach(el => {
             el.classList.add('animate-in');
+            el.style.opacity = '1';
+            el.style.transform = 'none';
         });
         return;
     }
 
-    // Intersection Observer options - more aggressive triggering
+    // Enhanced observer options for better enter/exit detection
     const observerOptions = {
         root: null,
-        rootMargin: '0px 0px -20% 0px', // Trigger when element is 20% visible
-        threshold: 0.1
+        rootMargin: '0px 0px -20px 0px',
+        threshold: [0, 0.1, 0.3]
     };
 
-    // Create intersection observer
+    // Create intersection observer with enter/exit animations
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             const element = entry.target;
-            console.log('Element observed:', element.className, 'intersecting:', entry.isIntersecting);
             
             if (entry.isIntersecting) {
-                // Element is entering viewport
+                console.log('✅ Element entering viewport:', element.tagName, element.classList.toString());
                 element.classList.add('animate-in');
                 element.classList.remove('animate-out');
-                console.log('Added animate-in to:', element.className);
             } else {
-                // Element is leaving viewport - reset for re-entry
-                element.classList.remove('animate-in');
+                console.log('⬇️ Element exiting viewport:', element.tagName, element.classList.toString());
                 element.classList.add('animate-out');
+                element.classList.remove('animate-in');
             }
         });
     }, observerOptions);
 
-    // Find and observe all scroll elements
+    // Find all scroll elements
     const scrollElements = document.querySelectorAll(
         '.scroll-element, .scroll-slide-left, .scroll-slide-right, .scroll-scale, .scroll-rotate'
     );
     
-    console.log('Found scroll elements:', scrollElements.length);
+    console.log(`🔍 Found ${scrollElements.length} scroll elements to animate`);
     
+    // Setup each element
     scrollElements.forEach((element, index) => {
-        console.log(`Observing element ${index}:`, element.className);
+        console.log(`📋 Setting up element ${index + 1}:`, element.tagName, element.classList.toString());
+        
+        // Start observing
         observer.observe(element);
         
-        // Add stagger delays
+        // Add stagger delays for groups
         if (element.classList.contains('feature-card')) {
-            element.style.transitionDelay = `${index * 150}ms`;
-        }
-        if (element.classList.contains('intent-example')) {
-            element.style.transitionDelay = `${index * 200}ms`;
+            element.style.transitionDelay = `${(index % 6) * 100}ms`;
+        } else if (element.classList.contains('intent-example')) {
+            element.style.transitionDelay = `${(index % 3) * 150}ms`;
         }
     });
 
-    // Special animation for chat interface messages
+    // Chat interface special animation with enter/exit
     const chatInterface = document.querySelector('.chat-interface-mockup.scroll-element');
     if (chatInterface) {
+        console.log('📱 Setting up chat interface animations');
         const chatObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
+                const messages = chatInterface.querySelectorAll('.message');
+                
                 if (entry.isIntersecting) {
-                    // Trigger typing animation for chat messages
+                    console.log('💬 Triggering chat message enter animations');
                     setTimeout(() => {
-                        const messages = chatInterface.querySelectorAll('.message');
-                        messages.forEach((message, index) => {
+                        messages.forEach((message, msgIndex) => {
                             setTimeout(() => {
                                 message.style.opacity = '1';
                                 message.style.transform = 'translateY(0)';
-                            }, index * 500);
+                                console.log(`💬 Animated message ${msgIndex + 1} in`);
+                            }, msgIndex * 400);
                         });
-                    }, 800);
+                    }, 600);
+                } else {
+                    console.log('💬 Triggering chat message exit animations');
+                    messages.forEach((message, msgIndex) => {
+                        setTimeout(() => {
+                            message.style.opacity = '0';
+                            message.style.transform = 'translateY(20px)';
+                            console.log(`💬 Animated message ${msgIndex + 1} out`);
+                        }, msgIndex * 100);
+                    });
                 }
             });
-        }, { threshold: 0.3 });
+        }, { threshold: 0.2 });
         
         chatObserver.observe(chatInterface);
     }
+
+    // Test elements that are already visible on page load
+    setTimeout(() => {
+        console.log('🔄 Checking for elements already in viewport...');
+        scrollElements.forEach((element, index) => {
+            const rect = element.getBoundingClientRect();
+            const isVisible = rect.top < window.innerHeight - 100 && rect.bottom > 100;
+            
+            if (isVisible) {
+                console.log(`🎯 Element ${index + 1} already visible - triggering enter animation`);
+                element.classList.add('animate-in');
+                element.classList.remove('animate-out');
+            } else {
+                console.log(`⬇️ Element ${index + 1} not visible - setting exit state`);
+                element.classList.add('animate-out');
+                element.classList.remove('animate-in');
+            }
+        });
+    }, 200);
+
+    console.log('🎬 Scroll animations initialized successfully!');
+}
+
+// 3D Carousel System
+function init3DCarousel() {
+    const carousel = document.querySelector('.carousel-3d');
+    const cards = document.querySelectorAll('.carousel-card');
+    const dots = document.querySelectorAll('.dot');
+    const prevBtn = document.querySelector('.carousel-btn.prev');
+    const nextBtn = document.querySelector('.carousel-btn.next');
+    
+    if (!carousel || !cards.length) {
+        console.log('Carousel elements not found');
+        return;
+    }
+    
+    console.log('🎠 Initializing 3D Carousel with', cards.length, 'cards');
+    
+    let currentIndex = 0;
+    let isAnimating = false;
+    let autoRotateInterval;
+    let startX = 0;
+    let startY = 0;
+    let isDragging = false;
+    
+    // Position all cards in 3D space
+    function updateCarousel() {
+        if (isAnimating) return;
+        
+        isAnimating = true;
+        
+        cards.forEach((card, index) => {
+            // Remove all position classes
+            card.classList.remove('active', 'left-1', 'left-2', 'right-1', 'right-2', 'hidden');
+            
+            const position = (index - currentIndex + cards.length) % cards.length;
+            
+            let className = '';
+            switch (position) {
+                case 0:
+                    card.classList.add('active');
+                    className = 'active';
+                    break;
+                case 1:
+                    card.classList.add('right-1');
+                    className = 'right-1';
+                    break;
+                case 2:
+                    card.classList.add('right-2');
+                    className = 'right-2';
+                    break;
+                case cards.length - 1:
+                    card.classList.add('left-1');
+                    className = 'left-1';
+                    break;
+                case cards.length - 2:
+                    card.classList.add('left-2');
+                    className = 'left-2';
+                    break;
+                default:
+                    card.classList.add('hidden');
+                    className = 'hidden';
+            }
+            
+            console.log(`Card ${index}: position=${position}, class=${className}`);
+            
+            // Update z-index for proper stacking
+            card.style.zIndex = position === 0 ? 10 : Math.max(0, 5 - Math.abs(position));
+        });
+        
+        // Update dots
+        dots.forEach((dot, index) => {
+            dot.classList.toggle('active', index === currentIndex);
+        });
+        
+        console.log('🎯 Carousel updated - active card:', currentIndex);
+        
+        // Reset animation flag after transition
+        setTimeout(() => {
+            isAnimating = false;
+        }, 800);
+    }
+    
+    // Go to specific slide
+    function goToSlide(index) {
+        if (isAnimating || index === currentIndex) return;
+        
+        currentIndex = index;
+        updateCarousel();
+        resetAutoRotate();
+    }
+    
+    // Next slide
+    function nextSlide() {
+        goToSlide((currentIndex + 1) % cards.length);
+    }
+    
+    // Previous slide
+    function prevSlide() {
+        goToSlide((currentIndex - 1 + cards.length) % cards.length);
+    }
+    
+    // Auto-rotation
+    function startAutoRotate() {
+        console.log('🔄 Starting auto-rotation every 3 seconds');
+        autoRotateInterval = setInterval(nextSlide, 3000);
+    }
+    
+    function stopAutoRotate() {
+        if (autoRotateInterval) {
+            clearInterval(autoRotateInterval);
+            autoRotateInterval = null;
+        }
+    }
+    
+    function resetAutoRotate() {
+        stopAutoRotate();
+        setTimeout(startAutoRotate, 2000); // Resume after 2 seconds
+    }
+    
+    // Touch/swipe support
+    function handleTouchStart(e) {
+        if (isAnimating) return;
+        
+        const touch = e.touches ? e.touches[0] : e;
+        startX = touch.clientX;
+        startY = touch.clientY;
+        isDragging = true;
+        stopAutoRotate();
+    }
+    
+    function handleTouchMove(e) {
+        if (!isDragging || isAnimating) return;
+        e.preventDefault();
+    }
+    
+    function handleTouchEnd(e) {
+        if (!isDragging || isAnimating) return;
+        
+        const touch = e.changedTouches ? e.changedTouches[0] : e;
+        const deltaX = touch.clientX - startX;
+        const deltaY = Math.abs(touch.clientY - startY);
+        
+        isDragging = false;
+        
+        // Only trigger if horizontal swipe is dominant and significant
+        if (Math.abs(deltaX) > 50 && Math.abs(deltaX) > deltaY) {
+            if (deltaX > 0) {
+                prevSlide(); // Swipe right = previous
+            } else {
+                nextSlide(); // Swipe left = next
+            }
+        } else {
+            resetAutoRotate();
+        }
+    }
+    
+    // Event listeners
+    nextBtn?.addEventListener('click', () => {
+        console.log('➡️ Next button clicked');
+        nextSlide();
+    });
+    
+    prevBtn?.addEventListener('click', () => {
+        console.log('⬅️ Previous button clicked');
+        prevSlide();
+    });
+    
+    // Dot navigation
+    dots.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+            console.log('🎯 Dot clicked:', index);
+            goToSlide(index);
+        });
+    });
+    
+    // Card click navigation (next/prev)
+    cards.forEach((card, index) => {
+        card.addEventListener('click', () => {
+            if (isAnimating) return;
+            
+            const position = (index - currentIndex + cards.length) % cards.length;
+            
+            if (position === 1) { // Right card
+                nextSlide();
+            } else if (position === cards.length - 1) { // Left card
+                prevSlide();
+            }
+            // Center card stays as is
+        });
+    });
+    
+    // Touch events
+    carousel.addEventListener('touchstart', handleTouchStart, { passive: false });
+    carousel.addEventListener('touchmove', handleTouchMove, { passive: false });
+    carousel.addEventListener('touchend', handleTouchEnd, { passive: false });
+    
+    // Mouse events for desktop dragging
+    carousel.addEventListener('mousedown', handleTouchStart);
+    carousel.addEventListener('mousemove', handleTouchMove);
+    carousel.addEventListener('mouseup', handleTouchEnd);
+    carousel.addEventListener('mouseleave', handleTouchEnd);
+    
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+        if (isAnimating) return;
+        
+        if (e.key === 'ArrowLeft') {
+            prevSlide();
+        } else if (e.key === 'ArrowRight') {
+            nextSlide();
+        }
+    });
+    
+    // Pause on hover
+    carousel.addEventListener('mouseenter', stopAutoRotate);
+    carousel.addEventListener('mouseleave', () => {
+        if (!isDragging) {
+            resetAutoRotate();
+        }
+    });
+    
+    // Handle visibility change (pause when tab not active)
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+            stopAutoRotate();
+        } else {
+            resetAutoRotate();
+        }
+    });
+    
+    // Initialize - set first card as active immediately
+    console.log('Setting initial active state...');
+    cards[0].classList.add('active');
+    
+    // Small delay to ensure DOM is ready
+    setTimeout(() => {
+        updateCarousel();
+        startAutoRotate();
+        console.log('✅ 3D Carousel initialized successfully with auto-rotation');
+    }, 100);
 }
 
 // Professional Splash Cursor Effect
@@ -686,8 +964,7 @@ class SplashCursor {
                 height: 2px;
                 background: ${cursorColor};
                 transform: translate(-50%, -50%);
-                box-shadow: 0 0 8px ${shadowColor},
-                           0 0 16px ${shadowColor.replace('0.6', '0.3')};
+                box-shadow: 0 2px 4px ${shadowColor.replace('0.6', '0.2')};
             "></div>
             <div style="
                 position: absolute;
@@ -697,8 +974,7 @@ class SplashCursor {
                 height: 16px;
                 background: ${cursorColor};
                 transform: translate(-50%, -50%);
-                box-shadow: 0 0 8px ${shadowColor},
-                           0 0 16px ${shadowColor.replace('0.6', '0.3')};
+                box-shadow: 0 2px 4px ${shadowColor.replace('0.6', '0.2')};
             "></div>
         `;
         document.body.appendChild(cursor);
@@ -723,7 +999,7 @@ class SplashCursor {
                 z-index: 9999;
                 transform: translate(-50%, -50%) rotate(45deg);
                 filter: blur(${1 - trail.life * 0.5}px);
-                box-shadow: 0 0 ${trail.size * 0.5}px ${trailColor}, ${trail.life * trail.opacity * 0.2});
+                box-shadow: 0 1px 2px ${trailColor}, ${trail.life * trail.opacity * 0.1});
             `;
             document.body.appendChild(trailEl);
         });
@@ -761,8 +1037,8 @@ class SplashCursor {
                 z-index: 9998;
                 transform: translate(-50%, -50%) scale(${scale}) rotate(45deg);
                 background: ${color}${opacity * 0.05});
-                box-shadow: inset 0 0 15px ${color}${opacity * 0.2}),
-                           0 0 25px ${color}${opacity * 0.15});
+                box-shadow: inset 0 1px 3px ${color}${opacity * 0.1}),
+                           0 2px 6px ${color}${opacity * 0.1});
             `;
             document.body.appendChild(rippleEl);
         });

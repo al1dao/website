@@ -117,7 +117,7 @@ function createFloatingElements() {
             color: ${color};
             font-family: 'Courier New', monospace;
             font-size: ${8 + Math.random() * 6}px;
-            pointer-events: none;
+                pointer-events: none;
             animation: float-up ${15 + Math.random() * 15}s linear infinite;
             left: ${Math.random() * 100}%;
             animation-delay: ${Math.random() * 8}s;
@@ -783,11 +783,11 @@ function init3DCarousel() {
     // Keyboard navigation
     document.addEventListener('keydown', (e) => {
         if (isAnimating) return;
-        
-        if (e.key === 'ArrowLeft') {
-            prevSlide();
-        } else if (e.key === 'ArrowRight') {
-            nextSlide();
+            
+            if (e.key === 'ArrowLeft') {
+                prevSlide();
+            } else if (e.key === 'ArrowRight') {
+                nextSlide();
         }
     });
     
@@ -803,10 +803,10 @@ function init3DCarousel() {
     document.addEventListener('visibilitychange', () => {
         if (document.hidden) {
             stopAutoRotate();
-        } else {
+            } else {
             resetAutoRotate();
-        }
-    });
+            }
+        });
     
     // Initialize - set first card as active immediately
     console.log('Setting initial active state...');
@@ -814,7 +814,7 @@ function init3DCarousel() {
     
     // Small delay to ensure DOM is ready
     setTimeout(() => {
-        updateCarousel();
+    updateCarousel();
         startAutoRotate();
         console.log('✅ 3D Carousel initialized successfully with auto-rotation');
     }, 100);

@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chop Sui Panda - Meme Arcade on SUI | AL1 DAO</title>
+    
+    <!-- Basic Meta Tags -->
+    <meta name="description" content="Chop Sui Panda is a skill-based, Telegram-native mobile arcade game built on the SUI blockchain. Play-to-earn made fun with three exciting game modes.">
+    <meta name="keywords" content="Chop Sui Panda, SUI blockchain, Telegram game, play-to-earn, arcade game, CHI tokens, AL1 DAO">
+    <meta name="author" content="AL1 DAO">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="AL1 DAO">
+    <meta property="og:title" content="Chop Sui Panda - Meme Arcade on SUI">
+    <meta property="og:description" content="Skill-based, Telegram-native mobile arcade game built on the SUI blockchain. Play-to-earn made fun.">
+    <meta property="og:image" content="https://raw.githubusercontent.com/al1dao/website/main/assets/images/chop-social-preview.png">
+    <meta property="og:url" content="https://github.com/al1dao/website/chopsuipanda">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@ChopSuiPanda">
+    <meta name="twitter:title" content="Chop Sui Panda - Meme Arcade on SUI">
+    <meta name="twitter:description" content="Skill-based, Telegram-native mobile arcade game built on the SUI blockchain. Play-to-earn made fun.">
+    <meta name="twitter:image" content="https://raw.githubusercontent.com/al1dao/website/main/assets/images/chop-social-preview.png">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/assets/images/al1-logo.png">
+    <link rel="apple-touch-icon" href="/assets/images/al1-logo.png">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'mono': ['JetBrains Mono', 'monospace'],
+                        'sans': ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        'matrix-green': '#16a34a',
+                        'sui-blue': '#4fa8ff',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+    <!-- Background Effects -->
+    <div class="background-effects">
+        <div class="grid-overlay"></div>
+        <div class="particles"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="/" class="nav-logo">
+                <img src="/assets/images/al1-logo.png" alt="AL1 DAO" class="nav-logo-img">
+            </a>
+            <div class="nav-dropdown">
+                <span class="nav-dropdown-trigger">Projects</span>
+                <div class="nav-dropdown-menu">
+                    <div class="nav-dropdown-grid">
+                        <div class="nav-dropdown-section">
+                            <div class="nav-dropdown-category">
+                                <div class="nav-dropdown-category-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M12 1L21 5V11C21 16 17 20 12 23C7 20 3 16 3 11V5L12 1Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M9 12L11 14L15 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </div>
+                                <span class="nav-dropdown-category-title">Fintech</span>
+                            </div>
+                            <div class="nav-dropdown-items">
+                                <a href="/finsurf" class="nav-dropdown-item">
+                                    <div class="nav-dropdown-content">
+                                        <span class="nav-dropdown-title">Finsurf</span>
+                                        <span class="nav-dropdown-desc">Crypto-native fintech platform</span>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="nav-dropdown-section">
+                            <div class="nav-dropdown-category">
+                                <div class="nav-dropdown-category-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M6 4H18C20.2 4 22 5.8 22 8V16C22 18.2 20.2 20 18 20H6C3.8 20 2 18.2 2 16V8C2 5.8 3.8 4 6 4Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <circle cx="7" cy="12" r="1" fill="currentColor"/>
+                                        <circle cx="17" cy="10" r="1" fill="currentColor"/>
+                                        <circle cx="17" cy="14" r="1" fill="currentColor"/>
+                                        <path d="M10 9V11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                                        <path d="M9 10H11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                                    </svg>
+                                </div>
+                                <span class="nav-dropdown-category-title">Gaming</span>
+                            </div>
+                            <div class="nav-dropdown-items">
+                                <a href="/chopsuipanda" class="nav-dropdown-item">
+                                    <div class="nav-dropdown-content">
+                                        <span class="nav-dropdown-title">Chop Sui Panda</span>
+                                        <span class="nav-dropdown-desc">Meme arcade on SUI</span>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                <svg class="theme-icon sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="5"></circle>
+                    <line x1="12" y1="1" x2="12" y2="3"></line>
+                    <line x1="12" y1="21" x2="12" y2="23"></line>
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                    <line x1="1" y1="12" x2="3" y2="12"></line>
+                    <line x1="21" y1="12" x2="23" y2="12"></line>
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                </svg>
+                <svg class="theme-icon moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                </svg>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section min-h-screen flex items-center justify-center relative overflow-hidden">
+        <div class="matrix-code"></div>
+        <div class="container mx-auto px-4 py-20 text-center">
+            <div class="text-center max-w-4xl mx-auto scroll-element scroll-fade-up">
+                <h1 class="text-5xl lg:text-7xl font-bold mb-6 text-gray-900 dark:text-white font-inter">
+                    <span class="gradient-text matrix-text">Chop Sui Panda 🥢🐼</span>
+                </h1>
+                <p class="text-xl lg:text-2xl text-gray-600 dark:text-gray-400 mb-8 font-medium">
+                    Meme arcade on SUI. Play-to-earn made fun.
+                </p>
+                
+                <!-- Hero CTA Button -->
+                <div class="hero-cta-container mb-12 scroll-element scroll-bounce">
+                    <a href="https://t.me/ChopSuiPandaBot" target="_blank" rel="noopener noreferrer" 
+                       class="hero-cta-btn">
+                        <span class="cta-icon">🎮</span>
+                        <span class="cta-text">Play Now on Telegram</span>
+                        <svg class="cta-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="7" y1="17" x2="17" y2="7"></line>
+                            <polyline points="7,7 17,7 17,17"></polyline>
+                        </svg>
+                    </a>
+                    <p class="hero-cta-subtitle">
+                        Start earning CHI tokens immediately • No downloads required
+                    </p>
+                </div>
+                
+                <div class="hero-image-container scroll-element scroll-scale">
+                    <img src="/assets/images/chop-hero.png" alt="Chop Sui Panda Hero" class="hero-image mx-auto rounded-3xl shadow-2xl">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Game Overview Section -->
+    <section class="game-overview-section py-20 lg:py-32">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto text-center scroll-element scroll-fade-up">
+                <h2 class="text-4xl lg:text-5xl font-bold mb-8 text-gray-900 dark:text-white font-inter">
+                    <span class="matrix-text">What is Chop Sui Panda?</span>
+                </h2>
+                <div class="text-lg lg:text-xl text-gray-600 dark:text-gray-400 leading-relaxed space-y-6 font-inter">
+                    <p>
+                        Chop Sui Panda is a <span class="text-matrix-green font-semibold">skill-based, Telegram-native</span> mobile arcade game built on the SUI blockchain. Players compete in three exciting game modes, earn CHI tokens, and win real SUI rewards.
+                    </p>
+                    <p>
+                        The game is <span class="text-sui-blue font-semibold">mobile-only</span> and playable via Telegram using Phantom or Slush Wallet. No downloads, no app stores—just pure arcade fun.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Game Modes Section -->
+    <section class="game-modes-section py-20 lg:py-32 bg-gray-50 dark:bg-gray-900">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16 scroll-element scroll-fade-up">
+                <h2 class="text-4xl lg:text-5xl font-bold mb-6 text-gray-900 dark:text-white font-inter">
+                    Game Modes
+                </h2>
+                <p class="text-lg text-gray-600 dark:text-gray-400 font-inter">
+                    Three unique ways to test your skills and earn CHI
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <!-- Slice Mode -->
+                <div class="game-mode-card scroll-element scroll-slide-up" data-delay="0">
+                    <div class="game-mode-icon">
+                        <img src="/assets/images/slice.png" alt="Slice Mode" class="mode-image">
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white font-inter">Slice Mode</h3>
+                    <p class="text-gray-600 dark:text-gray-400 font-inter">
+                        Tap to slice falling SUI coins before they hit the ground. Quick reflexes and precise timing are key to maximizing your score.
+                    </p>
+                </div>
+                
+                <!-- Tree Chop -->
+                <div class="game-mode-card scroll-element scroll-slide-up" data-delay="200">
+                    <div class="game-mode-icon">
+                        <img src="/assets/images/chop.png" alt="Tree Chop Mode" class="mode-image">
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white font-inter">Tree Chop</h3>
+                    <p class="text-gray-600 dark:text-gray-400 font-inter">
+                        Chop the tree as fast as possible while avoiding obstacles. Test your speed and concentration in this adrenaline-pumping mode.
+                    </p>
+                </div>
+                
+                <!-- Knife Throw -->
+                <div class="game-mode-card scroll-element scroll-slide-up" data-delay="400">
+                    <div class="game-mode-icon">
+                        <img src="/assets/images/knife.png" alt="Knife Throw Mode" class="mode-image">
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white font-inter">Knife Throw</h3>
+                    <p class="text-gray-600 dark:text-gray-400 font-inter">
+                        Throw knives at moving targets with precision timing. Master the art of accuracy to achieve the highest scores.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CHI System Section -->
+    <section class="chi-system-section py-20 lg:py-32">
+        <div class="container mx-auto px-4">
+            <div class="max-w-6xl mx-auto">
+                <div class="grid lg:grid-cols-2 gap-12 items-center">
+                    <div class="scroll-element scroll-slide-left">
+                                        <h2 class="text-4xl lg:text-5xl font-bold mb-8 text-gray-900 dark:text-white font-inter">
+                    <span class="matrix-text">Earn, Wager, Redeem</span>
+                </h2>
+                        <div class="space-y-6 text-lg text-gray-600 dark:text-gray-400 font-inter">
+                            <p class="text-xl font-semibold text-matrix-green">
+                                CHI is the in-game currency earned through gameplay.
+                            </p>
+                            <div class="space-y-4">
+                                <div class="flex items-start space-x-3">
+                                    <div class="w-2 h-2 bg-matrix-green rounded-full mt-3 flex-shrink-0"></div>
+                                    <p><strong>Earn CHI</strong> by playing any game mode and achieving high scores</p>
+                                </div>
+                                <div class="flex items-start space-x-3">
+                                    <div class="w-2 h-2 bg-matrix-green rounded-full mt-3 flex-shrink-0"></div>
+                                    <p><strong>Wager CHI</strong> in 1v1 challenges with friends for bigger rewards</p>
+                                </div>
+                                <div class="flex items-start space-x-3">
+                                    <div class="w-2 h-2 bg-matrix-green rounded-full mt-3 flex-shrink-0"></div>
+                                    <p><strong>Redeem CHI</strong> to open treasure chests and win real SUI</p>
+                                </div>
+                                <div class="flex items-start space-x-3">
+                                    <div class="w-2 h-2 bg-matrix-green rounded-full mt-3 flex-shrink-0"></div>
+                                    <p><strong>Compete</strong> on weekly leaderboards for bonus rewards</p>
+                                </div>
+                                <div class="flex items-start space-x-3">
+                                    <div class="w-2 h-2 bg-matrix-green rounded-full mt-3 flex-shrink-0"></div>
+                                    <p><strong>Become eligible</strong> for future token airdrops based on activity</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="scroll-element scroll-slide-right">
+                        <div class="chi-image-container">
+                            <img src="/assets/images/chi-chest.png" alt="CHI Treasure Chest" class="chi-image rounded-2xl shadow-2xl">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Wallet Integration Section -->
+    <section class="wallet-section py-20 lg:py-32 bg-gray-50 dark:bg-gray-900">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto text-center scroll-element scroll-fade-up">
+                <h2 class="text-4xl lg:text-5xl font-bold mb-8 text-gray-900 dark:text-white font-inter">
+                    Connect With Your Wallet
+                </h2>
+                <p class="text-lg lg:text-xl text-gray-600 dark:text-gray-400 mb-12 leading-relaxed font-inter">
+                    Chop Sui Panda supports <span class="text-purple-600 font-semibold">Phantom Wallet</span> and <span class="text-blue-600 font-semibold">Slush Wallet</span>. 
+                    Players are automatically connected via the Telegram bot. All gameplay is on-chain and rewards are paid in SUI.
+                </p>
+                
+                <div class="flex justify-center items-center space-x-12 scroll-element scroll-scale">
+                    <div class="wallet-logo">
+                        <img src="/assets/images/phantom-logo.png" alt="Phantom Wallet" class="w-16 h-16 lg:w-20 lg:h-20">
+                        <p class="mt-2 text-sm font-medium text-gray-700 dark:text-gray-300">Phantom</p>
+                    </div>
+                    <div class="text-3xl text-gray-400">+</div>
+                    <div class="wallet-logo">
+                        <img src="/assets/images/slush-logo.png" alt="Slush Wallet" class="w-16 h-16 lg:w-20 lg:h-20">
+                        <p class="mt-2 text-sm font-medium text-gray-700 dark:text-gray-300">Slush</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Platform Section -->
+    <section class="platform-section py-20 lg:py-32">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto text-center scroll-element scroll-fade-up">
+                <h2 class="text-4xl lg:text-5xl font-bold mb-8 text-gray-900 dark:text-white font-inter">
+                    Where to Play
+                </h2>
+                <div class="text-lg lg:text-xl text-gray-600 dark:text-gray-400 mb-12 leading-relaxed space-y-4 font-inter">
+                    <p>
+                        Chop Sui Panda is a <span class="text-blue-600 font-semibold">Telegram Mini App</span>, playable only on mobile devices.
+                    </p>
+                    <p>
+                        <span class="text-red-500 font-semibold">No desktop support.</span> <span class="text-red-500 font-semibold">No App Store downloads.</span> Just tap and play.
+                    </p>
+                </div>
+                
+                <div class="scroll-element scroll-bounce">
+                    <a href="https://t.me/ChopSuiPandaBot" target="_blank" rel="noopener noreferrer" 
+                       class="cta-button cta-primary matrix-text">
+                        <span class="mr-3">🎮</span>
+                        Play Now on Telegram
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why SUI Section -->
+    <section class="why-sui-section py-20 lg:py-32 bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-blue-900">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto scroll-element scroll-fade-up">
+                <h2 class="text-4xl lg:text-5xl font-bold mb-12 text-center text-gray-900 dark:text-white font-inter">
+                    Why We Built on SUI
+                </h2>
+                
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="why-sui-card scroll-element scroll-slide-left">
+                        <div class="flex items-center mb-4">
+                            <div class="w-3 h-3 bg-sui-blue rounded-full mr-3"></div>
+                            <h3 class="text-xl font-bold text-gray-900 dark:text-white font-inter">Fast Transaction Speeds</h3>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-400 font-inter">
+                            Lightning-fast transactions ensure smooth gameplay without delays
+                        </p>
+                    </div>
+                    
+                    <div class="why-sui-card scroll-element scroll-slide-right">
+                        <div class="flex items-center mb-4">
+                            <div class="w-3 h-3 bg-matrix-green rounded-full mr-3"></div>
+                            <h3 class="text-xl font-bold text-gray-900 dark:text-white font-inter">Low Gas Fees</h3>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-400 font-inter">
+                            Minimal transaction costs keep more rewards in players' pockets
+                        </p>
+                    </div>
+                    
+                    <div class="why-sui-card scroll-element scroll-slide-left" data-delay="200">
+                        <div class="flex items-center mb-4">
+                            <div class="w-3 h-3 bg-purple-500 rounded-full mr-3"></div>
+                            <h3 class="text-xl font-bold text-gray-900 dark:text-white font-inter">Object-Oriented Design</h3>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-400 font-inter">
+                            Perfect architecture for the CHI token system and gameplay mechanics
+                        </p>
+                    </div>
+                    
+                    <div class="why-sui-card scroll-element scroll-slide-right" data-delay="200">
+                        <div class="flex items-center mb-4">
+                            <div class="w-3 h-3 bg-orange-500 rounded-full mr-3"></div>
+                            <h3 class="text-xl font-bold text-gray-900 dark:text-white font-inter">Growing Ecosystem</h3>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-400 font-inter">
+                            Thriving ecosystem built for mobile-first crypto gaming experiences
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Screenshots Gallery Section -->
+    <section class="screenshots-section py-20 lg:py-32">
+        <div class="matrix-code"></div>
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16 scroll-element scroll-fade-up">
+                <h2 class="text-4xl lg:text-5xl font-bold mb-6 text-gray-900 dark:text-white">
+                    <span class="matrix-text">In-Game Screens</span>
+                </h2>
+                <p class="text-lg text-gray-600 dark:text-gray-400">
+                    Take a peek at the gameplay experience
+                </p>
+            </div>
+            
+            <!-- 3D Screenshot Carousel -->
+            <div class="screenshot-carousel-3d-container scroll-element scroll-fade-up">
+                <div class="screenshot-carousel-3d">
+                    <div class="screenshot-card active" data-screenshot="0">
+                        <img src="/assets/images/slice-gameplay.png" alt="Slice Mode Gameplay" class="screenshot-mobile">
+                        <div class="screenshot-info">
+                            <h3>Slice Mode</h3>
+                            <p>Tap to slice falling SUI coins</p>
+                        </div>
+                    </div>
+                    
+                    <div class="screenshot-card" data-screenshot="1">
+                        <img src="/assets/images/knife-gameplay.png" alt="Knife Throw Gameplay" class="screenshot-mobile">
+                        <div class="screenshot-info">
+                            <h3>Knife Throw</h3>
+                            <p>Precision timing gameplay</p>
+                        </div>
+                    </div>
+                    
+                    <div class="screenshot-card" data-screenshot="2">
+                        <img src="/assets/images/tree-gameplay.png" alt="Tree Chop Gameplay" class="screenshot-mobile">
+                        <div class="screenshot-info">
+                            <h3>Tree Chop</h3>
+                            <p>Speed and concentration test</p>
+                        </div>
+                    </div>
+                    
+                    <div class="screenshot-card" data-screenshot="3">
+                        <img src="/assets/images/wallet-connect.png" alt="Wallet Connection" class="screenshot-mobile">
+                        <div class="screenshot-info">
+                            <h3>Wallet Connect</h3>
+                            <p>Seamless wallet integration</p>
+                        </div>
+                    </div>
+                    
+                    <div class="screenshot-card" data-screenshot="4">
+                        <img src="/assets/images/challenge.png" alt="Player Challenge" class="screenshot-mobile">
+                        <div class="screenshot-info">
+                            <h3>1v1 Challenge</h3>
+                            <p>Challenge friends and earn CHI</p>
+                        </div>
+                    </div>
+                    
+                    <div class="screenshot-card" data-screenshot="5">
+                        <img src="/assets/images/leaderboard.png" alt="Leaderboard" class="screenshot-mobile">
+                        <div class="screenshot-info">
+                            <h3>Leaderboard</h3>
+                            <p>Compete for top rankings</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Carousel Controls -->
+                <div class="screenshot-controls">
+                    <button class="screenshot-btn prev-btn" onclick="prevScreenshot()">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="15,18 9,12 15,6"></polyline>
+                        </svg>
+                    </button>
+                    <button class="screenshot-btn next-btn" onclick="nextScreenshot()">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="9,18 15,12 9,6"></polyline>
+                        </svg>
+                    </button>
+                </div>
+                
+                <!-- Carousel Indicators -->
+                <div class="screenshot-indicators">
+                    <button class="indicator active" onclick="goToScreenshot(0)"></button>
+                    <button class="indicator" onclick="goToScreenshot(1)"></button>
+                    <button class="indicator" onclick="goToScreenshot(2)"></button>
+                    <button class="indicator" onclick="goToScreenshot(3)"></button>
+                    <button class="indicator" onclick="goToScreenshot(4)"></button>
+                    <button class="indicator" onclick="goToScreenshot(5)"></button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action Section -->
+    <section class="cta-section py-20 lg:py-32">
+        <div class="matrix-code"></div>
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto text-center scroll-element scroll-fade-up">
+                <h2 class="text-4xl lg:text-5xl font-bold mb-8 text-gray-900 dark:text-white font-inter">
+                    <span class="matrix-text">Ready to Play?</span>
+                </h2>
+                <p class="text-xl text-gray-600 dark:text-gray-400 mb-12 font-inter">
+                    Join thousands of players earning CHI and winning SUI rewards
+                </p>
+                
+                <div class="flex flex-col md:flex-row gap-6 justify-center items-center">
+                    <a href="https://t.me/ChopSuiPandaBot" target="_blank" rel="noopener noreferrer" 
+                       class="cta-button cta-primary matrix-text scroll-element scroll-bounce" data-delay="0">
+                        🎮 Play
+                    </a>
+                    
+                    <a href="https://twitter.com/ChopSuiPanda" target="_blank" rel="noopener noreferrer" 
+                       class="cta-button cta-secondary matrix-text scroll-element scroll-bounce" data-delay="200">
+                        🐦 Follow
+                    </a>
+                    
+                    <a href="https://t.me/ChopSuiHQ" target="_blank" rel="noopener noreferrer" 
+                       class="cta-button cta-secondary matrix-text scroll-element scroll-bounce" data-delay="400">
+                        💬 Community
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="/assets/images/al1-logo.png" alt="AL1 DAO" class="footer-logo-img">
+                </div>
+                <div class="footer-links">
+                    <a href="https://x.com/@al1dao" class="footer-link social-link" target="_blank" rel="noopener noreferrer">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" fill="currentColor"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p><span class="matrix-text" data-text="© 2025 AL1 DAO. All rights reserved.">© 2025 AL1 DAO. All rights reserved.</span></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="/script.js"></script>
+    <script>
+        // Force theme check and animations on load
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🎮 Chop Sui Panda page loading...');
+            
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            if (savedTheme === 'dark') {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                document.documentElement.classList.add('dark');
+            }
+            console.log('🎨 Theme initialized:', savedTheme);
+            
+            // Wait for everything to load, then initialize animations
+            setTimeout(() => {
+                initChopSuiAnimations();
+                console.log('🎬 Animation initialization complete');
+            }, 500);
+        });
+        
+        // Standalone animation function
+        function initChopSuiAnimations() {
+            console.log('🎬 Starting animation setup...');
+            
+            const observerOptions = {
+                threshold: [0, 0.2, 0.5],
+                rootMargin: '0px 0px -20px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                console.log('🎬 Observer triggered with', entries.length, 'entries');
+                
+                entries.forEach(entry => {
+                    const element = entry.target;
+                    const delay = parseInt(element.dataset.delay) || 0;
+                    
+                    console.log('🎬 Element:', element.className, 'Intersecting:', entry.isIntersecting);
+
+                    if (entry.isIntersecting && entry.intersectionRatio > 0.1) {
+                        setTimeout(() => {
+                            element.classList.add('animate-in');
+                            element.classList.remove('animate-out');
+                            console.log('✅ Added animate-in to:', element.tagName);
+                        }, delay);
+                    } else if (!entry.isIntersecting) {
+                        element.classList.add('animate-out');
+                        element.classList.remove('animate-in');
+                        console.log('❌ Added animate-out to:', element.tagName);
+                    }
+                });
+            }, observerOptions);
+
+            // Observe all scroll elements
+            const scrollElements = document.querySelectorAll('.scroll-element');
+            console.log('🎬 Found', scrollElements.length, 'scroll elements to animate');
+            
+            if (scrollElements.length === 0) {
+                console.warn('⚠️ No scroll elements found! Check your HTML classes.');
+                return;
+            }
+            
+            scrollElements.forEach((element, index) => {
+                observer.observe(element);
+                console.log('👁️ Observing element', index + 1, ':', element.tagName, element.className);
+                
+                // Set initial state
+                const rect = element.getBoundingClientRect();
+                const isVisible = rect.top < window.innerHeight * 0.8 && rect.bottom > 0;
+                
+                if (!isVisible) {
+                    element.classList.add('animate-out');
+                    console.log('🔻 Initially hidden:', element.tagName);
+                } else {
+                    const delay = parseInt(element.dataset.delay) || 0;
+                    setTimeout(() => {
+                        element.classList.add('animate-in');
+                        console.log('🔺 Initially visible:', element.tagName);
+                    }, delay + 200);
+                }
+            });
+            
+            console.log('🎬 Animation observer setup complete!');
+        }
+    </script>
+    <script src="script.js"></script>
+    
+
+</body>
+</html> 

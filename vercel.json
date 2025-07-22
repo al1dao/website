@@ -2,37 +2,18 @@
   "version": 2,
   "builds": [
     {
-      "src": "**/*",
+      "src": "**",
       "use": "@vercel/static"
     }
   ],
-  "routes": [
+  "rewrites": [
     {
-      "src": "/chopsuipanda/(.*)",
-      "dest": "/chopsuipanda/$1"
+      "source": "/chopsuipanda",
+      "destination": "/chopsuipanda/index.html"
     },
     {
-      "src": "/finsurf/(.*)",
-      "dest": "/finsurf/$1"
-    },
-    {
-      "src": "/assets/(.*)",
-      "dest": "/assets/$1"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/$1"
-    }
-  ],
-  "headers": [
-    {
-      "source": "/(.*)",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=0, must-revalidate"
-        }
-      ]
+      "source": "/finsurf",
+      "destination": "/finsurf/index.html"
     }
   ]
 } 

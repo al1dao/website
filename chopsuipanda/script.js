@@ -1,332 +1,222 @@
-// Chop Sui Panda Page JavaScript
+/* Chop Sui Panda - Premium Gaming JavaScript */
 
+// Add js-enabled class immediately to enable animations
+document.documentElement.classList.add('js-enabled');
+
+// Initialize page
+console.log('🎮 Chop Sui Panda page loaded successfully!');
+
+// Wait for DOM to be ready
 document.addEventListener('DOMContentLoaded', function() {
-    initScrollAnimations();
-    initThemeToggle();
-    initPageBlur();
-    initSmoothScroll();
+    console.log('🎮 DOM loaded, initializing features...');
     
-    console.log('🥢🐼 Chop Sui Panda page loaded successfully!');
+    // Initialize icons immediately
+    initializeIcons();
+    
+    // Initialize theme
+    initializeTheme();
+    
+    // Initialize scroll animations with a small delay
+    setTimeout(() => {
+        initializeScrollAnimations();
+    }, 100);
+    
+    // Initialize screenshot carousel
+    initializeScreenshotCarousel();
+    
+    console.log('✅ All features initialized successfully!');
 });
 
-// Scroll Animations
-function initScrollAnimations() {
-    const observerOptions = {
-        threshold: [0, 0.1, 0.3, 0.5],
-        rootMargin: '-5% 0px -5% 0px'
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            const element = entry.target;
-            const delay = parseInt(element.dataset.delay) || 0;
-
-            if (entry.isIntersecting && entry.intersectionRatio > 0.1) {
-                setTimeout(() => {
-                    element.classList.add('animate-in');
-                    element.classList.remove('animate-out');
-                    console.log('🎬 Animating in:', element.className);
-                }, delay);
-            } else if (!entry.isIntersecting) {
-                element.classList.add('animate-out');
-                element.classList.remove('animate-in');
-                console.log('🎬 Animating out:', element.className);
-            }
-        });
-    }, observerOptions);
-
-    // Observe all scroll elements
-    const scrollElements = document.querySelectorAll('.scroll-element');
-    scrollElements.forEach(element => {
-        observer.observe(element);
-        
-        // Check if element is already in viewport on load
-        const rect = element.getBoundingClientRect();
-        const isVisible = rect.top < window.innerHeight * 0.8 && rect.bottom > 0;
-        
-        if (!isVisible) {
-            element.classList.add('animate-out');
-            console.log('🎬 Initially hidden:', element.className);
+// Initialize Lucide icons
+function initializeIcons() {
+    try {
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+            console.log('✨ Icons initialized successfully');
         } else {
-            const delay = parseInt(element.dataset.delay) || 0;
+            console.warn('⚠️ Lucide icons not found, retrying...');
+            // Retry after a short delay
             setTimeout(() => {
-                element.classList.add('animate-in');
-                console.log('🎬 Initially visible:', element.className);
-            }, delay + 100);
+                if (typeof lucide !== 'undefined') {
+                    lucide.createIcons();
+                    console.log('✨ Icons initialized on retry');
+                } else {
+                    console.warn('⚠️ Lucide icons failed to load after retry');
+                }
+            }, 1000);
         }
-    });
-
-    console.log('📱 Scroll animations initialized for', scrollElements.length, 'elements');
+    } catch (error) {
+        console.error('❌ Error initializing icons:', error);
+    }
 }
 
-// Theme Toggle Functionality
-function initThemeToggle() {
-    const themeToggle = document.getElementById('themeToggle');
-    const htmlElement = document.documentElement;
+// Theme management
+function initializeTheme() {
+    const themeToggle = document.querySelector('.theme-toggle');
+    const html = document.documentElement;
     
     // Get saved theme or default to light
     const savedTheme = localStorage.getItem('theme') || 'light';
+    html.setAttribute('data-theme', savedTheme);
     
-    // Apply saved theme
     if (savedTheme === 'dark') {
-        htmlElement.setAttribute('data-theme', 'dark');
-        htmlElement.classList.add('dark');
+        console.log('🌙 Switched to dark mode');
     } else {
-        htmlElement.removeAttribute('data-theme');
-        htmlElement.classList.remove('dark');
+        console.log('☀️ Switched to light mode');
     }
     
     // Theme toggle event listener
     if (themeToggle) {
-        themeToggle.addEventListener('click', () => {
-            const currentTheme = htmlElement.getAttribute('data-theme');
+        themeToggle.addEventListener('click', function() {
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
             
-            if (currentTheme === 'dark') {
-                htmlElement.removeAttribute('data-theme');
-                htmlElement.classList.remove('dark');
-                localStorage.setItem('theme', 'light');
-                console.log('☀️ Switched to light mode');
-            } else {
-                htmlElement.setAttribute('data-theme', 'dark');
-                htmlElement.classList.add('dark');
-                localStorage.setItem('theme', 'dark');
-                console.log('🌙 Switched to dark mode');
-            }
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            
+            console.log(`🎨 Theme switched to: ${newTheme}`);
+            
+            // Re-initialize icons after theme change
+            setTimeout(() => {
+                initializeIcons();
+            }, 100);
         });
     }
 }
 
-// Page Blur for Navigation Dropdown
-function initPageBlur() {
-    const dropdown = document.querySelector('.nav-dropdown');
-    const menu = document.querySelector('.nav-dropdown-menu');
-    let timeout;
-
-    if (dropdown && menu) {
-        dropdown.addEventListener('mouseenter', () => {
-            clearTimeout(timeout);
-            document.body.classList.add('page-blur-active');
-        });
-
-        dropdown.addEventListener('mouseleave', () => {
-            timeout = setTimeout(() => {
-                document.body.classList.remove('page-blur-active');
-            }, 200);
-        });
-
-        menu.addEventListener('mouseenter', () => {
-            clearTimeout(timeout);
-        });
-
-        menu.addEventListener('mouseleave', () => {
-            timeout = setTimeout(() => {
-                document.body.classList.remove('page-blur-active');
-            }, 200);
-        });
-    }
-}
-
-// Smooth Scroll for Anchor Links
-function initSmoothScroll() {
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            
-            if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }
-        });
-    });
-}
-
-// Parallax Effect for Hero Section
-function initParallax() {
-    const heroSection = document.querySelector('.hero-section');
-    
-    if (heroSection && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            const rate = scrolled * -0.5;
-            
-            if (scrolled < window.innerHeight) {
-                heroSection.style.transform = `translateY(${rate}px)`;
-            }
-        });
-    }
-}
-
-// Image Loading with Fade In
-function initImageLoading() {
-    const images = document.querySelectorAll('img[src*="assets/images"]');
-    
-    images.forEach(img => {
-        img.style.opacity = '0';
-        img.style.transition = 'opacity 0.5s ease';
-        
-        if (img.complete) {
-            img.style.opacity = '1';
-        } else {
-            img.addEventListener('load', () => {
-                img.style.opacity = '1';
-            });
-            
-            img.addEventListener('error', () => {
-                img.style.opacity = '0.5';
-                img.alt = 'Image coming soon';
-                console.warn('Failed to load image:', img.src);
-            });
-        }
-    });
-}
-
-// Performance Optimization
-function initPerformanceOptimizations() {
-    // Throttle scroll events
-    let scrollTimeout;
-    const originalScrollHandler = window.onscroll;
-    
-    window.onscroll = function() {
-        if (scrollTimeout) {
-            clearTimeout(scrollTimeout);
-        }
-        
-        scrollTimeout = setTimeout(() => {
-            if (originalScrollHandler) {
-                originalScrollHandler();
-            }
-        }, 16); // ~60fps
+// Scroll animations with Intersection Observer
+function initializeScrollAnimations() {
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -10% 0px'
     };
     
-    // Preload critical images
-    const criticalImages = [
-        '/assets/images/chop-hero.png',
-        '/assets/images/chi-chest.png'
-    ];
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const element = entry.target;
+                const delay = parseInt(element.dataset.delay) || 0;
+                
+                setTimeout(() => {
+                    element.classList.add('scroll-visible');
+                    console.log('🎬 Animation triggered for:', element.className);
+                }, delay);
+                
+                // Stop observing once animated
+                observer.unobserve(element);
+            }
+        });
+    }, observerOptions);
     
-    criticalImages.forEach(src => {
-        const img = new Image();
-        img.src = src;
+    // Observe all scroll elements
+    const scrollElements = document.querySelectorAll('.scroll-element');
+    
+    if (scrollElements.length === 0) {
+        console.warn('⚠️ No scroll elements found for animation');
+        return;
+    }
+    
+    scrollElements.forEach((element, index) => {
+        observer.observe(element);
+        console.log(`👁️ Observing scroll element ${index + 1}:`, element.tagName);
     });
+    
+    console.log(`🎬 Scroll animation observer setup complete for ${scrollElements.length} elements`);
 }
 
-// Initialize additional features when DOM is ready
-document.addEventListener('DOMContentLoaded', () => {
-    // Add a small delay for better UX
-    setTimeout(() => {
-        initImageLoading();
-        initPerformanceOptimizations();
-        
-        // Only init parallax on desktop
-        if (window.innerWidth > 768) {
-            initParallax();
-        }
-    }, 100);
-});
-
-// Handle window resize
-window.addEventListener('resize', () => {
-    // Reinitialize parallax based on screen size
-    const heroSection = document.querySelector('.hero-section');
-    if (heroSection) {
-        if (window.innerWidth <= 768) {
-            heroSection.style.transform = 'none';
-        }
-    }
-});
-
-// Error handling
-window.addEventListener('error', (e) => {
-    console.warn('Chop Sui Panda: Error caught:', e.error);
-});
-
-// Export functions for external use
-window.ChopSuiPanda = {
-    initScrollAnimations,
-    initThemeToggle,
-    initPageBlur,
-    initSmoothScroll,
-    initScreenshotCarousel
-};
-
-// Global carousel variables and functions
-window.currentScreenshot = currentScreenshot;
-window.updateScreenshotPositions = updateScreenshotPositions;
-window.nextScreenshot = nextScreenshot;
-window.prevScreenshot = prevScreenshot;
-window.goToScreenshot = goToScreenshot;
-
-// 3D Screenshot Carousel
+// Screenshot Carousel
 let currentScreenshot = 0;
-let screenshotAutoRotate;
-let screenshotPaused = false;
+let screenshotInterval;
+const screenshots = [
+    { name: 'Slice Mode', icon: 'scissors' },
+    { name: 'Knife Throw', icon: 'crosshair' },
+    { name: 'Tree Chop', icon: 'axe' },
+    { name: 'Wallet Connect', icon: 'wallet' },
+    { name: 'Challenge Mode', icon: 'swords' },
+    { name: 'Leaderboard', icon: 'trophy' }
+];
 
-function initScreenshotCarousel() {
+function initializeScreenshotCarousel() {
     console.log('🖼️ Initializing screenshot carousel...');
     
-    const screenshots = document.querySelectorAll('.screenshot-card');
-    const indicators = document.querySelectorAll('.indicator');
+    const carousel = document.getElementById('screenshotCarousel');
+    const prevBtn = document.getElementById('screenshotPrev');
+    const nextBtn = document.getElementById('screenshotNext');
+    const indicatorsContainer = document.getElementById('screenshotIndicators');
+    
+    if (!carousel) {
+        console.warn('⚠️ Screenshot carousel container not found');
+        return;
+    }
     
     console.log('🖼️ Found', screenshots.length, 'screenshots');
     
-    if (screenshots.length === 0) return;
-    
-    // Set initial positions
-    updateScreenshotPositions();
-    
-    // Auto-rotation
-    startScreenshotAutoRotate();
-    
-    // Pause on hover
-    const container = document.querySelector('.screenshot-carousel-3d-container');
-    if (container) {
-        container.addEventListener('mouseenter', () => {
-            pauseScreenshotAutoRotate();
-        });
-        
-        container.addEventListener('mouseleave', () => {
-            resumeScreenshotAutoRotate();
+    // Create indicators
+    if (indicatorsContainer) {
+        indicatorsContainer.innerHTML = '';
+        screenshots.forEach((_, index) => {
+            const indicator = document.createElement('button');
+            indicator.className = `indicator ${index === 0 ? 'active' : ''}`;
+            indicator.addEventListener('click', () => goToScreenshot(index));
+            indicatorsContainer.appendChild(indicator);
         });
     }
     
+    // Set up control buttons
+    if (prevBtn) {
+        prevBtn.addEventListener('click', previousScreenshot);
+    }
+    
+    if (nextBtn) {
+        nextBtn.addEventListener('click', nextScreenshot);
+    }
+    
+    // Initialize carousel positions
+    updateCarouselPositions();
+    
+    // Start auto-rotation
+    startAutoRotation();
+    
+    // Pause on hover
+    const carouselContainer = document.querySelector('.screenshot-carousel-3d-container');
+    if (carouselContainer) {
+        carouselContainer.addEventListener('mouseenter', pauseAutoRotation);
+        carouselContainer.addEventListener('mouseleave', resumeAutoRotation);
+    }
+    
     // Touch/swipe support
-    initScreenshotTouchSupport();
+    setupTouchControls(carousel);
+    
+    // Keyboard navigation
+    document.addEventListener('keydown', handleKeyboardNavigation);
     
     console.log('🖼️ Screenshot carousel initialized successfully');
 }
 
-function updateScreenshotPositions() {
-    const screenshots = document.querySelectorAll('.screenshot-card');
+function updateCarouselPositions() {
+    const items = document.querySelectorAll('.screenshot-item');
     const indicators = document.querySelectorAll('.indicator');
-    const total = screenshots.length;
     
-    screenshots.forEach((screenshot, index) => {
-        // Remove all position classes
-        screenshot.classList.remove('active', 'left-1', 'left-2', 'right-1', 'right-2', 'hidden');
+    items.forEach((item, index) => {
+        item.classList.remove('active');
         
-        const position = (index - currentScreenshot + total) % total;
+        const angle = ((index - currentScreenshot) * 60) % 360;
+        const distance = index === currentScreenshot ? 0 : 200;
+        const scale = index === currentScreenshot ? 1.1 : 0.8;
+        const opacity = index === currentScreenshot ? 1 : 0.6;
+        const zIndex = index === currentScreenshot ? 10 : 1;
         
-        switch (position) {
-            case 0:
-                screenshot.classList.add('active');
-                break;
-            case 1:
-                screenshot.classList.add('right-1');
-                break;
-            case 2:
-                screenshot.classList.add('right-2');
-                break;
-            case total - 1:
-                screenshot.classList.add('left-1');
-                break;
-            case total - 2:
-                screenshot.classList.add('left-2');
-                break;
-            default:
-                screenshot.classList.add('hidden');
+        item.style.transform = `
+            translate(-50%, -50%) 
+            rotateY(${angle}deg) 
+            translateZ(${distance}px) 
+            scale(${scale})
+        `;
+        item.style.opacity = opacity;
+        item.style.zIndex = zIndex;
+        
+        if (index === currentScreenshot) {
+            item.classList.add('active');
         }
     });
     
@@ -339,119 +229,163 @@ function updateScreenshotPositions() {
 }
 
 function nextScreenshot() {
-    const screenshots = document.querySelectorAll('.screenshot-card');
     currentScreenshot = (currentScreenshot + 1) % screenshots.length;
-    updateScreenshotPositions();
+    updateCarouselPositions();
     console.log('➡️ Next screenshot:', currentScreenshot);
 }
 
-function prevScreenshot() {
-    const screenshots = document.querySelectorAll('.screenshot-card');
+function previousScreenshot() {
     currentScreenshot = (currentScreenshot - 1 + screenshots.length) % screenshots.length;
-    updateScreenshotPositions();
+    updateCarouselPositions();
     console.log('⬅️ Previous screenshot:', currentScreenshot);
 }
 
 function goToScreenshot(index) {
     currentScreenshot = index;
-    updateScreenshotPositions();
+    updateCarouselPositions();
     console.log('🎯 Go to screenshot:', currentScreenshot);
 }
 
-function startScreenshotAutoRotate() {
-    if (screenshotAutoRotate) clearInterval(screenshotAutoRotate);
-    
-    screenshotAutoRotate = setInterval(() => {
-        if (!screenshotPaused) {
-            nextScreenshot();
-        }
-    }, 4000); // 4 seconds per screenshot
-    
-    console.log('🔄 Screenshot auto-rotation started');
+function startAutoRotation() {
+    screenshotInterval = setInterval(() => {
+        nextScreenshot();
+    }, 4000); // Change every 4 seconds
 }
 
-function pauseScreenshotAutoRotate() {
-    screenshotPaused = true;
-    console.log('⏸️ Screenshot auto-rotation paused');
+function pauseAutoRotation() {
+    if (screenshotInterval) {
+        clearInterval(screenshotInterval);
+        screenshotInterval = null;
+        console.log('⏸️ Screenshot auto-rotation paused');
+    }
 }
 
-function resumeScreenshotAutoRotate() {
-    screenshotPaused = false;
-    console.log('▶️ Screenshot auto-rotation resumed');
+function resumeAutoRotation() {
+    if (!screenshotInterval) {
+        startAutoRotation();
+        console.log('▶️ Screenshot auto-rotation resumed');
+    }
 }
 
-function initScreenshotTouchSupport() {
-    const carousel = document.querySelector('.screenshot-carousel-3d');
-    if (!carousel) return;
-    
+function setupTouchControls(carousel) {
     let startX = 0;
-    let isDragging = false;
+    let startY = 0;
+    let threshold = 50;
     
-    // Touch events
-    carousel.addEventListener('touchstart', (e) => {
+    carousel.addEventListener('touchstart', function(e) {
         startX = e.touches[0].clientX;
-        isDragging = true;
-        pauseScreenshotAutoRotate();
-    });
+        startY = e.touches[0].clientY;
+    }, { passive: true });
     
-    carousel.addEventListener('touchmove', (e) => {
-        if (!isDragging) return;
-        e.preventDefault();
-    });
-    
-    carousel.addEventListener('touchend', (e) => {
-        if (!isDragging) return;
+    carousel.addEventListener('touchend', function(e) {
+        if (!startX || !startY) return;
         
         const endX = e.changedTouches[0].clientX;
-        const diffX = startX - endX;
+        const endY = e.changedTouches[0].clientY;
         
-        if (Math.abs(diffX) > 50) { // Minimum swipe distance
-            if (diffX > 0) {
+        const deltaX = startX - endX;
+        const deltaY = startY - endY;
+        
+        // Only handle horizontal swipes
+        if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > threshold) {
+            if (deltaX > 0) {
                 nextScreenshot();
             } else {
-                prevScreenshot();
+                previousScreenshot();
             }
         }
         
-        isDragging = false;
-        setTimeout(resumeScreenshotAutoRotate, 1000);
-    });
-    
-    // Mouse events for desktop
-    carousel.addEventListener('mousedown', (e) => {
-        startX = e.clientX;
-        isDragging = true;
-        pauseScreenshotAutoRotate();
+        startX = 0;
+        startY = 0;
+    }, { passive: true });
+}
+
+function handleKeyboardNavigation(e) {
+    if (e.key === 'ArrowLeft') {
         e.preventDefault();
-    });
-    
-    carousel.addEventListener('mousemove', (e) => {
-        if (!isDragging) return;
+        previousScreenshot();
+    } else if (e.key === 'ArrowRight') {
         e.preventDefault();
-    });
-    
-    carousel.addEventListener('mouseup', (e) => {
-        if (!isDragging) return;
-        
-        const endX = e.clientX;
-        const diffX = startX - endX;
-        
-        if (Math.abs(diffX) > 50) {
-            if (diffX > 0) {
-                nextScreenshot();
-            } else {
-                prevScreenshot();
-            }
+        nextScreenshot();
+    } else if (e.key >= '1' && e.key <= '6') {
+        e.preventDefault();
+        const index = parseInt(e.key) - 1;
+        if (index < screenshots.length) {
+            goToScreenshot(index);
         }
+    }
+}
+
+// Navigation dropdown functionality (if not handled by global script)
+function initializeNavigation() {
+    const dropdown = document.querySelector('.nav-dropdown');
+    const dropdownMenu = document.querySelector('.nav-dropdown-menu');
+    
+    if (dropdown && dropdownMenu) {
+        let hoverTimeout;
         
-        isDragging = false;
-        setTimeout(resumeScreenshotAutoRotate, 1000);
-    });
+        dropdown.addEventListener('mouseenter', function() {
+            clearTimeout(hoverTimeout);
+            dropdownMenu.style.opacity = '1';
+            dropdownMenu.style.visibility = 'visible';
+            dropdownMenu.style.transform = 'translateY(0)';
+        });
+        
+        dropdown.addEventListener('mouseleave', function() {
+            hoverTimeout = setTimeout(() => {
+                dropdownMenu.style.opacity = '0';
+                dropdownMenu.style.visibility = 'hidden';
+                dropdownMenu.style.transform = 'translateY(-10px)';
+            }, 300);
+        });
+    }
+}
+
+// Initialize navigation if global script isn't loaded
+if (!window.globalScriptLoaded) {
+    document.addEventListener('DOMContentLoaded', initializeNavigation);
+}
+
+// Smooth scrolling for anchor links
+document.addEventListener('click', function(e) {
+    const link = e.target.closest('a[href^="#"]');
+    if (link) {
+        e.preventDefault();
+        const targetId = link.getAttribute('href').substring(1);
+        const targetElement = document.getElementById(targetId);
+        
+        if (targetElement) {
+            targetElement.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    }
+});
+
+// Performance optimization: Debounced scroll handler
+let scrollTimeout;
+window.addEventListener('scroll', function() {
+    if (scrollTimeout) {
+        clearTimeout(scrollTimeout);
+    }
     
-    carousel.addEventListener('mouseleave', () => {
-        isDragging = false;
-        resumeScreenshotAutoRotate();
-    });
-    
-    console.log('👆 Screenshot touch/swipe support initialized');
-} 
+    scrollTimeout = setTimeout(function() {
+        // Any scroll-based functionality can go here
+        // Currently handled by Intersection Observer
+    }, 16); // ~60fps
+}, { passive: true });
+
+// Error handling
+window.addEventListener('error', function(e) {
+    console.error('❌ JavaScript error:', e.error);
+});
+
+// Cleanup on page unload
+window.addEventListener('beforeunload', function() {
+    if (screenshotInterval) {
+        clearInterval(screenshotInterval);
+    }
+});
+
+console.log('🎮 Chop Sui Panda JavaScript loaded successfully!'); 

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -51,6 +51,9 @@
             }
         }
     </script>
+    
+    <!-- Lucide Icons for professional icons -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
 </head>
 <body>
     <!-- Background Effects -->
@@ -58,8 +61,8 @@
         <div class="grid-overlay"></div>
         <div class="particles"></div>
     </div>
-
-    <!-- Navigation -->
+    
+    <!-- Navigation - Original AL1 Matrix Style -->
     <nav class="nav">
         <div class="nav-container">
             <a href="/" class="nav-logo">
@@ -133,14 +136,14 @@
             </button>
         </div>
     </nav>
-
+        
     <!-- Hero Section -->
     <section class="hero-section min-h-screen flex items-center justify-center relative overflow-hidden">
         <div class="matrix-code"></div>
         <div class="container mx-auto px-4 py-20 text-center">
             <div class="text-center max-w-4xl mx-auto scroll-element scroll-fade-up">
                 <h1 class="text-5xl lg:text-7xl font-bold mb-6 text-gray-900 dark:text-white font-inter">
-                    <span class="gradient-text matrix-text">Chop Sui Panda 🥢🐼</span>
+                    <span class="gradient-text matrix-text">Chop Sui Panda</span>
                 </h1>
                 <p class="text-xl lg:text-2xl text-gray-600 dark:text-gray-400 mb-8 font-medium">
                     Meme arcade on SUI. Play-to-earn made fun.
@@ -150,14 +153,12 @@
                 <div class="hero-cta-container mb-12 scroll-element scroll-bounce">
                     <a href="https://t.me/ChopSuiPandaBot" target="_blank" rel="noopener noreferrer" 
                        class="hero-cta-btn">
-                        <span class="cta-icon">🎮</span>
+                        <i data-lucide="gamepad-2" class="w-5 h-5"></i>
                         <span class="cta-text">Play Now on Telegram</span>
-                        <svg class="cta-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <line x1="7" y1="17" x2="17" y2="7"></line>
-                            <polyline points="7,7 17,7 17,17"></polyline>
-                        </svg>
+                        <i data-lucide="external-link" class="w-4 h-4"></i>
                     </a>
                     <p class="hero-cta-subtitle">
+                        <i data-lucide="coins" class="w-4 h-4 mr-1"></i>
                         Start earning CHI tokens immediately • No downloads required
                     </p>
                 </div>
@@ -204,7 +205,7 @@
                 <!-- Slice Mode -->
                 <div class="game-mode-card scroll-element scroll-slide-up" data-delay="0">
                     <div class="game-mode-icon">
-                        <img src="/assets/images/slice.png" alt="Slice Mode" class="mode-image">
+                        <i data-lucide="scissors" class="w-12 h-12 text-matrix-green"></i>
                     </div>
                     <h3 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white font-inter">Slice Mode</h3>
                     <p class="text-gray-600 dark:text-gray-400 font-inter">
@@ -215,7 +216,7 @@
                 <!-- Tree Chop -->
                 <div class="game-mode-card scroll-element scroll-slide-up" data-delay="200">
                     <div class="game-mode-icon">
-                        <img src="/assets/images/chop.png" alt="Tree Chop Mode" class="mode-image">
+                        <i data-lucide="axe" class="w-12 h-12 text-matrix-green"></i>
                     </div>
                     <h3 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white font-inter">Tree Chop</h3>
                     <p class="text-gray-600 dark:text-gray-400 font-inter">
@@ -226,7 +227,7 @@
                 <!-- Knife Throw -->
                 <div class="game-mode-card scroll-element scroll-slide-up" data-delay="400">
                     <div class="game-mode-icon">
-                        <img src="/assets/images/knife.png" alt="Knife Throw Mode" class="mode-image">
+                        <i data-lucide="crosshair" class="w-12 h-12 text-matrix-green"></i>
                     </div>
                     <h3 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white font-inter">Knife Throw</h3>
                     <p class="text-gray-600 dark:text-gray-400 font-inter">
@@ -243,19 +244,19 @@
             <div class="max-w-6xl mx-auto">
                 <div class="grid lg:grid-cols-2 gap-12 items-center">
                     <div class="scroll-element scroll-slide-left">
-                                        <h2 class="text-4xl lg:text-5xl font-bold mb-8 text-gray-900 dark:text-white font-inter">
-                    <span class="matrix-text">Earn, Wager, Redeem</span>
-                </h2>
+                        <h2 class="text-4xl lg:text-5xl font-bold mb-8 text-gray-900 dark:text-white font-inter">
+                            <span class="matrix-text">Earn, Wager, Redeem</span>
+                        </h2>
                         <div class="space-y-6 text-lg text-gray-600 dark:text-gray-400 font-inter">
                             <p class="text-xl font-semibold text-matrix-green mb-8">
                                 CHI is the in-game currency that powers your Chop Sui Panda experience.
                             </p>
                             
-                            <!-- Premium Feature Grid instead of bullet points -->
+                            <!-- Premium Feature Grid with Icons -->
                             <div class="feature-grid">
                                 <div class="feature-card scroll-element scroll-bounce" data-delay="0">
                                     <div class="feature-icon">
-                                        🎯
+                                        <i data-lucide="target" class="w-6 h-6"></i>
                                     </div>
                                     <h4>Earn CHI</h4>
                                     <p>Play any game mode and achieve high scores to earn CHI tokens automatically</p>
@@ -263,7 +264,7 @@
                                 
                                 <div class="feature-card scroll-element scroll-bounce" data-delay="100">
                                     <div class="feature-icon">
-                                        ⚔️
+                                        <i data-lucide="swords" class="w-6 h-6"></i>
                                     </div>
                                     <h4>Wager & Battle</h4>
                                     <p>Challenge friends in 1v1 matches and wager CHI for bigger rewards</p>
@@ -271,7 +272,7 @@
                                 
                                 <div class="feature-card scroll-element scroll-bounce" data-delay="200">
                                     <div class="feature-icon">
-                                        💎
+                                        <i data-lucide="gem" class="w-6 h-6"></i>
                                     </div>
                                     <h4>Redeem Treasures</h4>
                                     <p>Open treasure chests with CHI and win real SUI cryptocurrency</p>
@@ -279,7 +280,7 @@
                                 
                                 <div class="feature-card scroll-element scroll-bounce" data-delay="300">
                                     <div class="feature-icon">
-                                        🏆
+                                        <i data-lucide="trophy" class="w-6 h-6"></i>
                                     </div>
                                     <h4>Compete & Climb</h4>
                                     <p>Dominate weekly leaderboards and earn exclusive bonus rewards</p>
@@ -287,7 +288,7 @@
                                 
                                 <div class="feature-card scroll-element scroll-bounce" data-delay="400">
                                     <div class="feature-icon">
-                                        🪂
+                                        <i data-lucide="parachute" class="w-6 h-6"></i>
                                     </div>
                                     <h4>Future Airdrops</h4>
                                     <p>Active players become eligible for future token airdrops and benefits</p>
@@ -317,19 +318,19 @@
                     Players are automatically connected via the Telegram bot. All gameplay is on-chain and rewards are paid in SUI.
                 </p>
                 
-                <!-- Premium Wallet Grid -->
+                <!-- Premium Wallet Grid with Icons -->
                 <div class="wallet-grid">
                     <div class="wallet-card scroll-element scroll-bounce" data-delay="0">
-                        <div class="wallet-logo">
-                            <img src="/assets/images/phantom-logo.png" alt="Phantom Wallet">
+                        <div class="wallet-icon">
+                            <i data-lucide="ghost" class="w-8 h-8 text-purple-600"></i>
                         </div>
                         <h4 class="text-xl font-bold mb-3 text-purple-600">Phantom Wallet</h4>
                         <p class="text-gray-600 dark:text-gray-400">Seamless Solana integration with auto-connect via Telegram bot</p>
                     </div>
                     
                     <div class="wallet-card scroll-element scroll-bounce" data-delay="200">
-                        <div class="wallet-logo">
-                            <img src="/assets/images/slush-logo.png" alt="Slush Wallet">
+                        <div class="wallet-icon">
+                            <i data-lucide="waves" class="w-8 h-8 text-blue-600"></i>
                         </div>
                         <h4 class="text-xl font-bold mb-3 text-blue-600">Slush Wallet</h4>
                         <p class="text-gray-600 dark:text-gray-400">Advanced SUI blockchain features with premium security</p>
@@ -358,7 +359,7 @@
                 <div class="scroll-element scroll-bounce">
                     <a href="https://t.me/ChopSuiPandaBot" target="_blank" rel="noopener noreferrer" 
                        class="cta-button cta-primary matrix-text">
-                        <span class="mr-3">🎮</span>
+                        <i data-lucide="gamepad-2" class="w-5 h-5 mr-3"></i>
                         Play Now on Telegram
                     </a>
                 </div>
@@ -374,11 +375,11 @@
                     Why We Built on SUI
                 </h2>
                 
-                <!-- Premium SUI Features Grid -->
+                <!-- Premium SUI Features Grid with Icons -->
                 <div class="why-sui-grid">
                     <div class="sui-feature scroll-element scroll-bounce" data-delay="0">
                         <div class="sui-icon">
-                            ⚡
+                            <i data-lucide="zap" class="w-8 h-8"></i>
                         </div>
                         <h4>Lightning Fast</h4>
                         <p>Sub-second transaction finality ensures smooth, lag-free gameplay experience</p>
@@ -386,7 +387,7 @@
                     
                     <div class="sui-feature scroll-element scroll-bounce" data-delay="100">
                         <div class="sui-icon">
-                            💰
+                            <i data-lucide="dollar-sign" class="w-8 h-8"></i>
                         </div>
                         <h4>Ultra Low Fees</h4>
                         <p>Minimal gas costs mean more CHI rewards stay in your pocket</p>
@@ -394,7 +395,7 @@
                     
                     <div class="sui-feature scroll-element scroll-bounce" data-delay="200">
                         <div class="sui-icon">
-                            🏗️
+                            <i data-lucide="building-2" class="w-8 h-8"></i>
                         </div>
                         <h4>Object Architecture</h4>
                         <p>Perfect design for scalable NFT gaming and token economics</p>
@@ -402,7 +403,7 @@
                     
                     <div class="sui-feature scroll-element scroll-bounce" data-delay="300">
                         <div class="sui-icon">
-                            🌱
+                            <i data-lucide="trending-up" class="w-8 h-8"></i>
                         </div>
                         <h4>Growing Ecosystem</h4>
                         <p>Vibrant community of developers building the future of gaming</p>
@@ -480,14 +481,10 @@
                 <!-- Carousel Controls -->
                 <div class="screenshot-controls">
                     <button class="screenshot-btn prev-btn" onclick="prevScreenshot()">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="15,18 9,12 15,6"></polyline>
-                        </svg>
+                        <i data-lucide="chevron-left" class="w-5 h-5"></i>
                     </button>
                     <button class="screenshot-btn next-btn" onclick="nextScreenshot()">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="9,18 15,12 9,6"></polyline>
-                        </svg>
+                        <i data-lucide="chevron-right" class="w-5 h-5"></i>
                     </button>
                 </div>
                 
@@ -517,26 +514,29 @@
                 </p>
                 
                 <div class="flex flex-col md:flex-row gap-6 justify-center items-center">
-                    <a href="https://t.me/ChopSuiPandaBot" target="_blank" rel="noopener noreferrer" 
+                    <a href="https://t.me/ChopSuiPandaBot" target="_blank" rel="noopener noreferrer"
                        class="cta-button cta-primary matrix-text scroll-element scroll-bounce" data-delay="0">
-                        🎮 Play
+                        <i data-lucide="gamepad-2" class="w-5 h-5 mr-2"></i>
+                        Play
                     </a>
                     
-                    <a href="https://twitter.com/ChopSuiPanda" target="_blank" rel="noopener noreferrer" 
+                    <a href="https://twitter.com/ChopSuiPanda" target="_blank" rel="noopener noreferrer"
                        class="cta-button cta-secondary matrix-text scroll-element scroll-bounce" data-delay="200">
-                        🐦 Follow
+                        <i data-lucide="twitter" class="w-5 h-5 mr-2"></i>
+                        Follow
                     </a>
                     
-                    <a href="https://t.me/ChopSuiHQ" target="_blank" rel="noopener noreferrer" 
+                    <a href="https://t.me/ChopSuiHQ" target="_blank" rel="noopener noreferrer"
                        class="cta-button cta-secondary matrix-text scroll-element scroll-bounce" data-delay="400">
-                        💬 Community
+                        <i data-lucide="message-circle" class="w-5 h-5 mr-2"></i>
+                        Community
                     </a>
                 </div>
             </div>
         </div>
     </section>
-
-    <!-- Footer -->
+    
+    <!-- Footer - Original AL1 Matrix Style -->
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
@@ -558,89 +558,36 @@
     </footer>
 
     <!-- Scripts -->
-    <script src="/script.js"></script>
     <script>
-        // Force theme check and animations on load
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('🎮 Chop Sui Panda page loading...');
-            
-            const savedTheme = localStorage.getItem('theme') || 'light';
-            if (savedTheme === 'dark') {
-                document.documentElement.setAttribute('data-theme', 'dark');
-                document.documentElement.classList.add('dark');
-            }
-            console.log('🎨 Theme initialized:', savedTheme);
-            
-            // Wait for everything to load, then initialize animations
-            setTimeout(() => {
-                initChopSuiAnimations();
-                console.log('🎬 Animation initialization complete');
-            }, 500);
-        });
+        // Ensure content is always visible
+        console.log('🎮 Chop Sui Panda page loading...');
         
-        // Standalone animation function
-        function initChopSuiAnimations() {
-            console.log('🎬 Starting animation setup...');
-            
-            const observerOptions = {
-                threshold: [0, 0.2, 0.5],
-                rootMargin: '0px 0px -20px 0px'
-            };
-
-            const observer = new IntersectionObserver((entries) => {
-                console.log('🎬 Observer triggered with', entries.length, 'entries');
-                
-                entries.forEach(entry => {
-                    const element = entry.target;
-                    const delay = parseInt(element.dataset.delay) || 0;
-                    
-                    console.log('🎬 Element:', element.className, 'Intersecting:', entry.isIntersecting);
-
-                    if (entry.isIntersecting && entry.intersectionRatio > 0.1) {
-                        setTimeout(() => {
-                            element.classList.add('animate-in');
-                            element.classList.remove('animate-out');
-                            console.log('✅ Added animate-in to:', element.tagName);
-                        }, delay);
-                    } else if (!entry.isIntersecting) {
-                        element.classList.add('animate-out');
-                        element.classList.remove('animate-in');
-                        console.log('❌ Added animate-out to:', element.tagName);
-                    }
-                });
-            }, observerOptions);
-
-            // Observe all scroll elements
-            const scrollElements = document.querySelectorAll('.scroll-element');
-            console.log('🎬 Found', scrollElements.length, 'scroll elements to animate');
-            
-            if (scrollElements.length === 0) {
-                console.warn('⚠️ No scroll elements found! Check your HTML classes.');
-                return;
-            }
-            
-            scrollElements.forEach((element, index) => {
-                observer.observe(element);
-                console.log('👁️ Observing element', index + 1, ':', element.tagName, element.className);
-                
-                // Set initial state
-                const rect = element.getBoundingClientRect();
-                const isVisible = rect.top < window.innerHeight * 0.8 && rect.bottom > 0;
-                
-                if (!isVisible) {
-                    element.classList.add('animate-out');
-                    console.log('🔻 Initially hidden:', element.tagName);
-                } else {
-                    const delay = parseInt(element.dataset.delay) || 0;
-                    setTimeout(() => {
-                        element.classList.add('animate-in');
-                        console.log('🔺 Initially visible:', element.tagName);
-                    }, delay + 200);
+        // Initialize Lucide icons immediately when available
+        function tryInitializeIcons() {
+            if (typeof lucide !== 'undefined') {
+                try {
+                    lucide.createIcons();
+                    console.log('✨ Inline icons initialized successfully');
+                    return true;
+                } catch (error) {
+                    console.error('❌ Error in inline icon initialization:', error);
+                    return false;
                 }
-            });
-            
-            console.log('🎬 Animation observer setup complete!');
+            }
+            return false;
         }
+        
+        // Try to initialize icons immediately
+        if (!tryInitializeIcons()) {
+            // If not available, try again after Lucide script loads
+            setTimeout(tryInitializeIcons, 100);
+        }
+        
+        // Ensure page is visible
+        document.addEventListener('DOMContentLoaded', function() {
+            document.body.style.visibility = 'visible';
+            console.log('🎯 Page visibility ensured');
+        });
     </script>
     <!-- Global JavaScript for navigation functionality -->
     <script src="/script.js"></script>

@@ -433,6 +433,30 @@
             opacity: 1;
             transform: rotate(0deg);
         }
+
+        /* Page blur when dropdown is open */
+        .page-blur-active .hero,
+        .page-blur-active .game-modes,
+        .page-blur-active .gameplay,
+        .page-blur-active .economics,
+        .page-blur-active .footer,
+        .page-blur-active .gaming-background {
+            filter: blur(3px);
+            transition: filter 0.3s ease;
+            pointer-events: none;
+        }
+
+        .page-blur-active .gaming-background {
+            filter: blur(5px);
+            transition: filter 0.3s ease;
+        }
+
+        /* Ensure nav stays sharp */
+        .page-blur-active .nav-container,
+        .page-blur-active .nav-dropdown-menu {
+            filter: none !important;
+            pointer-events: auto !important;
+        }
         
         /* Hero Section */
         .hero {
@@ -3055,9 +3079,10 @@
             new ThemeManager();
             createGamingBackground();
             
-            // Initialize enhanced scroll animations and advanced cursor
+            // Initialize enhanced scroll animations, advanced cursor, and navigation
             initScrollAnimations();
             initAdvancedCursor();
+            initNavigationDropdown();
         });
         
         // Enhanced Bidirectional Scroll Animations
@@ -3334,6 +3359,39 @@
             if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
                 new SplashCursor();
             }
+        }
+
+        // Navigation Dropdown Blur Effect
+        function initNavigationDropdown() {
+            const dropdown = document.querySelector('.nav-dropdown');
+            const menu = document.querySelector('.nav-dropdown-menu');
+            
+            if (!dropdown || !menu) return;
+            
+            let timeout;
+            
+            dropdown.addEventListener('mouseenter', () => {
+                clearTimeout(timeout);
+                // Add blur effect to page
+                document.body.classList.add('page-blur-active');
+            });
+            
+            dropdown.addEventListener('mouseleave', () => {
+                timeout = setTimeout(() => {
+                    // Remove blur effect from page
+                    document.body.classList.remove('page-blur-active');
+                }, 200);
+            });
+            
+            menu.addEventListener('mouseenter', () => {
+                clearTimeout(timeout);
+            });
+            
+            menu.addEventListener('mouseleave', () => {
+                timeout = setTimeout(() => {
+                    document.body.classList.remove('page-blur-active');
+                }, 200);
+            });
         }
     </script>
 </body>

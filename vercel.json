@@ -8,8 +8,8 @@
   ],
   "rewrites": [
     {
-      "source": "/chopsuipanda",
-      "destination": "/chopsuipanda/index.html"
+      "source": "/chop-sui-panda",
+      "destination": "/chop-sui-panda/index.html"
     },
     {
       "source": "/finsurf",

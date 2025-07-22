@@ -528,11 +528,11 @@
             margin-right: auto;
         }
         
-        /* Smooth Mobile-Optimized Scroll Animations */
+        /* Ultra-Smooth Mobile-Optimized Scroll Animations */
         .scroll-animate {
             opacity: 0;
-            transform: translateY(35px) scale(0.96);
-            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transform: translateY(25px) scale(0.98);
+            transition: all 0.7s cubic-bezier(0.165, 0.84, 0.44, 1);
             will-change: transform, opacity;
         }
         
@@ -542,8 +542,21 @@
         }
         
         .scroll-animate.animate-out {
-            opacity: 0.3;
-            transform: translateY(20px) scale(0.98);
+            opacity: 0.5;
+            transform: translateY(15px) scale(0.99);
+        }
+        
+        /* Mobile-specific ultra-smooth transitions */
+        @media (max-width: 768px) {
+            .scroll-animate {
+                transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1) !important;
+                transform: translateY(15px) scale(0.99) !important;
+            }
+            
+            .scroll-animate.animate-out {
+                opacity: 0.6 !important;
+                transform: translateY(10px) scale(0.995) !important;
+            }
         }
         
         /* Enhanced staggered delays for better flow */
@@ -554,10 +567,10 @@
         .scroll-animate:nth-child(5) { transition-delay: 0.25s; }
         .scroll-animate:nth-child(6) { transition-delay: 0.3s; }
         
-        /* Smooth special effects for mode cards */
+        /* Ultra-smooth special effects for mode cards */
         .mode-card.scroll-animate {
-            transform: translateY(40px) rotateX(4deg) scale(0.95);
-            transition: all 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transform: translateY(30px) rotateX(2deg) scale(0.97);
+            transition: all 0.7s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
         
         .mode-card.scroll-animate.animate-in {
@@ -565,15 +578,28 @@
         }
         
         .mode-card.scroll-animate.animate-out {
-            transform: translateY(25px) rotateX(2deg) scale(0.97);
-            opacity: 0.3;
+            transform: translateY(20px) rotateX(1deg) scale(0.98);
+            opacity: 0.5;
+        }
+        
+        /* Mobile mode card optimization */
+        @media (max-width: 768px) {
+            .mode-card.scroll-animate {
+                transform: translateY(20px) scale(0.98) !important;
+                transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1) !important;
+            }
+            
+            .mode-card.scroll-animate.animate-out {
+                transform: translateY(15px) scale(0.99) !important;
+                opacity: 0.6 !important;
+            }
         }
         
 
         
         .phone-mockup.scroll-animate {
-            transform: translateY(35px) scale(0.94) rotateY(2deg);
-            transition: all 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transform: translateY(25px) scale(0.96) rotateY(1deg);
+            transition: all 0.7s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
         
         .phone-mockup.scroll-animate.animate-in {
@@ -581,8 +607,21 @@
         }
         
         .phone-mockup.scroll-animate.animate-out {
-            transform: translateY(20px) scale(0.97) rotateY(1deg);
-            opacity: 0.3;
+            transform: translateY(15px) scale(0.98) rotateY(0.5deg);
+            opacity: 0.5;
+        }
+        
+        /* Mobile phone mockup optimization */
+        @media (max-width: 768px) {
+            .phone-mockup.scroll-animate {
+                transform: translateY(20px) scale(0.97) !important;
+                transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1) !important;
+            }
+            
+            .phone-mockup.scroll-animate.animate-out {
+                transform: translateY(15px) scale(0.985) !important;
+                opacity: 0.6 !important;
+            }
         }
         
         /* Custom Cursor (will be replaced by advanced cursor via JS) */
@@ -2459,9 +2498,17 @@
                 height: 480px !important;
             }
             
-            /* Optimized mobile animations */
+            /* Ultra-optimized mobile animations */
             .scroll-animate {
-                transition-duration: 0.9s !important;
+                transition-duration: 0.5s !important;
+                transition-timing-function: cubic-bezier(0.23, 1, 0.32, 1) !important;
+            }
+            
+            /* Reduce motion intensity on mobile */
+            .scroll-animate,
+            .mode-card.scroll-animate,
+            .phone-mockup.scroll-animate {
+                transform: translateY(10px) scale(0.99) !important;
             }
             
             /* Reduce motion for accessibility */
@@ -3216,47 +3263,67 @@
         // Enhanced Bidirectional Scroll Animations
         function initScrollAnimations() {
             const animateElements = document.querySelectorAll('.scroll-animate');
+            const isMobile = window.innerWidth <= 768;
             
+            // Mobile-optimized intersection observer
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     const element = entry.target;
+                    const intersectionRatio = entry.intersectionRatio;
                     
                     if (entry.isIntersecting) {
-                        // Element is entering viewport - animate in
-                        element.classList.remove('animate-out');
-                        element.classList.add('animate-in');
+                        // Smooth entry based on intersection ratio for mobile
+                        if (isMobile) {
+                            // More gradual animation for mobile
+                            element.style.opacity = Math.min(1, intersectionRatio * 2);
+                            element.style.transform = `translateY(${Math.max(0, (1 - intersectionRatio) * 20)}px) scale(${0.98 + (intersectionRatio * 0.02)})`;
+                        } else {
+                            element.classList.remove('animate-out');
+                            element.classList.add('animate-in');
+                        }
                     } else {
-                        // Element is leaving viewport - animate out
-                        element.classList.remove('animate-in');
-                        element.classList.add('animate-out');
+                        // Gentle exit animation
+                        if (isMobile) {
+                            element.style.opacity = '0.4';
+                            element.style.transform = 'translateY(15px) scale(0.98)';
+                        } else {
+                            element.classList.remove('animate-in');
+                            element.classList.add('animate-out');
+                        }
                     }
                 });
             }, {
-                threshold: 0.15,
-                rootMargin: '0px 0px -20px 0px'
+                threshold: isMobile ? [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1] : 0.15,
+                rootMargin: isMobile ? '0px 0px -10px 0px' : '0px 0px -20px 0px'
             });
             
-            // Initialize all elements in their out state
-            animateElements.forEach(element => {
-                element.classList.add('animate-out');
+            // Initialize elements with smoother mobile setup
+            animateElements.forEach((element, index) => {
+                if (isMobile) {
+                    // Set initial mobile-optimized state
+                    element.style.opacity = '0';
+                    element.style.transform = 'translateY(20px) scale(0.98)';
+                    element.style.transition = 'all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                    element.style.transitionDelay = `${index * 0.08}s`;
+                } else {
+                    element.classList.add('animate-out');
+                }
                 observer.observe(element);
             });
             
-            // Add enhanced scroll detection for better performance
-            let isScrolling = false;
-            let scrollTimeout;
+            // Smooth scroll performance optimization
+            let ticking = false;
+            
+            function updateAnimations() {
+                // Additional smooth scroll optimizations here if needed
+                ticking = false;
+            }
             
             window.addEventListener('scroll', () => {
-                if (!isScrolling) {
-                    isScrolling = true;
-                    document.body.classList.add('is-scrolling');
+                if (!ticking) {
+                    requestAnimationFrame(updateAnimations);
+                    ticking = true;
                 }
-                
-                clearTimeout(scrollTimeout);
-                scrollTimeout = setTimeout(() => {
-                    isScrolling = false;
-                    document.body.classList.remove('is-scrolling');
-                }, 150);
             }, { passive: true });
         }
         

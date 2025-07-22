@@ -528,11 +528,11 @@
             margin-right: auto;
         }
         
-        /* Enhanced Bidirectional Scroll Animations - Optimized */
+        /* Smooth Mobile-Optimized Scroll Animations */
         .scroll-animate {
             opacity: 0;
-            transform: translateY(40px) scale(0.98);
-            transition: all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+            transform: translateY(35px) scale(0.96);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             will-change: transform, opacity;
         }
         
@@ -542,8 +542,8 @@
         }
         
         .scroll-animate.animate-out {
-            opacity: 0;
-            transform: translateY(-20px) scale(1.02);
+            opacity: 0.3;
+            transform: translateY(20px) scale(0.98);
         }
         
         /* Enhanced staggered delays for better flow */
@@ -554,9 +554,10 @@
         .scroll-animate:nth-child(5) { transition-delay: 0.25s; }
         .scroll-animate:nth-child(6) { transition-delay: 0.3s; }
         
-        /* Special effects for different element types - No blur */
+        /* Smooth special effects for mode cards */
         .mode-card.scroll-animate {
-            transform: translateY(50px) rotateX(8deg) scale(0.96);
+            transform: translateY(40px) rotateX(4deg) scale(0.95);
+            transition: all 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
         
         .mode-card.scroll-animate.animate-in {
@@ -564,11 +565,15 @@
         }
         
         .mode-card.scroll-animate.animate-out {
-            transform: translateY(-30px) rotateX(-3deg) scale(1.03);
+            transform: translateY(25px) rotateX(2deg) scale(0.97);
+            opacity: 0.3;
         }
         
+
+        
         .phone-mockup.scroll-animate {
-            transform: translateY(30px) scale(0.9) rotateY(3deg);
+            transform: translateY(35px) scale(0.94) rotateY(2deg);
+            transition: all 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
         
         .phone-mockup.scroll-animate.animate-in {
@@ -576,7 +581,8 @@
         }
         
         .phone-mockup.scroll-animate.animate-out {
-            transform: translateY(-15px) scale(1.05) rotateY(-2deg);
+            transform: translateY(20px) scale(0.97) rotateY(1deg);
+            opacity: 0.3;
         }
         
         /* Custom Cursor (will be replaced by advanced cursor via JS) */
@@ -2451,6 +2457,20 @@
             .phone-mockup {
                 width: 280px !important;
                 height: 480px !important;
+            }
+            
+            /* Optimized mobile animations */
+            .scroll-animate {
+                transition-duration: 0.9s !important;
+            }
+            
+            /* Reduce motion for accessibility */
+            @media (prefers-reduced-motion: reduce) {
+                .scroll-animate {
+                    transition: none !important;
+                    transform: none !important;
+                    opacity: 1 !important;
+                }
             }
             
             .game-screenshot {

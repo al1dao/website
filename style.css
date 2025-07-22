@@ -2388,6 +2388,21 @@ html:not([data-theme="dark"]) .footer-logo-img:hover {
         line-height: 1.7;
     }
     
+    /* Optimized mobile animations */
+    .feature-card,
+    .work-step {
+        transition-duration: 0.9s !important;
+    }
+    
+    /* Reduce motion for users who prefer it */
+    @media (prefers-reduced-motion: reduce) {
+        * {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+        }
+    }
+    
     .cta-buttons {
         flex-direction: column;
         align-items: center;

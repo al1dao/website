@@ -307,34 +307,45 @@ buttons.forEach(button => {
     });
 });
 
-// Intersection Observer for animations
+// Smooth Mobile-Optimized Animations
 const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
+    threshold: window.innerWidth <= 768 ? 0.05 : 0.1, // More sensitive on mobile
+    rootMargin: window.innerWidth <= 768 ? '0px 0px -20px 0px' : '0px 0px -50px 0px'
 };
 
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
+            // Smooth entry
             entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0)';
+            entry.target.style.transform = 'translateY(0) scale(1)';
+        } else {
+            // Smooth exit (only if user scrolls back up)
+            entry.target.style.opacity = '0.3';
+            entry.target.style.transform = 'translateY(30px) scale(0.98)';
         }
     });
 }, observerOptions);
 
-// Observe feature cards and work steps for animation
-featureCards.forEach(card => {
+// Enhanced smooth animations for feature cards
+featureCards.forEach((card, index) => {
     card.style.opacity = '0';
-    card.style.transform = 'translateY(50px)';
-    card.style.transition = 'all 0.6s ease';
+    card.style.transform = 'translateY(40px) scale(0.95)';
+    // Smoother, more natural easing with mobile optimization
+    const duration = window.innerWidth <= 768 ? '0.8s' : '0.7s';
+    card.style.transition = `all ${duration} cubic-bezier(0.25, 0.46, 0.45, 0.94)`;
+    card.style.transitionDelay = `${index * 0.1}s`; // Staggered animation
     observer.observe(card);
 });
 
+// Enhanced smooth animations for work steps
 const workSteps = document.querySelectorAll('.work-step');
-workSteps.forEach(step => {
+workSteps.forEach((step, index) => {
     step.style.opacity = '0';
-    step.style.transform = 'translateY(50px)';
-    step.style.transition = 'all 0.6s ease';
+    step.style.transform = 'translateY(40px) scale(0.95)';
+    const duration = window.innerWidth <= 768 ? '0.8s' : '0.7s';
+    step.style.transition = `all ${duration} cubic-bezier(0.25, 0.46, 0.45, 0.94)`;
+    step.style.transitionDelay = `${index * 0.12}s`; // Staggered animation
     observer.observe(step);
 });
 

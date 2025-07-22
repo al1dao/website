@@ -2382,6 +2382,12 @@ html:not([data-theme="dark"]) .footer-logo-img:hover {
         padding: 0 1rem;
     }
     
+    /* About content smaller text on mobile */
+    .about-content p {
+        font-size: 0.95rem;
+        line-height: 1.7;
+    }
+    
     .cta-buttons {
         flex-direction: column;
         align-items: center;

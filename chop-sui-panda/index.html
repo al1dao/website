@@ -196,7 +196,7 @@
             visibility: hidden;
             transform: translateX(-50%) translateY(-12px) scale(0.95);
             z-index: 1000;
-            min-width: 480px;
+            min-width: 600px;
             margin-top: 0.75rem;
             padding: 1.5rem;
             overflow: hidden;
@@ -434,13 +434,15 @@
             transform: rotate(0deg);
         }
 
-        /* Page blur when dropdown is open */
+        /* Page blur when dropdown is open - Whole page effect */
+        .page-blur-active main,
         .page-blur-active .hero,
         .page-blur-active .game-modes,
         .page-blur-active .gameplay,
         .page-blur-active .economics,
         .page-blur-active .footer,
-        .page-blur-active .gaming-background {
+        .page-blur-active .gaming-background,
+        .page-blur-active .how-to-play {
             filter: blur(3px);
             transition: filter 0.3s ease;
             pointer-events: none;
@@ -452,6 +454,7 @@
         }
 
         /* Ensure nav stays sharp */
+        .page-blur-active .nav,
         .page-blur-active .nav-container,
         .page-blur-active .nav-dropdown-menu {
             filter: none !important;
@@ -2037,6 +2040,111 @@
         
         /* Mobile Landscape & Small Tablets */
         @media (max-width: 768px) {
+            /* Enhanced Mobile Navigation */
+            .nav {
+                padding: 0.75rem 0;
+            }
+            
+            .nav-container {
+                padding: 0 1rem;
+            }
+            
+                         .nav-dropdown-menu {
+                 min-width: 95vw;
+                 left: 50% !important;
+                 transform: translateX(-50%) !important;
+                 padding: 1.5rem;
+                 border-radius: 20px;
+                 margin-top: 0.5rem;
+                 max-height: 75vh;
+                 overflow-y: auto;
+             }
+             
+             .nav-dropdown-grid {
+                 grid-template-columns: 1fr;
+                 gap: 2rem;
+                 text-align: center;
+             }
+             
+             .nav-dropdown-section {
+                 gap: 1rem;
+                 display: flex;
+                 flex-direction: column;
+                 align-items: center;
+             }
+             
+                           .nav-dropdown-category {
+                  padding: 0.75rem 1.5rem;
+                  margin-bottom: 1rem;
+                  border-radius: 12px;
+                  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+                  justify-content: center;
+                  width: 100%;
+                  max-width: 300px;
+              }
+              
+              [data-theme="dark"] .nav-dropdown-category {
+                  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+              }
+             
+             .nav-dropdown-category-title {
+                 font-size: 1rem;
+                 font-weight: 600;
+                 text-align: center;
+             }
+             
+             .nav-dropdown-items {
+                 width: 100%;
+                 max-width: 350px;
+                 display: flex;
+                 flex-direction: column;
+                 align-items: center;
+                 gap: 0.5rem;
+             }
+             
+             .nav-dropdown-item {
+                 padding: 1rem 1.25rem;
+                 border-radius: 12px;
+                 transition: all 0.2s ease;
+                 width: 100%;
+                 text-align: center;
+                 border: 1px solid transparent;
+             }
+             
+             /* Enhanced mobile touch feedback with green glow */
+             .nav-dropdown-item:active {
+                 background: rgba(22, 163, 74, 0.1);
+                 color: var(--text-primary);
+                 transform: scale(0.97);
+                 box-shadow: 
+                     0 0 20px rgba(22, 163, 74, 0.3),
+                     0 4px 15px rgba(22, 163, 74, 0.15),
+                     inset 0 0 0 1px rgba(22, 163, 74, 0.4);
+                 border: 1px solid var(--matrix-green);
+             }
+             
+             [data-theme="dark"] .nav-dropdown-item:active {
+                 background: rgba(0, 255, 65, 0.15);
+                 color: #ffffff;
+                 box-shadow: 
+                     0 0 25px rgba(0, 255, 65, 0.4),
+                     0 4px 20px rgba(0, 255, 65, 0.2),
+                     inset 0 0 0 1px rgba(0, 255, 65, 0.5);
+                 border: 1px solid #00ff41;
+             }
+             
+             .nav-dropdown-title {
+                 font-size: 1rem;
+                 font-weight: 600;
+                 text-align: center;
+             }
+             
+             .nav-dropdown-desc {
+                 font-size: 0.85rem;
+                 text-align: center;
+                 margin-top: 0.25rem;
+             }
+            
             /* Base Typography */
             .hero-content h1 {
                 font-size: 2rem;
@@ -3361,36 +3469,78 @@
             }
         }
 
-        // Navigation Dropdown Blur Effect
+        // Navigation Dropdown Blur Effect and Mobile Toggle
         function initNavigationDropdown() {
             const dropdown = document.querySelector('.nav-dropdown');
             const menu = document.querySelector('.nav-dropdown-menu');
+            const trigger = document.querySelector('.nav-dropdown-trigger');
             
-            if (!dropdown || !menu) return;
+            if (!dropdown || !menu || !trigger) return;
             
             let timeout;
+            let isMenuOpen = false;
             
+            // Desktop hover functionality
             dropdown.addEventListener('mouseenter', () => {
-                clearTimeout(timeout);
-                // Add blur effect to page
-                document.body.classList.add('page-blur-active');
+                if (window.innerWidth > 768) {
+                    clearTimeout(timeout);
+                    document.body.classList.add('page-blur-active');
+                }
             });
             
             dropdown.addEventListener('mouseleave', () => {
-                timeout = setTimeout(() => {
-                    // Remove blur effect from page
-                    document.body.classList.remove('page-blur-active');
-                }, 200);
+                if (window.innerWidth > 768) {
+                    timeout = setTimeout(() => {
+                        document.body.classList.remove('page-blur-active');
+                    }, 200);
+                }
             });
             
             menu.addEventListener('mouseenter', () => {
-                clearTimeout(timeout);
+                if (window.innerWidth > 768) {
+                    clearTimeout(timeout);
+                }
             });
             
             menu.addEventListener('mouseleave', () => {
-                timeout = setTimeout(() => {
+                if (window.innerWidth > 768) {
+                    timeout = setTimeout(() => {
+                        document.body.classList.remove('page-blur-active');
+                    }, 200);
+                }
+            });
+            
+            // Mobile click/touch toggle functionality
+            trigger.addEventListener('click', (e) => {
+                if (window.innerWidth <= 768) {
+                    e.preventDefault();
+                    isMenuOpen = !isMenuOpen;
+                    
+                    if (isMenuOpen) {
+                        // Open menu
+                        menu.style.opacity = '1';
+                        menu.style.visibility = 'visible';
+                        menu.style.transform = 'translateX(-50%) translateY(0) scale(1)';
+                        document.body.classList.add('page-blur-active');
+                    } else {
+                        // Close menu
+                        menu.style.opacity = '0';
+                        menu.style.visibility = 'hidden';
+                        menu.style.transform = 'translateX(-50%) translateY(-12px) scale(0.95)';
+                        document.body.classList.remove('page-blur-active');
+                    }
+                }
+            });
+            
+            // Close menu when clicking outside
+            document.addEventListener('click', (e) => {
+                if (window.innerWidth <= 768 && isMenuOpen && !dropdown.contains(e.target)) {
+                    isMenuOpen = false;
+                    menu.style.opacity = '0';
+                    menu.style.visibility = 'hidden';
+                    menu.style.transform = 'translateX(-50%) translateY(-12px) scale(0.95)';
                     document.body.classList.remove('page-blur-active');
-                }, 200);
+                }
             });
         }
     </script>

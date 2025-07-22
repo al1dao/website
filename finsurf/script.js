@@ -267,32 +267,70 @@ function initMatrixRain() {
     }, 200);
 }
 
-// Navigation Dropdown
+// Navigation Dropdown and Mobile Toggle
 function initNavigationDropdown() {
     const dropdown = document.querySelector('.nav-dropdown');
     const menu = document.querySelector('.nav-dropdown-menu');
+    const trigger = document.querySelector('.nav-dropdown-trigger');
     
-    if (!dropdown || !menu) return;
+    if (!dropdown || !menu || !trigger) return;
     
     let timeout;
+    let isMenuOpen = false;
     
+    // Desktop hover functionality
     dropdown.addEventListener('mouseenter', () => {
-        clearTimeout(timeout);
-        menu.style.opacity = '1';
-        menu.style.visibility = 'visible';
-        menu.style.transform = 'translateX(-50%) translateY(0)';
-        // Add blur effect to page
-        document.body.classList.add('page-blur-active');
+        if (window.innerWidth > 768) {
+            clearTimeout(timeout);
+            menu.style.opacity = '1';
+            menu.style.visibility = 'visible';
+            menu.style.transform = 'translateX(-50%) translateY(0)';
+            document.body.classList.add('page-blur-active');
+        }
     });
     
     dropdown.addEventListener('mouseleave', () => {
-        timeout = setTimeout(() => {
+        if (window.innerWidth > 768) {
+            timeout = setTimeout(() => {
+                menu.style.opacity = '0';
+                menu.style.visibility = 'hidden';
+                menu.style.transform = 'translateX(-50%) translateY(-10px)';
+                document.body.classList.remove('page-blur-active');
+            }, 200);
+        }
+    });
+    
+    // Mobile click/touch toggle functionality
+    trigger.addEventListener('click', (e) => {
+        if (window.innerWidth <= 768) {
+            e.preventDefault();
+            isMenuOpen = !isMenuOpen;
+            
+            if (isMenuOpen) {
+                // Open menu
+                menu.style.opacity = '1';
+                menu.style.visibility = 'visible';
+                menu.style.transform = 'translateX(-50%) translateY(0) scale(1)';
+                document.body.classList.add('page-blur-active');
+            } else {
+                // Close menu
+                menu.style.opacity = '0';
+                menu.style.visibility = 'hidden';
+                menu.style.transform = 'translateX(-50%) translateY(-12px) scale(0.95)';
+                document.body.classList.remove('page-blur-active');
+            }
+        }
+    });
+    
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+        if (window.innerWidth <= 768 && isMenuOpen && !dropdown.contains(e.target)) {
+            isMenuOpen = false;
             menu.style.opacity = '0';
             menu.style.visibility = 'hidden';
-            menu.style.transform = 'translateX(-50%) translateY(-10px)';
-            // Remove blur effect from page
+            menu.style.transform = 'translateX(-50%) translateY(-12px) scale(0.95)';
             document.body.classList.remove('page-blur-active');
-        }, 200);
+        }
     });
 }
 

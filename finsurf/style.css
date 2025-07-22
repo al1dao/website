@@ -188,7 +188,7 @@
     visibility: hidden;
     transform: translateX(-50%) translateY(-12px) scale(0.95);
     z-index: 1000;
-    min-width: 480px;
+    min-width: 600px;
     margin-top: 0.75rem;
     padding: 1.5rem;
     overflow: hidden;
@@ -1488,6 +1488,117 @@ button .matrix-text {
         padding: 0 1rem;
         max-width: 100%;
     }
+    
+    /* Enhanced Mobile Navigation */
+    .nav {
+        padding: 0.75rem 0;
+    }
+    
+    .nav-container {
+        padding: 0 1rem;
+    }
+    
+    .nav-dropdown-menu {
+        min-width: 95vw;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        padding: 1.5rem;
+        border-radius: 20px;
+        margin-top: 0.5rem;
+        max-height: 75vh;
+        overflow-y: auto;
+    }
+    
+    .nav-dropdown-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        text-align: center;
+    }
+    
+    .nav-dropdown-section {
+        gap: 1rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .nav-dropdown-category {
+        padding: 0.75rem 1.5rem;
+        margin-bottom: 1rem;
+        border-radius: 12px;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+        justify-content: center;
+        width: 100%;
+        max-width: 300px;
+    }
+    
+    [data-theme="dark"] .nav-dropdown-category {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .nav-dropdown-category-title {
+        font-size: 1rem;
+        font-weight: 600;
+        text-align: center;
+    }
+    
+    .nav-dropdown-items {
+        width: 100%;
+        max-width: 350px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    
+    .nav-dropdown-item {
+        padding: 1rem 1.25rem;
+        border-radius: 12px;
+        transition: all 0.2s ease;
+        width: 100%;
+        text-align: center;
+        border: 1px solid transparent;
+    }
+    
+    /* Enhanced mobile touch feedback with green glow */
+    .nav-dropdown-item:active {
+        background: rgba(22, 163, 74, 0.1);
+        color: var(--text-primary);
+        transform: scale(0.97);
+        box-shadow: 
+            0 0 20px rgba(22, 163, 74, 0.3),
+            0 4px 15px rgba(22, 163, 74, 0.15),
+            inset 0 0 0 1px rgba(22, 163, 74, 0.4);
+        border: 1px solid var(--matrix-green);
+    }
+    
+    [data-theme="dark"] .nav-dropdown-item:active {
+        background: rgba(0, 255, 65, 0.15);
+        color: #ffffff;
+        box-shadow: 
+            0 0 25px rgba(0, 255, 65, 0.4),
+            0 4px 20px rgba(0, 255, 65, 0.2),
+            inset 0 0 0 1px rgba(0, 255, 65, 0.5);
+        border: 1px solid #00ff41;
+    }
+    
+    .nav-dropdown-title {
+        font-size: 1rem;
+        font-weight: 600;
+        text-align: center;
+    }
+    
+    .nav-dropdown-desc {
+        font-size: 0.85rem;
+        text-align: center;
+        margin-top: 0.25rem;
+    }
+    
+    /* Theme toggle positioning */
+    .theme-toggle {
+        width: 40px;
+        height: 40px;
+    }
          
          /* Hero Section Mobile - Full Screen Experience */
      .hero {
@@ -2159,7 +2270,8 @@ button .matrix-text {
     text-shadow: none !important;
 }
 
-/* Page blur when dropdown is open */
+/* Page blur when dropdown is open - Whole page effect */
+.page-blur-active main,
 .page-blur-active .hero,
 .page-blur-active .features,
 .page-blur-active .chat-interface-mockup,
@@ -2169,7 +2281,9 @@ button .matrix-text {
 .page-blur-active .hero-ctas,
 .page-blur-active .section-title,
 .page-blur-active .carousel-3d-container,
-.page-blur-active .chat-interface-section {
+.page-blur-active .chat-interface-section,
+.page-blur-active .how-it-works,
+.page-blur-active .footer {
     filter: blur(3px);
     transition: filter 0.3s ease;
     pointer-events: none;
@@ -2181,6 +2295,7 @@ button .matrix-text {
 }
 
 /* Ensure nav stays sharp */
+.page-blur-active .nav,
 .page-blur-active .nav-container,
 .page-blur-active .nav-dropdown-menu {
     filter: none !important;

@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize icons immediately
     initializeIcons();
     
-    // Initialize theme
+    // Initialize theme with AL1 system
     initializeTheme();
     
     // Initialize scroll animations with a small delay
@@ -50,20 +50,16 @@ function initializeIcons() {
     }
 }
 
-// Theme management
+// Theme management - Using AL1 System
 function initializeTheme() {
-    const themeToggle = document.querySelector('.theme-toggle');
+    const themeToggle = document.querySelector('#themeToggle');
     const html = document.documentElement;
     
-    // Get saved theme or default to light
+    // Get saved theme or default to light (matching AL1 main site)
     const savedTheme = localStorage.getItem('theme') || 'light';
     html.setAttribute('data-theme', savedTheme);
     
-    if (savedTheme === 'dark') {
-        console.log('🌙 Switched to dark mode');
-    } else {
-        console.log('☀️ Switched to light mode');
-    }
+    console.log(`🎨 Theme initialized: ${savedTheme}`);
     
     // Theme toggle event listener
     if (themeToggle) {
@@ -76,11 +72,17 @@ function initializeTheme() {
             
             console.log(`🎨 Theme switched to: ${newTheme}`);
             
-            // Re-initialize icons after theme change
+            // Refresh icons after theme change
             setTimeout(() => {
-                initializeIcons();
+                if (typeof lucide !== 'undefined') {
+                    lucide.createIcons();
+                }
             }, 100);
         });
+        
+        console.log('🎯 Theme toggle initialized successfully');
+    } else {
+        console.warn('⚠️ Theme toggle button not found');
     }
 }
 

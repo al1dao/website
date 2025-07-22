@@ -1,6 +1,8 @@
-# AL1 DAO - Futuristic Landing Page
+# AL1 DAO Landing Page
 
-A minimal, futuristic landing page for AL1 DAO featuring Spline 3D effects, custom animations, and responsive design.
+<!-- Force deployment: 2025-01-22 18:05 -->
+
+A futuristic, next-generation landing page for AL1 DAO featuring:
 
 ## ✨ Features
 

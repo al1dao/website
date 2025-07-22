@@ -303,11 +303,22 @@ body {
     flex-wrap: wrap;
 }
 
-/* Matrix Text Effects */
-.matrix-text {
-    color: var(--text-accent) !important;
-    text-shadow: 0 0 10px var(--matrix-green-glow);
-    font-weight: 600;
+/* Matrix Text Effects - FORCE OVERRIDE */
+.matrix-text,
+.matrix-text *,
+span.matrix-text,
+h1 .matrix-text,
+h2 .matrix-text,
+h3 .matrix-text {
+    color: #00ff41 !important;
+    text-shadow: 0 0 10px rgba(0, 255, 65, 0.6) !important;
+    font-weight: 600 !important;
+}
+
+/* Force hero title green */
+.hero-title .matrix-text {
+    color: #00ff41 !important;
+    text-shadow: 0 0 20px rgba(0, 255, 65, 0.8) !important;
 }
 
 /* Buttons */
@@ -328,26 +339,37 @@ body {
     overflow: hidden;
 }
 
-.btn-primary {
-    background: linear-gradient(135deg, var(--matrix-green-dim), var(--matrix-green));
-    color: #000000;
-    box-shadow: 0 4px 15px var(--matrix-green-glow);
+.btn-primary,
+a.btn-primary,
+.btn.btn-primary {
+    background: linear-gradient(135deg, #16a34a, #00ff41) !important;
+    color: #000000 !important;
+    box-shadow: 0 4px 15px rgba(0, 255, 65, 0.4) !important;
+    border: 2px solid #00ff41 !important;
 }
 
-.btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px var(--matrix-green-glow);
+.btn-primary:hover,
+a.btn-primary:hover,
+.btn.btn-primary:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 25px rgba(0, 255, 65, 0.6) !important;
+    background: linear-gradient(135deg, #00ff41, #16a34a) !important;
 }
 
-.btn-secondary {
-    background: transparent;
-    color: var(--text-accent);
-    border: 2px solid var(--border-color);
+.btn-secondary,
+a.btn-secondary,
+.btn.btn-secondary {
+    background: transparent !important;
+    color: #00ff41 !important;
+    border: 2px solid #00ff41 !important;
 }
 
-.btn-secondary:hover {
-    background: rgba(0, 255, 65, 0.1);
-    border-color: var(--matrix-green);
+.btn-secondary:hover,
+a.btn-secondary:hover,
+.btn.btn-secondary:hover {
+    background: rgba(0, 255, 65, 0.1) !important;
+    border-color: #00ff41 !important;
+    color: #00ff41 !important;
 }
 
 /* Sections */
@@ -697,6 +719,35 @@ body {
 /* Global Theme Transitions */
 *, *::before, *::after {
     transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+/* NUCLEAR OPTION - Force override any external CSS */
+body[data-theme="light"] .matrix-text,
+body[data-theme="dark"] .matrix-text,
+html[data-theme="light"] .matrix-text,
+html[data-theme="dark"] .matrix-text,
+.chopsuipanda .matrix-text,
+#chopsuipanda .matrix-text {
+    color: #00ff41 !important;
+    text-shadow: 0 0 10px rgba(0, 255, 65, 0.6) !important;
+}
+
+/* Force green buttons regardless of theme */
+body .btn-primary,
+html .btn-primary,
+.chopsuipanda .btn-primary {
+    background: linear-gradient(135deg, #16a34a, #00ff41) !important;
+    color: #000000 !important;
+    border: 2px solid #00ff41 !important;
+}
+
+/* Force section titles to be normal color */
+.section-title {
+    color: var(--text-primary) !important;
+}
+
+.section-subtitle {
+    color: var(--text-secondary) !important;
 }
 
 /* Page Blur Effect for Navigation */
